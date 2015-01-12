@@ -1,4 +1,4 @@
-package com.pertamina.tbbm.rewulu.ecodriving.dialog;
+package com.pertamina.tbbm.rewulu.ecodriving.dialogs;
 
 import android.app.Dialog;
 import android.app.DialogFragment;

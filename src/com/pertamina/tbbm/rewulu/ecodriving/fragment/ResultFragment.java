@@ -45,6 +45,7 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.os.Bundle;
@@ -55,24 +56,30 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
-import com.pertamina.tbbm.rewulu.ecodriving.dialog.UserInputDialogFragment;
+import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserInputDialogFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnDialogListener;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
+import com.pertamina.tbbm.rewulu.ecodriving.utils.Api;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Constant;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
-public class ResultFragment extends Fragment implements OnClickListener {
-	private static final int USER_INPUT_ID = 54540545;
+public class ResultFragment extends Fragment implements OnClickListener,
+		OnDialogListener {
+	private static final int USER_SAVE_BACKPRESSED_INPUT_ID = 54540545;
+	private static final int USER_ACTION_SAVE_ID = 92785;
+	private static final int USER_ACTION_SHARE_ID = 75864;
+	private static final int USER_ACTION_DELETE_ID = 81346;
+
 	private Tripdata tripdata;
 	private ArrayList<DataLog> dataLogs;
 	private double totalDistance = 0d;
@@ -100,8 +107,8 @@ public class ResultFragment extends Fragment implements OnClickListener {
 	private final String[] graphModel = new String[] {
 			"waktu (detik) - jarak (km)", "kecepatan (km/h) - jarak (km)" };
 	private OnMainListener callback;
-	private UserInputDialogFragment userInput = new UserInputDialogFragment(
-			USER_INPUT_ID);
+	private UserInputDialogFragment userDialog = new UserInputDialogFragment(
+			USER_SAVE_BACKPRESSED_INPUT_ID);
 
 	public void setData(Tripdata tripdata, ArrayList<DataLog> dataLogs,
 			OnMainListener callback) {
@@ -119,9 +126,8 @@ public class ResultFragment extends Fragment implements OnClickListener {
 	}
 
 	public void onBackPressed() {
-		if (!tripdata.isSaved() && userInput != null) {
-			Loggers.i("", "getShowsDialog " + userInput.getShowsDialog());
-			userInput.show(getFragmentManager(), null);
+		if (!tripdata.isSaved() && userDialog != null) {
+			initDialogSaveBackPressed();
 		} else
 			callback.goToMainMenu();
 	}
@@ -139,49 +145,13 @@ public class ResultFragment extends Fragment implements OnClickListener {
 		Loggers.i("fuel end", Utils.decimalFormater(dataLogs.get(
 				dataLogs.size() - 1).getFuel()));
 
-		((Button) rootView.findViewById(R.id.btn_share))
-				.setOnClickListener(new OnClickListener() {
+		((ImageButton) rootView.findViewById(R.id.btn_share_result))
+				.setOnClickListener(this);
+		((ImageButton) rootView.findViewById(R.id.btn_save_result))
+				.setOnClickListener(this);
+		((ImageButton) rootView.findViewById(R.id.btn_delete_result))
+				.setOnClickListener(this);
 
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						if (tripdata == null)
-							return;
-					}
-				});
-		userInput = new UserInputDialogFragment(USER_INPUT_ID, "Simpan",
-				"Masukkan judul perjalanan", true, new OnDialogListener() {
-
-					@Override
-					public void onSubmitDialog(int id, boolean action,
-							String arg0) {
-						// TODO Auto-generated method stub
-						if (arg0 == null) {
-							Utils.toast(getActivity(),
-									"Kolom masukan harus diisi !");
-							return;
-						}
-						if (!arg0.isEmpty()) {
-							Utils.toast(getActivity(),
-									"Kolom masukan harus diisi !");
-							return;
-						}
-						if (action) {
-							tripdata.setTitle(arg0);
-							tripdata.setSaved(true);
-						} else {
-							tripdata.setSaved(false);
-						}
-						TripDataAdapter.updateTrip(getActivity(), tripdata);
-						callback.goToMainMenu();
-					}
-
-					@Override
-					public void onSubmitSingleDialog(int id) {
-						// TODO Auto-generated method stub
-
-					}
-				});
 		((TextView) rootView.findViewById(R.id.text_jarak_tempuh_result))
 				.setText(String.format("%.2f", totalDistance) + " km");
 		Loggers.i("totalDistance", Utils.decimalFormater(totalDistance));
@@ -480,6 +450,41 @@ public class ResultFragment extends Fragment implements OnClickListener {
 		rightT.setVisibility(arg0);
 	}
 
+	private void initDialogShare() {
+		// TODO Auto-generated method stub
+		userDialog = new UserInputDialogFragment(USER_ACTION_SHARE_ID,
+				"Bagikan Perjalanan", "Bagikan dengan judul", true, this);
+		if (tripdata.isNamed())
+			userDialog.setTextField(tripdata.getTitle());
+		userDialog.setCustomTextButton("Batal", "Bagikan");
+		userDialog.show(getFragmentManager(), null);
+	}
+
+	private void initDialogSave() {
+		// TODO Auto-generated method stub
+		userDialog = new UserInputDialogFragment(USER_ACTION_SAVE_ID,
+				"Simpan Perjalanan", "Masukkan judul", true, this);
+		if (tripdata.isNamed())
+			userDialog.setTextField(tripdata.getTitle());
+		userDialog.show(getFragmentManager(), null);
+	}
+
+	private void initDialogSaveBackPressed() {
+		// TODO Auto-generated method stub
+		userDialog = new UserInputDialogFragment(
+				USER_SAVE_BACKPRESSED_INPUT_ID, "Simpan Perjalanan",
+				"Masukkan judul", true, this);
+		userDialog.setCustomTextButton("Hapus", "Simpan");
+		userDialog.show(getFragmentManager(), null);
+	}
+
+	private void initDialogDelete() {
+		// TODO Auto-generated method stub
+		userDialog = new UserInputDialogFragment(USER_ACTION_DELETE_ID,
+				"Hapus Perjalanan ?", false, this);
+		userDialog.show(getFragmentManager(), null);
+	}
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -493,9 +498,102 @@ public class ResultFragment extends Fragment implements OnClickListener {
 			else
 				setVisibilityLayout(View.VISIBLE);
 			break;
-
+		case R.id.btn_share_result:
+			initDialogShare();
+			break;
+		case R.id.btn_save_result:
+			initDialogSave();
+			break;
+		case R.id.btn_delete_result:
+			initDialogDelete();
+			break;
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void onSubmitDialog(int id, boolean action, String arg0) {
+		// TODO Auto-generated method stub
+		switch (id) {
+		case USER_SAVE_BACKPRESSED_INPUT_ID:
+			if (arg0 == null) {
+				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+				return;
+			}
+			if (!arg0.isEmpty()) {
+				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+				return;
+			}
+			if (action) {
+				tripdata.setTitle(arg0);
+				tripdata.setSaved(true);
+			} else {
+				tripdata.setSaved(false);
+			}
+			TripDataAdapter.updateTrip(getActivity(), tripdata);
+			callback.goToMainMenu();
+			break;
+
+		case USER_ACTION_SAVE_ID:
+			if (arg0 == null) {
+				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+				return;
+			}
+			if (!arg0.isEmpty()) {
+				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+				return;
+			}
+			if (action) {
+				tripdata.setTitle(arg0);
+				tripdata.setSaved(true);
+				TripDataAdapter.updateTrip(getActivity(), tripdata);
+			}
+			break;
+		case USER_ACTION_SHARE_ID:
+			if (arg0 == null) {
+				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+				return;
+			}
+			if (!arg0.isEmpty()) {
+				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+				return;
+			}
+			if (action) {
+				tripdata.setTitle(arg0);
+				tripdata.setSaved(true);
+				TripDataAdapter.updateTrip(getActivity(), tripdata);
+				shareTrip();
+			}
+			break;
+		case USER_ACTION_DELETE_ID:
+			if (action) {
+				tripdata.setSaved(false);
+				TripDataAdapter.updateTrip(getActivity(), tripdata);
+				callback.goToMainMenu();
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void onSubmitSingleDialog(int id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void shareTrip() {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+		// Add data to the intent, the receiving app will decide what to do with
+		// it.
+		intent.putExtra(Intent.EXTRA_SUBJECT, "Bagikan Perjalanan");
+		intent.putExtra(Intent.EXTRA_TEXT, Api.shareFormatter(tripdata));
+		startActivity(Intent.createChooser(intent, "Bagikan via "));
 	}
 }

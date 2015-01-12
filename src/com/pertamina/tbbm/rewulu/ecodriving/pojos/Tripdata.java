@@ -18,7 +18,7 @@ public class Tripdata {
 	private int local_id = -1;
 	private UserData user;
 	private Motor motor;
-	private String title = "NN";
+	private String title = Constant.TITLE_UNKNOWN;;
 	private double fuel = -1;
 	private double end_fuel = -1;
 	private long time_start = -1;
@@ -426,5 +426,8 @@ public class Tripdata {
 	public void setSaved(boolean saved) {
 		this.user_save = saved;
 	}
-
+	
+	public boolean isNamed() {
+		return !title.equals(Constant.TITLE_UNKNOWN);
+	}
 }

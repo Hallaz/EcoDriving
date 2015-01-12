@@ -10,7 +10,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient.ResponseData;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.LogDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
-import com.pertamina.tbbm.rewulu.ecodriving.location.GeocoderEngine;
+import com.pertamina.tbbm.rewulu.ecodriving.locations.GeocoderEngine;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.ResponseLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;

@@ -19,7 +19,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.adapters.CustomListHistory;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
-import com.pertamina.tbbm.rewulu.ecodriving.dialog.UserSingleConfrimDialog;
+import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserSingleConfrimDialog;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnDialogListener;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;

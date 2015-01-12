@@ -1,4 +1,4 @@
-package com.pertamina.tbbm.rewulu.ecodriving.location;
+package com.pertamina.tbbm.rewulu.ecodriving.locations;
 
 import android.content.Context;
 import android.location.Location;
