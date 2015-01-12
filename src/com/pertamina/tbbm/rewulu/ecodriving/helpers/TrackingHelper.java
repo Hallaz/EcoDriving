@@ -19,6 +19,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
 public class TrackingHelper implements ConnectionCallbacks,
 		OnConnectionFailedListener, LocationListener {
+	
 	private LocationClient locationClient;
 	private Context context;
 	private OnTrackingHelperListener listener;
