@@ -404,7 +404,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void onStartingLayang() {
 		// TODO Auto-generated method stub
 		try {
-			stopService(intentKuli);
+			//stopService(intentKuli);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -413,7 +413,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	@Override
 	public void onStoppingLayang() {
 		// TODO Auto-generated method stub
-		startService(intentKuli);
+		//startService(intentKuli);
 	}
 
 	@Override

@@ -229,6 +229,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 				} else {
 					googleMap.setMyLocationEnabled(true);
 					googleMap.setOnCameraChangeListener(this);
+					googleMap.getUiSettings().setZoomControlsEnabled(false);
 					googleMap.getUiSettings().setCompassEnabled(true);
 					// googleMap.setPadding(left, top, right, bottom)
 					if (tracking.getLocation() != null)
