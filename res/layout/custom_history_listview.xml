@@ -9,7 +9,7 @@
         android:id="@+id/askjdaksdjkasd"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:background="@drawable/material"
+        android:background="@drawable/btn_selector"
         android:gravity="center"
         android:orientation="vertical" >
 

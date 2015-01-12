@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,13 +19,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataBaseHelper extends SQLiteOpenHelper {
 	// destination path (location) of our database on device
 	private static String DB_PATH = "";
-	private static String DB_NAME = "pertamina.tbbm.rewulu.ecodriving.v1.sqlite";// Database
+	private static final String DB_NAME = "pertamina.tbbm.rewulu.ecodriving.v1.sqlite";// Database
 	// name
 	private SQLiteDatabase mDataBase;
 	private final Context mContext;
 
 	public DataBaseHelper(Context context) {
-		super(context, DB_NAME, null, 2);// 1? its Database Version
+		super(context, DB_NAME, null, 1);// 1? its Database Version
 		if (android.os.Build.VERSION.SDK_INT >= 4.2) {
 			DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
 		} else {
@@ -41,6 +43,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 			try {
 				copyDataBase();
 			} catch (IOException mIOException) {
+				Loggers.getInstance("DataBaseHelper");
+				Loggers.w("ErrorCopyingDataBase", mIOException.getMessage());
 				throw new Error("ErrorCopyingDataBase" + mIOException);
 			}
 		}

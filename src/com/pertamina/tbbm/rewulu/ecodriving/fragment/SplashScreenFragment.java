@@ -54,7 +54,9 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 	private TextView txtErr;
 	private Button btn_ok;
 	private LinearLayout infoContainer;
-	private int year, month, day;
+	private int year = 1989;
+	private int month = 1;
+	private int day = 1;
 	private String email;
 	private boolean interupted;
 
@@ -150,7 +152,7 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 			super.onPostExecute(result);
 			if (!result && callback != null) {
 				callback.upDateMotor(email);
-			} 
+			}
 			interupted();
 			interupted = true;
 		}
