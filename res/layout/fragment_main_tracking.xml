@@ -4,38 +4,213 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_height="150dp"
+        android:layout_weight="0.29"
+        android:orientation="vertical" >
 
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.MapFragment"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-        </fragment>
+            android:layout_height="wrap_content"
+            android:layout_weight="5" >
 
-        <LinearLayout
-            android:id="@+id/linearLayout_finish_tracking"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="32dp"
-            android:layout_marginLeft="12dp"
-            android:background="@drawable/map_panel_bg"
-            android:gravity="center_horizontal"
-            android:orientation="vertical" >
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bot" />
 
-            <ImageButton
-                android:id="@+id/btn_finish_tracking"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="?android:attr/selectableItemBackground"
-                android:src="@drawable/btn_confirm" />
-        </LinearLayout>
-    </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/bot"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/ma"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dashboard"
+                android:layout_width="match_parent"
+                android:layout_height="84dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/blue_dashboard"
+                android:gravity="center_horizontal" >
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="0.4"
+                    android:gravity="center" >
+
+                    <ImageButton
+                        android:id="@+id/btn_refill"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/ic_fuel"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/textView_fuel_tracking"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/fuel_stat" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="0.5"
+                        android:gravity="center" >
+
+                        <ImageView
+                            android:id="@+id/ic_stats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_eco_stat" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:id="@+id/ic_distance"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/ic_dist" />
+
+                            <TextView
+                                android:id="@+id/textView_distance_tracking"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/ic_distance"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginLeft="4dp"
+                                android:layout_toRightOf="@id/ic_distance"
+                                android:gravity="center_vertical"
+                                android:text="@string/dis_stat"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:id="@+id/ic_fuel"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/ic_fuel" />
+
+                            <TextView
+                                android:id="@+id/textView_timer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/ic_fuel"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center"
+                                android:text="time"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:id="@+id/ic_average_speed"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/ic_av_speed" />
+
+                            <TextView
+                                android:id="@+id/textView_average_speed_tracking"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/ic_average_speed"
+                                android:layout_alignParentRight="@id/ic_average_speed"
+                                android:layout_marginRight="4dp"
+                                android:layout_toLeftOf="@id/ic_average_speed"
+                                android:gravity="center_vertical|right"
+                                android:text="@string/av_speed_stat"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.4"
+                    android:gravity="center|bottom"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textView_speedo"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="0.4"
+                        android:gravity="center"
+                        android:text="40"
+                        android:textColor="@android:color/white"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_finish_tracking"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_above="@+id/dashboard"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/map_panel_bg"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <ImageButton
+                    android:id="@+id/btn_finish_tracking"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/btn_confirm" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -45,176 +220,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.49"
         android:background="#F0EDE5"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:background="#52A422"
-            android:gravity="center_horizontal" >
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:layout_weight="0.4"
-                android:gravity="center" >
-
-                <ImageButton
-                    android:id="@+id/btn_refill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:src="@drawable/ic_fuel_refill" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.75"
-                android:gravity="center_vertical"
-                android:orientation="vertical" >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_weight="1" >
-
-                    <TextView
-                        android:id="@+id/textView_eco_stat_tracking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignBottom="@+id/ic_stats"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="4dp"
-                        android:layout_toRightOf="@id/ic_stats"
-                        android:text="@string/eco_stat"
-                        android:textColor="@android:color/black" />
-
-                    <ImageView
-                        android:id="@+id/ic_stats"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_eco_stat" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-
-                    <ImageView
-                        android:id="@+id/ic_distance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_dist" />
-
-                    <TextView
-                        android:id="@+id/textView_distance_tracking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignBottom="@+id/ic_distance"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="4dp"
-                        android:layout_toRightOf="@id/ic_distance"
-                        android:gravity="center_vertical"
-                        android:text="@string/dis_stat"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/textView_timer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:text="TextView" />
-
-                </RelativeLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dip"
-                android:layout_height="match_parent"
-                android:background="@color/divider_grey" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.75"
-                android:orientation="vertical" >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-
-                    <TextView
-                        android:id="@+id/textView_average_speed_tracking"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignBottom="@+id/ic_average_speed"
-                        android:layout_alignParentRight="@id/ic_average_speed"
-                        android:layout_marginRight="4dp"
-                        android:layout_toLeftOf="@id/ic_average_speed"
-                        android:gravity="center_vertical|right"
-                        android:text="@string/av_speed_stat" 
-                        android:textColor="@android:color/black"/>
-
-                    <ImageView
-                        android:id="@+id/ic_average_speed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_av_speed" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-
-                    <TextView
-                        android:id="@+id/textView_fuel_tracking"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignBottom="@+id/ic_fuel"
-                        android:layout_alignParentRight="@+id/ic_fuel"
-                        android:layout_marginRight="4dp"
-                        android:layout_toLeftOf="@id/ic_fuel"
-                        android:gravity="center_vertical|right"
-                        android:text="@string/fuel_stat" />
-
-                    <ImageView
-                        android:id="@+id/ic_fuel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_fuel" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="6dp"
-                android:layout_weight="0.4"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/textView_speedo"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/ic_speedo"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
