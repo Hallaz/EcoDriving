@@ -3,10 +3,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Hallaz/Downloads/google-gson-2.2.4/gson-2.2.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Hallaz/Downloads/google-gson-2.2.4/gson-2.2.4-javadoc.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Hallaz/Downloads/google-gson-2.2.4/gson-2.2.4-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Hallaz/Downloads/retrofit-1.8.0.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>
