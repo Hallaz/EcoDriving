@@ -41,7 +41,7 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-bin/AndroidManifest.xml
+AndroidManifest.xml
 # Android:
 local.properties
 proguard/**
@@ -62,6 +62,3 @@ idea/tasks.xml
 
 # Crashlytics
 res/values/com_crashlytics_export_strings.xml
-
-*.class
-bin/classes/com/pertamina/tbbm/rewulu/ecodriving/clients/ImagesClient$1.class
