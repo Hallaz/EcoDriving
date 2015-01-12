@@ -182,8 +182,6 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 		distance = 0;
 		avSpeed = new ArrayList<>();
 		graphData = new ArrayList<>();
-		textEcoStats = (TextView) rootView
-				.findViewById(R.id.textView_eco_stat_tracking);
 		textSpeedo = (TextView) rootView.findViewById(R.id.textView_speedo);
 		textFuel = (TextView) rootView
 				.findViewById(R.id.textView_fuel_tracking);

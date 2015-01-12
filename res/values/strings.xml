@@ -22,7 +22,7 @@
     <string name="time">waktu/s</string>
     <string name="eco_stat">eco</string>
     <string name="dis_stat">-- km</string>
-    <string name="fuel_stat">-- L</string>
+    <string name="fuel_stat">--</string>
     <string name="av_speed_stat">-- km/h</string>
     <string name="distance">jarak/km</string>
     <string name="action_ok">Ya</string>

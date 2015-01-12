@@ -128,7 +128,7 @@
                                 android:layout_height="16dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_gravity="center_horizontal"
-                                android:src="@drawable/ic_fuel" />
+                                android:src="@drawable/ic_av_speed" />
 
                             <TextView
                                 android:id="@+id/textView_timer"
