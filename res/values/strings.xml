@@ -9,7 +9,7 @@
     <string name="long_trip">Jauh</string>
     <string name="short_trip">Dekat</string>
     <string name="trip_type">Tipe perjalanan</string>
-    <string name="motor_type">Jenis Motor :</string>
+    <string name="motor_type">Motor :</string>
     <string name="fuel">Isi Bahan Bakar Awal :</string>
     <string name="litre">LITER</string>
     <string name="start">START</string>
