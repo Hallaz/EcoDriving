@@ -42,3 +42,16 @@ Network Trash Folder
 Temporary Items
 .apdisk
 bin/AndroidManifest.xml
+# Android:
+local.properties
+proguard/**
+target/**
+bin/**
+obj/**
+doc/**
+gen/**
+gdb.setup
+gdbserver
+
+# Eclipse:
+.settings

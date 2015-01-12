@@ -37,9 +37,11 @@ import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.MapFragment;
+import com.pertamina.tbbm.rewulu.ecodriving.controllers.ImagesManager;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.AboutFragment;
@@ -73,6 +75,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	private NotificationManager notificationManager;
 	private UserData user;
 	private Layang layang;
+	private ImagesManager imgsManager;
 	private LinearLayout err_internet;
 	private Intent intentKuli;
 
@@ -95,6 +98,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 				.setContentIntent(pendingIntent).setOngoing(true);
 		notificationManager = (NotificationManager) this
 				.getSystemService(Context.NOTIFICATION_SERVICE);
+		imgsManager = new ImagesManager(getApplicationContext());
 		if (Utils.TrackingSP.isRunning(getApplicationContext()))
 			Utils.toast(getApplicationContext(), R.string.err_app_killed);
 		if (savedInstanceState == null) {
@@ -197,7 +201,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		// TODO Auto-generated method stub
 		layang.startHistoryResult(trip);
 	}
-	
+
 	@Override
 	public void goToMainMenu() {
 		// TODO Auto-generated method stub
@@ -227,7 +231,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		if (Backstack.isOnMaintracking()) {
 			layang.delete();
 		}
-		if(Backstack.isOnResult()){
+		if (Backstack.isOnResult()) {
 			resultFragment.onBackPressed();
 			return;
 		}
@@ -315,6 +319,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void retrievingDataMotors(List<Motor> motors) {
 		// TODO Auto-generated method stub
 		this.motors = motors;
+		imgsManager.setMotors(motors);
 	}
 
 	@Override
@@ -410,6 +415,12 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void onStoppingLayang() {
 		// TODO Auto-generated method stub
 		startService(intentKuli);
+	}
+
+	@Override
+	public void loadImageTo(Motor motor, ImageView view) {
+		// TODO Auto-generated method stub
+		imgsManager.viewInto(motor, view);
 	}
 
 }
