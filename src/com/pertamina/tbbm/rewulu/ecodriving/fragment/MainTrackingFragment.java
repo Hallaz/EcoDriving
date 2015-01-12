@@ -72,7 +72,6 @@ import com.pertamina.tbbm.rewulu.ecodriving.listener.OnTrackingHelperListener;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Constant;
-import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Setting;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
@@ -361,14 +360,6 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 	@Override
 	public void onSubmitDialog(int id, boolean action, String arg0) {
 		// TODO Auto-generated method stub
-		if (arg0 == null) {
-			Utils.toast(getActivity(), "Kolom masukan harus diisi !");
-			return;
-		}
-		if (!arg0.isEmpty()) {
-			Utils.toast(getActivity(), "Kolom masukan harus diisi !");
-			return;
-		}
 		switch (id) {
 		case Constant.DIALOG_FINISH_TRACK:
 			if (action) {
@@ -377,6 +368,14 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 			break;
 		case Constant.DIALOG_FUEL_REFILL:
 			if (action) {
+				if (arg0 == null) {
+					Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+					return;
+				}
+				if (arg0.isEmpty()) {
+					Utils.toast(getActivity(), "Kolom masukan harus diisi !!");
+					return;
+				}
 				double dFuel = 0;
 				try {
 					dFuel = (Double.parseDouble(arg0) * 1000) + fuel;
@@ -457,8 +456,6 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 			if (timer % 2 == 0)
 				Utils.Indicator.vib(getActivity());
 		}
-		if (dialog != null)
-			Loggers.w("", "dialog.getShowsDialog()" + dialog.getShowsDialog());
 	}
 
 	@Override

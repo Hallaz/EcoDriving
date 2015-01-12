@@ -19,7 +19,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
 public class TrackingHelper implements ConnectionCallbacks,
 		OnConnectionFailedListener, LocationListener {
-	
+
 	private LocationClient locationClient;
 	private Context context;
 	private OnTrackingHelperListener listener;
@@ -62,7 +62,7 @@ public class TrackingHelper implements ConnectionCallbacks,
 		public void onTick(long millisUntilFinished) {
 			// TODO Auto-generated method stub
 			listener.timer(Long.MAX_VALUE - millisUntilFinished);
-			if(onConnectedGPS)
+			if (onConnectedGPS)
 				listener.onConnected();
 		}
 
@@ -109,6 +109,8 @@ public class TrackingHelper implements ConnectionCallbacks,
 		if (locationClient != null) {
 			locationClient.disconnect();
 		}
+		countBound.cancel();
+		timer.cancel();
 	}
 
 	public ArrayList<Location> getLocations() {
@@ -191,7 +193,7 @@ public class TrackingHelper implements ConnectionCallbacks,
 		// TODO Auto-generated method stub
 		locationClient.requestLocationUpdates(REQUEST, this); // LocationListener
 		onConnectedGPS = true;
-		
+
 	}
 
 	@Override
