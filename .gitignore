@@ -69,3 +69,5 @@ idea/tasks.xml
 res/values/com_crashlytics_export_strings.xml
 =======
 >>>>>>> parent of 112394a... Revert "@ImageLoader"
+*.class
+bin/classes/com/pertamina/tbbm/rewulu/ecodriving/clients/ImagesClient$1.class

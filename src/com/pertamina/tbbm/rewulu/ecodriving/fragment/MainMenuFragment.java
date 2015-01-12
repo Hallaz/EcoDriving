@@ -78,6 +78,7 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		Backstack.onMainmenu();
 		View rootView = inflater.inflate(R.layout.fragment_main_menu,
 				container, false);
+		Loggers.getInstance("MainMenuFragment");
 		if (tripdata == null)
 			tripdata = new Tripdata();
 		Spinner spinner = (Spinner) rootView
@@ -120,6 +121,8 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				// TODO Auto-generated method stub
+				Loggers.d("setOnItemSelectedListener", "motors.get(arg2) "
+						+ motors.get(arg2).getSample());
 				mMenuCallback.loadImageTo(motors.get(arg2), imageMotor);
 				fuel = 0f;
 				tripdata.setMotor(motors.get(arg2));

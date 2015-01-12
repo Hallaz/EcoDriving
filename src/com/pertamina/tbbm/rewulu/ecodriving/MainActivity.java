@@ -319,7 +319,6 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void retrievingDataMotors(List<Motor> motors) {
 		// TODO Auto-generated method stub
 		this.motors = motors;
-		imgsManager.setMotors(motors);
 	}
 
 	@Override
