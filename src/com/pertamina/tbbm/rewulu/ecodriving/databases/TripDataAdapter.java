@@ -10,6 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
+import com.pertamina.tbbm.rewulu.ecodriving.helpers.DataBaseHelper;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 

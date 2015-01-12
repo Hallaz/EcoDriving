@@ -9,9 +9,9 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 
-import com.pertamina.tbbm.rewulu.ecodriving.clients.ClientController;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.LogsClient.ResponseLogs;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient.ResponseData;
+import com.pertamina.tbbm.rewulu.ecodriving.controllers.ClientController;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.LogDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;

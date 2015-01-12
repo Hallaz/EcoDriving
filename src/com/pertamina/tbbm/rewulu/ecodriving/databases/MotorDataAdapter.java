@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.pertamina.tbbm.rewulu.ecodriving.helpers.DataBaseHelper;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;
 
 public class MotorDataAdapter {

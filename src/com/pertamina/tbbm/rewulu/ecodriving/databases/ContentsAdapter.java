@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.pertamina.tbbm.rewulu.ecodriving.helpers.DataBaseHelper;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Enums.Type;
 
 import android.content.Context;

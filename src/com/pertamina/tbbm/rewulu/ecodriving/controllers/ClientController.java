@@ -1,4 +1,4 @@
-package com.pertamina.tbbm.rewulu.ecodriving.clients;
+package com.pertamina.tbbm.rewulu.ecodriving.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,10 @@ import java.util.List;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.pertamina.tbbm.rewulu.ecodriving.clients.LogsClient;
+import com.pertamina.tbbm.rewulu.ecodriving.clients.MotorClient;
+import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient;
+import com.pertamina.tbbm.rewulu.ecodriving.clients.UserClient;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.LogsClient.ResponseLogs;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient.ResponseData;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.UserClient.ResponseUser;
