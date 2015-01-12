@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/container_splash_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/guideselamatdatang" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_user_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/etxt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nama"
+            android:inputType="textPersonName" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/etxt_dob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:cursorVisible="false"
+            android:editable="false"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="Tanggal Lahir"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/etxt_addrss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Alamat"
+            android:inputType="textPostalAddress" />
+
+        <EditText
+            android:id="@+id/etxt_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Kota"
+            android:inputType="textPostalAddress" />
+
+        <TextView
+            android:id="@+id/txt_error_splash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#B40404" />
+
+        <Button
+            android:id="@+id/btn_prosess_infor"
+            android:layout_width="97dp"
+            android:layout_height="40dp"
+            android:background="@drawable/action_bar"
+            android:text="Lanjut" />
+    </LinearLayout>
+
+</RelativeLayout>

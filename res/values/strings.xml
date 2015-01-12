@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Eco Driving</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_contents">ContentsActivity</string>
+    <string name="eco_driving_btn">ECO DRIVING</string>
+    <string name="long_trip">Jauh</string>
+    <string name="short_trip">Dekat</string>
+    <string name="trip_type">Tipe perjalanan</string>
+    <string name="motor_type">Jenis Motor :</string>
+    <string name="fuel">Isi Bahan Bakar Awal :</string>
+    <string name="litre">LITER</string>
+    <string name="start">START</string>
+    <string name="next">NEXT</string>
+    <string name="err_data_motor">Silahkan pilih jenis motor terlebih dahulu.</string>
+    <string name="err_data_fuel">Silahkan isi jumlah bahan bakar terlebih dahulu.</string>
+    <string name="err_map_not_avail">Sorry! unable to create maps</string>
+    <string name="exit_confirm">Press back again to exit</string>
+    <string name="err_gps_disbled">GPS Disable !</string>
+    <string name="time">waktu/s</string>
+    <string name="eco_stat">eco</string>
+    <string name="dis_stat">-- km</string>
+    <string name="fuel_stat">-- L</string>
+    <string name="av_speed_stat">-- km/h</string>
+    <string name="distance">jarak/km</string>
+    <string name="action_ok">Ya</string>
+    <string name="action_no">Tidak</string>
+    <string name="err_too_short_trip"> Perjalanan terlalu dekat. Anda harus berkendara setidaknya 1 km. </string>
+    <string name="err_no_location">Tidak ditemukan lokasi perjalanan.</string>
+    <string name="dialog_text_finish_track">Apakah Anda yakin telah menyelesaikan perjalanan ?</string>
+    <string name="err_data_fuel_false">Isi jumlah bahan bakar dengan benar.</string>
+    <string name="dialog_fuel_refill">Jika Anda sedang mengisi bahan bakar, silahkan masukkan jumlah bahan bakar yang Anda isikan.</string>
+    <string name="title_activity_application_exit">ApplicationExit</string>
+    <string name="err_app_killed">Ops ! Unfortunately App has been wiped from memory. Now is the new one.</string>
+    <string name="about_app_title">Tentang Aplikasi</string>
+    <string name="about_app_body">
+<![CDATA[
+<p>
+Eco Driving adalah metode berkendara yang mengupayakan penggunaan bahan bakar yang lebih efisien.<br><br>
+Dalam Pengertian lain, Eco Driving adalah penghematan bahan bakar tanpa perlu pemasangan alat tambahan atau modifikasi kendaraan.<br><br>
+Aplikasi Eco Driving adalah aplikasi pemantau penggunaan bahan bakar minyak pada kendaraan bermotor dengan metode Eco Driving.<br><br>
+Aplikasi Eco Driving merupakan hasil riset dari <b>PT.PERTAMINA TBBM REWULU</b> dan <b>UNIVERSITAS GAJAH MADA</b>, kemudian diwujudkan dalam bentuk aplikasi bersama <b>JOGJACODE</b>.
+</p>
+]]>
+	</string>
+    <string name="about_accurate_title">Keakuratan Aplikasi</string>
+    <string name="about_accurate_body">
+<![CDATA[
+<p>
+Penggunaan aplikasi Eco Driving membutuhkan koneksi jaringan internet dan/atau GPS.<br><br>
+Keakuratan aplikasi Eco Driving bergantung pada kualitas koneksi jaringan internet dan/atau GPS dari device yang Anda gunakan.
+</p>
+]]>
+	</string>
+    <string name="about_app_how_body">
+<![CDATA[
+<p>
+Aplikasi Eco Driving memanfaatkan Google Maps Services, Google Location Services, Internet, dan GPS untuk memperoleh lokasi, jarak, dan kecepatan berkendara.<br><br>
+
+Data tersebut kemudian dipadukan dengan data riset dari <b>PT.PERTAMINA TBBM REWULU</b> dan <b>UNIVERSITAS GAJAH MADA</b>, sehingga diperoleh data :<br>
+- status berkendara (Eco Driving/Non-Eco Driving),<br>
+- jarak tempuh,<br>
+- waktu tempuh,<br>
+- kecepatan berkendara,<br>
+- kecepatan rata-rata,<br>
+- isi tangki bbm.<br>
+yang ditampilkan secara real time dalam tampilan peta, angka, dan statistik selama berkendara.<br><br>
+
+Hasil akhir dari keseluruhan perjalanan adalah :<br>
+- jarak tempuh,<br>
+- kecepatan rata-rata,<br>
+- konsumsi BBM,<br>
+- sisa bbm,<br>
+- jarak tempuh Eco Driving,<br>
+- konsumsi BBM Eco Driving,<br>
+- konsumsi BBM jika Non-Eco Driving,<br>
+- menghemat BBM,<br>
+- menghemat EMISI,<br>
+- jarak tempuh Non-Eco Driving,<br>
+- konsumsi BBM Non-Eco Driving,<br>
+- konsumsi BBM jika Eco Driving,<br>
+- lebih boros BBM,<br>
+- lebih boros EMISI.
+</p>
+]]>
+    </string>
+    <string name="about_app_how_title">Cara Kerja Aplikasi</string>
+    <string name="about_app_help_body">
+<![CDATA[
+<p>
+Penjelasan mengenai Metode Eco Driving dapat dilihat pada menu "Panduan Eco Driving".<br><br>
+Sebelum melakukan perjalanan, silahkan input data jenis motor serta jumlah bahan bakar awal kendaraan yang Anda gunakan. Kemudian tekan tombol "start".<br><br>
+Aplikasi akan menampilkan halaman baru berupa peta, angka, dan statistik yang dapat Anda gunakan untuk memantau status berkendara Anda selama perjalanan.<br><br>
+Jika dalam perjalanan Anda mengisi BBM tambahan pada kendaraan Anda, segera input jumlah BBM tambahan tersebut dengan menekan ikon tuas pengisi BBM pada aplikasi.<br><br>
+Setelah selesai melakukan perjalanan, Anda dapat mengetahui hasil akhir dengan menekan ikon checklist pada aplikasi.
+</p>
+]]>
+	</string>
+    <string name="about_app_help_title">Bantuan Penggunaan</string>
+    <string name="about_app_term_title">Ketentuan Penggunaan</string>
+    <string name="about_app_term_body">
+<![CDATA[ 
+<p>
+Aplikasi Eco Driving merupakan hasil riset dari <b>PT.PERTAMINA TBBM REWULU</b> dan <b>UNIVERSITAS GAJAH MADA</b>, kemudian diwujudkan dalam bentuk aplikasi bersama <b>JOGJACODE</b>.<br><br>
+
+Dengan menggunakan aplikasi ini, berarti Anda telah setuju atas peraturan penggunaan :<br><br>
+
+- Jangan menyalahgunakan layanan dan isi pada aplikasi, seperti tindakan merusak atau merubah data pada aplikasi.<br><br>
+
+- Anda dapat menggunakan aplikasi secara gratis namun hak kekayaan intelektual tetap berada pada <b>PT.PERTAMINA TBBM REWULU</b>.<br><br>
+
+- Jangan menghilangkan atau mengaburkan pemberitahuan masalah hukum yang ditampilkan oleh layanan kami.<br><br>
+
+- Kami berhak mengubah atau menambah ketentuan tambahan dalam pengembangan aplikasi.
+</p>
+]]>
+    </string>
+    <string name="about_app_license_title">Lisensi Kekayaan Intelektual</string>
+    <string name="about_app_license_body">
+<![CDATA[
+<p>
+<b>Google Maps API</b><br><br>
+
+The Google Maps APIs let you embed Google Maps in your web pages or mobile apps. Your service must be freely and publicly accessible to end users. Learn more about the licensing terms for each API in the documentation  by following the links below.<br><br>
+<i>https://developers.google.com/maps/licensing</i><br><br>
+
+<b>AChartEngine</b><br><br>
+
+AChartEngine is an open-source framework, free to use in any free or commercial application. AChartEngine is contributed based on the Apache 2.0 license. Learn more about the licensing terms the documentation by following the links below.<br><br>
+<i>http://www.apache.org/licenses/LICENSE-2.0</i>
+</p>
+]]>
+    </string>
+    <string name="about_app_version_title">Versi Aplikasi</string>
+    <string name="about_app_version_body"><![CDATA[ <p> </p> ]]></string>
+    <string name="fuel_added">Bahan bakar telah ditambahkan.</string>
+
+</resources>

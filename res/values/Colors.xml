@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="action_bar">#DF0101</color>
+    <color name="panduan_color_btn">#2E2E2E</color>
+    <color name="divider_orange">#f2d167</color>
+    <color name="divider_grey">#a7a7a7</color>
+    <color name="texttheme">#252525</color>
+	<color name="default_screen_bg">#f9f9f9</color>
+    <color name="rounded_container_bg">#222222</color>
+    <color name="rounded_container_border">#3b3f44</color>
+    <color name="light_gray_header_color">#646663</color>
+</resources>
