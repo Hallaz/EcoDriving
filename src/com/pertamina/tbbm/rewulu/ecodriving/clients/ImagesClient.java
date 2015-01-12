@@ -1,6 +1,7 @@
 package com.pertamina.tbbm.rewulu.ecodriving.clients;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -9,13 +10,12 @@ import com.squareup.okhttp.Response;
 
 public class ImagesClient {
 
-	public void download(String url) {
+	private static InputStream in;
+
+	public static InputStream download(String url) {
+		in = null;
 		OkHttpClient client = new OkHttpClient();
-
-		Request request = new Request.Builder().url(
-				"http://wwwns.akamai.com/media_resources/globe_emea.png")
-				.build();
-
+		Request request = new Request.Builder().url(url).build();
 		client.newCall(request).enqueue(new Callback() {
 			@Override
 			public void onFailure(Request request, IOException e) {
@@ -24,8 +24,9 @@ public class ImagesClient {
 
 			@Override
 			public void onResponse(Response response) throws IOException {
-				response.body().byteStream(); // Read the data from the stream
+				in = response.body().byteStream();
 			}
 		});
+		return in;
 	}
 }
