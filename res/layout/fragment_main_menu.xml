@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/action_bar"
+        android:baselineAligned="false"
         android:gravity="right"
         android:orientation="horizontal" >
 
@@ -66,8 +67,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/action_bar"
-        android:layout_margin="8dp"
-        android:background="@drawable/layout_background"
+        android:layout_margin="12dp"
+        android:background="@drawable/drop_shadow"
         android:orientation="vertical"
         android:padding="8dp" >
 
