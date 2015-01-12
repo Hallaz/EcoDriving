@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -52,11 +51,10 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 	public void setDataMotor(List<Motor> motors) {
 		this.motors = motors;
 	}
-
 	public void onBackPressed() {
 		Loggers.w("MainMenuFragment", "onBackPressed");
 	}
-
+	
 	private List<Motor> motors;
 	private OnMainListener mMenuCallback;
 	private Tripdata tripdata;
@@ -67,10 +65,8 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 	private LocationEngine locationEngine;
 	private TextView textFuel;
 	private TextView textMaxFuel;
-	private ImageView imageMotor;
 	private double fuel = 0f;
 	private int progressSeek = 0;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -83,7 +79,6 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		Spinner spinner = (Spinner) rootView
 				.findViewById(R.id.motor_type_spinner);
 		menu = (SpinnerMenuCustom) rootView.findViewById(R.id.spinner_menu);
-		imageMotor = (ImageView) rootView.findViewById(R.id.img_motor);
 		menu.setAdapter(new SpinnerMenuCustomAdapter(getActivity(),
 				R.layout.spinner_custom, Constant.menu_item(menus),
 				Constant.MENU_CONST, Gravity.LEFT,
@@ -120,12 +115,10 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				// TODO Auto-generated method stub
-				mMenuCallback.loadImageTo(motors.get(arg2), imageMotor);
-				fuel = 0f;
 				tripdata.setMotor(motors.get(arg2));
+				fuel = 0f;
+				textMaxFuel.setText("Max " + motors.get(arg2).getMax_fuel() + " L");
 				setFuel();
-				textMaxFuel.setText("Max " + motors.get(arg2).getMax_fuel()
-						+ " L");
 			}
 
 			@Override

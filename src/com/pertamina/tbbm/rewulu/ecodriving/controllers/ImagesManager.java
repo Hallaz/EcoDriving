@@ -2,30 +2,25 @@ package com.pertamina.tbbm.rewulu.ecodriving.controllers;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Environment;
-import android.widget.ImageView;
 
+import com.pertamina.tbbm.rewulu.ecodriving.clients.ImagesClient;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Picasso.LoadedFrom;
-import com.squareup.picasso.Target;
 
 public class ImagesManager {
 	private final String PATH;
-	private final String IMAGES_MOTOR_PATH = "/motor/images/";
-	private final String IMAGES_MOTOR_ABSOLUTEPATH;
+	private final String IMAGES_MOTOR = "/motor/images/";
 	private List<Motor> motors;
 	private List<File> listFiles;
-	private Context context;
 
 	public ImagesManager(Context context, List<Motor> motors) {
 		// TODO Auto-generated constructor stub
@@ -33,9 +28,7 @@ public class ImagesManager {
 				.toString()
 				+ "/Android/data/" + context.getPackageName();
 		setMotors(motors);
-		this.context = context;
 		checkDir();
-		IMAGES_MOTOR_ABSOLUTEPATH = PATH + IMAGES_MOTOR_PATH;
 	}
 
 	public ImagesManager(Context context) {
@@ -43,14 +36,17 @@ public class ImagesManager {
 		this.PATH = Environment.getExternalStorageDirectory().getAbsolutePath()
 				.toString()
 				+ "/Android/data/" + context.getPackageName();
-		this.context = context;
 		checkDir();
-		IMAGES_MOTOR_ABSOLUTEPATH = PATH + IMAGES_MOTOR_PATH;
+	}
+
+	public void Destroy() {
+		downloader.cancel(true);
 	}
 
 	public void setMotors(List<Motor> motors) {
 		this.motors = motors;
 		listFiles = new ArrayList<>();
+		Destroy();
 	}
 
 	private void checkDir() {
@@ -58,14 +54,14 @@ public class ImagesManager {
 		File file = new File(PATH);
 		if (!file.exists()) {
 			file.mkdir();
-			file = new File(PATH + IMAGES_MOTOR_PATH);
+			file = new File(PATH + IMAGES_MOTOR);
 			if (!file.exists())
 				file.mkdir();
 		} else {
-			file = new File(PATH + IMAGES_MOTOR_PATH);
-			if (!file.exists()) {
+			file = new File(PATH + IMAGES_MOTOR);
+			if (!file.exists())
 				file.mkdir();
-			} else {
+			else {
 				if (file.listFiles() != null)
 					listFiles = Arrays.asList(file.listFiles());
 			}
@@ -82,7 +78,17 @@ public class ImagesManager {
 		return samp[samp.length - 1];
 	}
 
-	public void cleanUnsignedFiles() {
+	private boolean fileListContain(String filename) {
+		if (listFiles.isEmpty())
+			return false;
+		for (File file : listFiles)
+			if (file.getName().equalsIgnoreCase(filename)) {
+				return true;
+			}
+		return false;
+	}
+
+	private void cleanUnsignedFiles() {
 		// TODO Auto-generated method stub
 		List<File> temp = new ArrayList<>();
 		for (Motor motor : motors)
@@ -97,79 +103,96 @@ public class ImagesManager {
 			}
 	}
 
-	public void viewInto(Motor motor, ImageView view) {
-		File file = null;
-		if (listFiles != null)
-			if (!listFiles.isEmpty())
-				for (File fl : listFiles)
-					if (fl.getName().equalsIgnoreCase(
-							getImageName(motor.getImg_sample()))) {
-						file = fl;
+	public void syncImages() {
+		if (motors == null) {
+			Loggers.getInstance("ImagesManager");
+			Loggers.w("syncImages", "motors == null");
+			return;
+		}
+		List<Motor> unSyncedMotors = new ArrayList<Motor>();
+		cleanUnsignedFiles();
+		if (listFiles.isEmpty())
+			unSyncedMotors = motors;
+		else
+			for (Motor mtr : motors) {
+				if (!fileListContain(mtr.getImg_sample()))
+					unSyncedMotors.add(mtr);
+			}
+		motors = unSyncedMotors;
+		downloadImage();
+	}
+
+	private Downloader downloader = new Downloader();
+
+	private class Downloader extends AsyncTask<Motor, Integer, Boolean> {
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			// TODO Auto-generated method stub
+			super.onProgressUpdate(values);
+			if (values[0] != null) {
+				for (int w = 0; w < motors.size(); w++)
+					if (motors.get(w).getRow_id() == values[0]) {
+						motors.remove(w);
 						break;
 					}
-		ctmTarget.setParam(motor, view);
-		if (file != null) {
-			Picasso.with(context).load(file).into(ctmTarget);
-		} else {
-			Picasso.with(context).load(motor.getImg_sample()).into(ctmTarget);
-		}
-
-	}
-
-	private CustomeTarget ctmTarget = new CustomeTarget();
-
-	private class CustomeTarget implements Target {
-		public CustomeTarget() {
-			// TODO Auto-generated constructor stub
-		}
-
-		private Motor motor;
-		private ImageView view;
-
-		public void setParam(Motor motor, ImageView view) {
-			this.motor = motor;
-			this.view = view;
+			}
 		}
 
 		@Override
-		public void onBitmapFailed(Drawable arg0) {
+		protected Boolean doInBackground(Motor... params) {
 			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void onBitmapLoaded(final Bitmap arg0, LoadedFrom arg1) {
-			// TODO Auto-generated method stub
+			Motor motor = params[0];
+			InputStream is = null;
+			OutputStream os = null;
 			Loggers.getInstance("ImagesManager");
-			Loggers.i("target", "LoadedFrom " + arg1.toString());
-			if (arg1.equals(Picasso.LoadedFrom.NETWORK))
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
+			Loggers.i("Downloader",
+					"try to download image " + motor.getImg_sample());
+			try {
+				is = ImagesClient.download(motor.getImg_sample());
+				os = new FileOutputStream(getImageName(motor.getImg_sample()));
 
-						File file = new File(IMAGES_MOTOR_ABSOLUTEPATH
-								+ getImageName(motor.getImg_sample()));
-						try {
-							file.createNewFile();
-							FileOutputStream ostream = new FileOutputStream(
-									file);
-							arg0.compress(CompressFormat.JPEG, 99, ostream);
-							ostream.close();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				}).start();
-			if (this.view != null)
-				this.view.setImageBitmap(arg0);
+				byte[] b = new byte[2048];
+				int length;
+
+				while ((length = is.read(b)) != -1) {
+					os.write(b, 0, length);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				Loggers.e("Downloader", e.toString());
+				try {
+					if (is != null)
+						is.close();
+					if (os != null)
+						os.close();
+
+				} catch (Exception e1) {
+					Loggers.e("Downloader", "Failed to close ");
+				}
+			} finally {
+				try {
+					if (is != null)
+						is.close();
+					if (os != null)
+						os.close();
+
+				} catch (Exception e) {
+					Loggers.e("Downloader - Finally", "Failed to close");
+				}
+			}
+			publishProgress(motor.getRow_id());
+			return true;
 		}
-
-		@Override
-		public void onPrepareLoad(Drawable arg0) {
-			// TODO Auto-generated method stub
-
-		}
-
 	}
 
+	private void downloadImage() {
+		// TODO Auto-generated method stub
+
+		if (!downloader.getStatus().equals(AsyncTask.Status.RUNNING)) {
+			downloader = new Downloader();
+			Motor[] mtrs = new Motor[motors.size()];
+			mtrs = motors.toArray(mtrs);
+			downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mtrs);
+		}
+	}
 }
