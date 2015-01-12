@@ -3,6 +3,8 @@ package com.pertamina.tbbm.rewulu.ecodriving.listener;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.widget.ImageView;
+
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
@@ -36,5 +38,7 @@ public interface OnMainListener {
 			double eco_distance, double non_eco_distance);
 	
 	public void rqstResult(Tripdata trip, List<DataLog> logs);
+	
+	public void loadImageTo(Motor motor, ImageView view);
 	
 }

@@ -12,7 +12,6 @@ import android.os.IBinder;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.LogsClient.ResponseLogs;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient.ResponseData;
 import com.pertamina.tbbm.rewulu.ecodriving.controllers.ClientController;
-import com.pertamina.tbbm.rewulu.ecodriving.controllers.ImagesManager;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.LogDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
@@ -39,7 +38,6 @@ public class Layang extends Service implements OnControllerCallback {
 	private List<DataLog> tempLogs;
 
 	private ClientController clientController;
-	private ImagesManager imageManager;
 
 	public class MyBinder extends Binder {
 		public Layang getService() {
@@ -75,9 +73,6 @@ public class Layang extends Service implements OnControllerCallback {
 		newSession = false;
 		if (clientController != null)
 			clientController.destroy();
-		if(imageManager != null)
-			imageManager.Destroy();
-		imageManager = new ImagesManager(getApplicationContext());
 		clientController = new ClientController(getApplicationContext(), this);
 	}
 
@@ -386,8 +381,6 @@ public class Layang extends Service implements OnControllerCallback {
 						mtr.setLocal_id((int) MotorDataAdapter.insertMotor(
 								getApplicationContext(), mtr));
 				}
-				imageManager.setMotors(rst);
-				imageManager.syncImages();
 				callback.retrievingDataMotors(rst);
 				MotorDataAdapter.deleteMotors(getApplicationContext(), motors);
 				return;
@@ -399,8 +392,6 @@ public class Layang extends Service implements OnControllerCallback {
 					mtr.setLocal_id((int) MotorDataAdapter.insertMotor(
 							getApplicationContext(), mtr));
 			}
-			imageManager.setMotors(result);
-			imageManager.syncImages();
 			callback.retrievingDataMotors(result);
 		}
 

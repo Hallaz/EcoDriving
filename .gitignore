@@ -42,7 +42,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 bin/AndroidManifest.xml
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 112394a... Revert "@ImageLoader"
 # Android:
 local.properties
 proguard/**
@@ -56,6 +59,7 @@ gdbserver
 
 # Eclipse:
 .settings
+<<<<<<< HEAD
 
 # IntelliJ / Android Studio:
 idea/workspace.xml
@@ -63,3 +67,5 @@ idea/tasks.xml
 
 # Crashlytics
 res/values/com_crashlytics_export_strings.xml
+=======
+>>>>>>> parent of 112394a... Revert "@ImageLoader"
