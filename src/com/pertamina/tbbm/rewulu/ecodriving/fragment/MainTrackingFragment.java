@@ -336,7 +336,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 
 	private void setTextFuel() {
 		// TODO Auto-generated method stub
-		textFuel.setText(gettFuelInLiter() + " L");
+		textFuel.setText(gettFuelInLiter() + " lt");
 		if (fuel < 0.5d)
 			textFuel.setTextColor(Color.RED);
 		else
@@ -348,7 +348,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 	}
 
 	public void setTextDistance() {
-		this.textDistance.setText(String.format("%.2f", distance) + "Km");
+		this.textDistance.setText(String.format("%.2f", distance) + "km");
 	}
 
 	public void setTextAvSpeed(int speed) {

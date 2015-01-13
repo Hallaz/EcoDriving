@@ -48,32 +48,55 @@
 
                     <ImageButton
                         android:id="@+id/btn_refill"
-                        android:layout_width="48dp"
+                        android:layout_width="54dp"
                         android:layout_height="48dp"
+                        android:layout_marginTop="4dp"
                         android:background="@drawable/ic_fuel"
                         android:scaleType="centerCrop" />
 
-                    <TextView
-                        android:id="@+id/textView_fuel_tracking"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/btn_refill"
+                        android:layout_alignLeft="@+id/btn_refill"
+                        android:layout_alignRight="@+id/btn_refill"
                         android:gravity="center"
-                        android:text="@string/fuel_stat" />
+                        android:orientation="vertical"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp" >
+
+                        <TextView
+                            android:id="@+id/textView_fuel_tracking"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/fuel_stat"
+                            android:textColor="@color/text_fuel" />
+                    </LinearLayout>
                 </RelativeLayout>
+
+                <View
+                    android:layout_width="1dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/divider_grey" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical" >
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="64dp"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_weight="0.5"
-                        android:gravity="center" >
+                        android:background="@drawable/drop_shadow"
+                        android:gravity="center"
+                        android:padding="2dp" >
 
                         <ImageView
                             android:id="@+id/ic_stats"
@@ -113,8 +136,16 @@
                                 android:layout_toRightOf="@id/ic_distance"
                                 android:gravity="center_vertical"
                                 android:text="@string/dis_stat"
+                                android:textColor="@color/text_dashboard"
                                 android:textSize="12sp" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="1dip"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@color/divider_grey" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -138,8 +169,16 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="center"
                                 android:text="time"
+                                android:textColor="@color/text_dashboard"
                                 android:textSize="12sp" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="1dip"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@color/divider_grey" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -165,6 +204,7 @@
                                 android:layout_toLeftOf="@id/ic_average_speed"
                                 android:gravity="center_vertical|right"
                                 android:text="@string/av_speed_stat"
+                                android:textColor="@color/text_dashboard"
                                 android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -181,8 +221,7 @@
                     <TextView
                         android:id="@+id/textView_speedo"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_weight="0.4"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="40"
                         android:textColor="@android:color/white"

@@ -263,12 +263,12 @@ public class Utils {
 		StringBuilder sb = new StringBuilder(64);
 		if(hours > 0) {
 			sb.append(hours);
-			sb.append("J ");
+			sb.append("j ");
 		}
 		sb.append(minutes);
-		sb.append("M ");
+		sb.append("m ");
 		sb.append(seconds);
-		sb.append("S");
+		sb.append("s");
 
 		return (sb.toString());
 	}
