@@ -148,9 +148,6 @@ public class LogDataAdapter {
 		cursor = db.fetchByTripId();
 		if (cursor != null && cursor.moveToFirst())
 			do {
-				Loggers.i("readAllLogByTrip id ",  cursor
-						.getInt(cursor
-								.getColumnIndexOrThrow(KEY_LOG_TRIPDATA_ID)));
 				DataLog log = new DataLog();
 				log.setRow_id(cursor.getInt(cursor
 						.getColumnIndexOrThrow(KEY_LOG_LOCAL_ID)));
@@ -188,7 +185,6 @@ public class LogDataAdapter {
 		db.createDatabase();
 		db.open();
 		Cursor cursor;
-		trip.Log("readAllLogByTrip");
 		cursor = db.fetchByTripId(trip.getLocal_id());
 		if (cursor != null && cursor.moveToFirst())
 			do {
@@ -197,9 +193,6 @@ public class LogDataAdapter {
 						.getColumnIndexOrThrow(KEY_LOG_LOCAL_ID)));
 				log.setLocal_id(cursor.getInt(cursor
 						.getColumnIndexOrThrow(KEY_LOG_LOCAL_ID)));
-				Loggers.i("readAllLogByTrip id ",  cursor
-						.getInt(cursor
-								.getColumnIndexOrThrow(KEY_LOG_TRIPDATA_ID)));
 				
 				log.setTripdata(TripDataAdapter.readTripByLocalId(context, cursor
 						.getInt(cursor

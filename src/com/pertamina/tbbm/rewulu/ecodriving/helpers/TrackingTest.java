@@ -31,7 +31,7 @@ public class TrackingTest {
 		// callback.rqstResult(trip, logs);
 	}
 
-	CountDownTimer timer = new CountDownTimer(Long.MAX_VALUE, 2000) {
+	CountDownTimer timer = new CountDownTimer(Long.MAX_VALUE, 1100) {
 
 		@Override
 		public void onTick(long millisUntilFinished) {
@@ -151,8 +151,27 @@ public class TrackingTest {
 		lokasi.add(new Lokasi(-7.76408, 110.38967));
 		lokasi.add(new Lokasi(-7.76317, 110.3929));
 		lokasi.add(new Lokasi(-7.76276, 110.39387));
+
+		lokasi.add(new Lokasi(-7.76408, 110.38967));
+		lokasi.add(new Lokasi(-7.76317, 110.3929));
+		lokasi.add(new Lokasi(-7.76276, 110.39387));
+		lokasi.add(new Lokasi(-7.76408, 110.38967));
+		lokasi.add(new Lokasi(-7.76317, 110.3929));
+		lokasi.add(new Lokasi(-7.76276, 110.39387));
+		lokasi.add(new Lokasi(-7.76408, 110.38967));
+		lokasi.add(new Lokasi(-7.76317, 110.3929));
+		lokasi.add(new Lokasi(-7.76276, 110.39387));
+		lokasi.add(new Lokasi(-7.76408, 110.38967));
+		lokasi.add(new Lokasi(-7.76317, 110.3929));
+		lokasi.add(new Lokasi(-7.76276, 110.39387));
+		lokasi.add(new Lokasi(-7.76408, 110.38967));
+		lokasi.add(new Lokasi(-7.76317, 110.3929));
+		lokasi.add(new Lokasi(-7.76276, 110.39387));
+		lokasi.add(new Lokasi(-7.76408, 110.38967));
+		lokasi.add(new Lokasi(-7.76317, 110.3929));
+		lokasi.add(new Lokasi(-7.76276, 110.39387));
 		logs = new ArrayList<>();
-		for (int w = 0; w < lokasi.size(); w++) {
+		for (int w = 0; w < lokasi.size(); w++) { //108 data
 			boolean drive_state = false;
 			if (w % 2 == 0)
 				drive_state = true;

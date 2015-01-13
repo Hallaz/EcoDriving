@@ -42,7 +42,9 @@ import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.MapFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.controllers.ImagesManager;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.LogDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.AboutFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.Backstack;
@@ -111,13 +113,28 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 			} else {
 				goToMainMenu();
 			}
-			onStoppingLayang();
+		}
+		tracingData();
+	}
+
+	private void tracingData() {
+		// TODO Auto-generated method stub
+		List<Tripdata> trips = TripDataAdapter
+				.readAllTrip(getApplicationContext());
+		for (Tripdata trip : trips) {
+			Loggers.w("", "===========================");
+			Loggers.i("", "local id " + trip.getLocal_id());
+			Loggers.i("", "row id " + trip.getRow_id());
+			List<DataLog> logs = LogDataAdapter.readAllLogByTrip(
+					getApplicationContext(), trip);
+			Loggers.i("", "logs size " + logs.size());
 		}
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
+		
 		super.onResume();
 		if (layang == null)
 			bindService(new Intent().setClass(getApplicationContext(),
@@ -136,7 +153,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		layang.delete();
+		layang.destroy();
 		unbindService(serviceConnection);
 		removeNotif();
 	}
@@ -207,6 +224,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void goToMainMenu() {
 		// TODO Auto-generated method stub
 		removeNotif();
+		layang.release();
 		if (motors == null)
 			motors = MotorDataAdapter.readAllMotor(getApplicationContext());
 		if (onPause)
@@ -230,7 +248,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		if (Backstack.isOnMaintracking()) {
-			layang.delete();
+			layang.destroy();
 		}
 		if (Backstack.isOnResult()) {
 			resultFragment.onBackPressed();
@@ -331,7 +349,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	@Override
 	public void requestedStartTrip(Tripdata trip) {
 		// TODO Auto-generated method stub
-		if (onPause) {
+		if (!onPause) {
 			//new TrackingTest(getApplicationContext(), trip, this);
 			return;
 		} else {
@@ -405,7 +423,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void onStartingLayang() {
 		// TODO Auto-generated method stub
 		try {
-			//stopService(intentKuli);
+			// stopService(intentKuli);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -414,7 +432,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	@Override
 	public void onStoppingLayang() {
 		// TODO Auto-generated method stub
-		//startService(intentKuli);
+		// startService(intentKuli);
 	}
 
 	@Override

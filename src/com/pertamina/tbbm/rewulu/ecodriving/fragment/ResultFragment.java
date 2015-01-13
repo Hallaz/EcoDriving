@@ -520,15 +520,15 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		// TODO Auto-generated method stub
 		switch (id) {
 		case USER_SAVE_BACKPRESSED_INPUT_ID:
-			if (arg0 == null) {
-				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
-				return;
-			}
-			if (!arg0.isEmpty()) {
-				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
-				return;
-			}
 			if (action) {
+				if (arg0 == null) {
+					Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+					return;
+				}
+				if (!arg0.isEmpty()) {
+					Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+					return;
+				}
 				tripdata.setTitle(arg0);
 				tripdata.setSaved(true);
 			} else {
@@ -539,30 +539,30 @@ public class ResultFragment extends Fragment implements OnClickListener,
 			break;
 
 		case USER_ACTION_SAVE_ID:
-			if (arg0 == null) {
-				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
-				return;
-			}
-			if (!arg0.isEmpty()) {
-				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
-				return;
-			}
 			if (action) {
+				if (arg0 == null) {
+					Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+					return;
+				}
+				if (!arg0.isEmpty()) {
+					Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+					return;
+				}
 				tripdata.setTitle(arg0);
 				tripdata.setSaved(true);
 				TripDataAdapter.updateTrip(getActivity(), tripdata);
 			}
 			break;
 		case USER_ACTION_SHARE_ID:
-			if (arg0 == null) {
-				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
-				return;
-			}
-			if (!arg0.isEmpty()) {
-				Utils.toast(getActivity(), "Kolom masukan harus diisi !");
-				return;
-			}
 			if (action) {
+				if (arg0 == null) {
+					Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+					return;
+				}
+				if (!arg0.isEmpty()) {
+					Utils.toast(getActivity(), "Kolom masukan harus diisi !");
+					return;
+				}
 				tripdata.setTitle(arg0);
 				tripdata.setSaved(true);
 				TripDataAdapter.updateTrip(getActivity(), tripdata);

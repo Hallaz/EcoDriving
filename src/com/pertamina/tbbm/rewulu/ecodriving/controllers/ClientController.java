@@ -96,7 +96,7 @@ public class ClientController {
 					registrar = new Registrar();
 					registrar.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
 							userdata);
-				} else
+				} else if(userdata.getRow_id() >= 0)
 					session(userdata);
 			} else {
 				UserDataSP.put(context, userdata);
@@ -136,7 +136,8 @@ public class ClientController {
 			register(userdata);
 			return;
 		}
-		if (available && sessions.getStatus() != AsyncTask.Status.RUNNING) {
+		if (userdata != null && available
+				&& sessions.getStatus() != AsyncTask.Status.RUNNING) {
 			sessions = new Sessions();
 			sessions.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userdata);
 		}
