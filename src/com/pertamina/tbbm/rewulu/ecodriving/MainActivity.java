@@ -39,6 +39,7 @@ import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.MapFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.controllers.ImagesManager;
@@ -353,6 +354,8 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 			err_internet.setVisibility(View.GONE);
 		else
 			err_internet.setVisibility(View.VISIBLE);
+		if (mainmenuFragment != null)
+			mainmenuFragment.setAvailable(arg0);
 	}
 
 	@Override
@@ -421,6 +424,14 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void loadImageTo(Motor motor, ImageView view) {
 		// TODO Auto-generated method stub
 		imgsManager.viewInto(motor, view);
+	}
+
+	@Override
+	public void GPSDisabled() {
+		// TODO Auto-generated method stub
+		err_internet.setVisibility(View.VISIBLE);
+		((TextView) findViewById(R.id.connecting_error_text))
+				.setText("GPS is disable");
 	}
 
 }

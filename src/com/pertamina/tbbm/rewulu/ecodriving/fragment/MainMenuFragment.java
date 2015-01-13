@@ -70,6 +70,7 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 	private ImageView imageMotor;
 	private double fuel = 0f;
 	private int progressSeek = 0;
+	private Button btn_start;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -137,8 +138,8 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 
 			}
 		});
-		((Button) rootView.findViewById(R.id.start_btn))
-				.setOnClickListener(this);
+		btn_start = (Button) rootView.findViewById(R.id.start_btn);
+		btn_start.setOnClickListener(this);
 		((ImageButton) rootView.findViewById(R.id.action_setting_menu))
 				.setOnClickListener(this);
 		if (Utils.LocationSP.isNeedKnowingLocation(getActivity())) {
@@ -170,6 +171,9 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		});
 		textFuel = (TextView) rootView.findViewById(R.id.txt_fuel_start);
 		textMaxFuel = (TextView) rootView.findViewById(R.id.txt_max_start);
+		if(!LocationEngine.GPS_ENABLE) {
+			btn_start.setClickable(false);
+		}
 		return rootView;
 	}
 
@@ -235,5 +239,13 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		if (locationEngine != null)
 			locationEngine.onDestroy();
 	}
-
+	
+	public void setAvailable(boolean available) {
+		if(LocationEngine.GPS_ENABLE) {
+			if (!available)
+				btn_start.setClickable(false);
+			else
+				btn_start.setClickable(true);
+		}
+	}
 }

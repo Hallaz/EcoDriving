@@ -11,6 +11,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
 public class LocationEngine implements LocationListener {
+	public static boolean GPS_ENABLE = true;
 	private LocationManager locationManager;
 	private static final int TWO_MINUTES = 1000 * 60 * 2;
 	private Context context;
@@ -25,7 +26,7 @@ public class LocationEngine implements LocationListener {
 		this.context = context;
 		onResume();
 	}
-	
+
 	private boolean isSameProvider(String provider1, String provider2) {
 		if (provider1 == null) {
 			return provider2 == null;
@@ -97,12 +98,13 @@ public class LocationEngine implements LocationListener {
 	public void onProviderDisabled(String provider) {
 		// TODO Auto-generated method stub
 		Utils.toast(context, R.string.err_gps_disbled);
+		GPS_ENABLE = false;
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
 		// TODO Auto-generated method stub
-
+		GPS_ENABLE = true;
 	}
 
 	@Override
@@ -124,7 +126,7 @@ public class LocationEngine implements LocationListener {
 			@Override
 			public void onFinish() {
 				// TODO Auto-generated method stub
-				if (onResume)
+				if (onResume && bestLocation != null)
 					Utils.LocationSP.saveKnownLocation(context, bestLocation);
 				onDestroy();
 			}

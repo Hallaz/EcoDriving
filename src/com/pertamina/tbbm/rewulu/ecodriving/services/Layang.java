@@ -17,6 +17,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnControllerCallback;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnLayangCallback;
+import com.pertamina.tbbm.rewulu.ecodriving.locations.LocationEngine;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.ResponseLog;
@@ -89,7 +90,7 @@ public class Layang extends Service implements OnControllerCallback {
 		logs = new ArrayList<>();
 		unLogged = new ArrayList<>();
 		tempLogs = new ArrayList<>();
-		callback.onStoppingLayang();
+		callback.onStoppingLayang();	
 	}
 
 	public void end() {
@@ -110,17 +111,19 @@ public class Layang extends Service implements OnControllerCallback {
 				clientController.setInternetAvailable(available);
 			}
 			available();
+			if(!LocationEngine.GPS_ENABLE)
+				callback.GPSDisabled();
 		}
 
 		@Override
 		protected Boolean doInBackground(String... params) {
 			// TODO Auto-generated method stub
 			while (true) {
-				long sleep = 15000;
+				long sleep = 10000;
 				if (!newSession)
 					sleep = 5000;
 				else
-					sleep = 15000;
+					sleep = 10000;
 				publishProgress(Utils.isInternetAvailable());
 				try {
 					Thread.sleep(sleep);
