@@ -122,11 +122,11 @@ public class UserInputDialogFragment extends DialogFragment implements
 			}
 		}
 		((TextView) dialog.findViewById(R.id.text_user_dialog)).setText(text);
-		if (title != null)
+		if (title != null && actionInput)
 			((TextView) dialog.findViewById(R.id.text_user_title))
 					.setText(title);
-		else
-			((LinearLayout) dialog.findViewById(R.id.lin_user_title))
+		else if (actionInput)
+			((LinearLayout) dialog.findViewById(R.id.lin_user_title)) // errror
 					.setVisibility(View.GONE);
 		((Button) dialog.findViewById(R.id.btn_dialog_ok))
 				.setOnClickListener(this);

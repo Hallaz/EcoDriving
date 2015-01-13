@@ -16,18 +16,22 @@ import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 public class TrackingTest {
 	private OnMainListener callback;
 	private Tripdata trip;
-	List<DataLog> logs;
+	private List<DataLog> logs;
 
 	public TrackingTest(Context context, Tripdata tripss,
 			OnMainListener listener) {
 		// TODO Auto-generated constructor stub
 		List<Tripdata> trips = TripDataAdapter.readAllTrip(context);
+		for(Tripdata tp : trips)
+			if(tp.getLocal_id() == 15)
+				this.trip = tp;
+		logs = LogDataAdapter.readAllLogByTrip(context, trip);
 		Loggers.getInstance("TrackingTest");
 		Loggers.i("", trips.size());
-		this.trip = tripss;
-		this.bulder();
+		//this.bulder();
 		callback = listener;
-		timer.start();
+		
+		//timer.start();
 		// callback.rqstResult(trip, logs);
 	}
 

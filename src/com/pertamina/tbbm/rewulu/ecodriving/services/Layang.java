@@ -89,7 +89,6 @@ public class Layang extends Service implements OnControllerCallback {
 		logs = new ArrayList<>();
 		unLogged = new ArrayList<>();
 		tempLogs = new ArrayList<>();
-		callback.requestedStartTrip(trip);
 		callback.onStoppingLayang();
 	}
 
@@ -201,14 +200,6 @@ public class Layang extends Service implements OnControllerCallback {
 			return;
 		}
 		trip.setGraph_time(graph);
-	}
-
-	public void setUser(UserData user) {
-		if (this.trip == null) {
-			Loggers.w("Layang - setUser", "trip == null");
-			return;
-		}
-		trip.setUser(user);
 	}
 
 	public void setDataTrip(double eco_fuel, double non_eco_fuel,
@@ -429,6 +420,8 @@ public class Layang extends Service implements OnControllerCallback {
 		if (result.getRow_id() >= 0) {
 			callback.registerResult(result);
 			newSession = true;
+			if(trip != null)
+				trip.setUser(result);
 		}
 	}
 

@@ -42,9 +42,7 @@ import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.MapFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.controllers.ImagesManager;
-import com.pertamina.tbbm.rewulu.ecodriving.databases.LogDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
-import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.AboutFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.Backstack;
@@ -53,7 +51,6 @@ import com.pertamina.tbbm.rewulu.ecodriving.fragment.MainMenuFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.MainTrackingFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.ResultFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.SplashScreenFragment;
-import com.pertamina.tbbm.rewulu.ecodriving.helpers.TrackingTest;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnLayangCallback;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
@@ -114,27 +111,12 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 				goToMainMenu();
 			}
 		}
-		tracingData();
-	}
-
-	private void tracingData() {
-		// TODO Auto-generated method stub
-		List<Tripdata> trips = TripDataAdapter
-				.readAllTrip(getApplicationContext());
-		for (Tripdata trip : trips) {
-			Loggers.w("", "===========================");
-			Loggers.i("", "local id " + trip.getLocal_id());
-			Loggers.i("", "row id " + trip.getRow_id());
-			List<DataLog> logs = LogDataAdapter.readAllLogByTrip(
-					getApplicationContext(), trip);
-			Loggers.i("", "logs size " + logs.size());
-		}
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-		
+
 		super.onResume();
 		if (layang == null)
 			bindService(new Intent().setClass(getApplicationContext(),
@@ -349,8 +331,8 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	@Override
 	public void requestedStartTrip(Tripdata trip) {
 		// TODO Auto-generated method stub
-		if (!onPause) {
-			//new TrackingTest(getApplicationContext(), trip, this);
+		if (onPause) {
+			// new TrackingTest(getApplicationContext(), trip, this);
 			return;
 		} else {
 			mainTrackingFragment = new MainTrackingFragment();
@@ -432,7 +414,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	@Override
 	public void onStoppingLayang() {
 		// TODO Auto-generated method stub
-		// startService(intentKuli);
+		startService(intentKuli);
 	}
 
 	@Override

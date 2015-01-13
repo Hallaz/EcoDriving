@@ -92,7 +92,6 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 	private Tripdata tripdata;
 	private GoogleMap googleMap;
 
-	private TextView textEcoStats;
 	private TextView textSpeedo;
 	private TextView textFuel;
 	private TextView textAvSpeed;
@@ -512,8 +511,6 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 				|| (speed > (Constant.SPEED_TOLERANCE + tripdata.getMotor()
 						.getMax_speed_eco()))) {
 			logger.setDrive_state(false);
-			textEcoStats.setText("Non Eco");
-			textEcoStats.setTextColor(Color.RED);
 			double f = 1 / tripdata.getMotor().getNon_eco_fuelage() * distance;
 			fuel -= f;
 			logger.setFuel_age(f);
@@ -526,8 +523,6 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 
 		} else {
 			logger.setDrive_state(true);
-			textEcoStats.setText("Eco");
-			textEcoStats.setTextColor(Color.BLACK);
 			double f = 1 / tripdata.getMotor().getEco_fuelage() * distance;
 			fuel -= f;
 			logger.setFuel_age(f);
