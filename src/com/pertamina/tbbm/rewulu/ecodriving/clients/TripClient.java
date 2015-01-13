@@ -21,7 +21,7 @@ public class TripClient {
 	public static class ResponseData {
 		public boolean error;
 		public String message;
-		public int row_id;
+		public int row_id = -1;
 		public String link_page;
 	}
 

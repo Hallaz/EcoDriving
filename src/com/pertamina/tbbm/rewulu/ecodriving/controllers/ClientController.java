@@ -112,7 +112,7 @@ public class ClientController {
 		protected UserData doInBackground(UserData... params) {
 			// TODO Auto-generated method stub
 			ResponseUser res = UserClient.register(params[0]);
-			if (res != null) {
+			if (!res.error) {
 				params[0].setApi_key(res.api_key);
 				params[0].setRow_id(res.row_id);
 			}
@@ -131,6 +131,10 @@ public class ClientController {
 	}
 
 	public void session(UserData userdata) {
+		if (userdata.getRow_id() < 0) {
+			register(userdata);
+			return;
+		}
 		if (available && sessions.getStatus() != AsyncTask.Status.RUNNING) {
 			sessions = new Sessions();
 			sessions.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userdata);
@@ -145,21 +149,25 @@ public class ClientController {
 		protected UserData doInBackground(UserData... params) {
 			// TODO Auto-generated method stub
 			ResponseUser res = UserClient.session(params[0]);
-			if (res != null) {
+			if (!res.error) {
 				params[0].setApi_key(res.api_key);
 				params[0].setRow_id(res.row_id);
 				UserDataSP.put(context, params[0]);
 				return params[0];
+			} else {
+				params[0].setRow_id(-1);
+				return params[0];
 			}
-			return params[0];
 		}
 
 		@Override
 		protected void onPostExecute(UserData result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-			if (callback != null) {
+			if (callback != null && result.getRow_id() >= 0) {
 				callback.registerResult(result);
+			} else {
+				register(result);
 			}
 		}
 	}
@@ -183,7 +191,9 @@ public class ClientController {
 		protected Tripdata doInBackground(Tripdata... params) {
 			// TODO Auto-generated method stub
 			ResponseData res = TripClient.trip(params[0]);
-			if (res != null) {
+			if (!res.error) {
+				Loggers.getInstance("Tripping");
+				Loggers.w("Tripping", res.row_id);
 				params[0].setRow_id(res.row_id);
 				if (params[0].getLocal_id() == -1)
 					params[0].setLocal_id((int) TripDataAdapter.insertTrip(
@@ -201,7 +211,7 @@ public class ClientController {
 		protected void onPostExecute(Tripdata result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-			if (result != null) {
+			if (callback != null) {
 				callback.onTripResult(result);
 			}
 		}
@@ -284,7 +294,7 @@ public class ClientController {
 		protected void onPostExecute(ResponseLogs result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-			if (result != null) {
+			if (!result.error) {
 				callback.onLoggingResult(result);
 			}
 		}
@@ -309,7 +319,7 @@ public class ClientController {
 			// TODO Auto-generated method stub
 			ResponseData res = TripClient.delete(params[0]);
 			TripDataAdapter.deleteById(context, params[0]);
-			if (res != null) {
+			if (!res.error) {
 				params[0].setRow_id(-1);
 			}
 			return params[0];
@@ -327,7 +337,7 @@ public class ClientController {
 	}
 
 	public void requestAddressStart(DataLog log) {
-		if(log == null)
+		if (log == null)
 			return;
 		if (!getAddress.getStatus().equals(AsyncTask.Status.RUNNING)) {
 			Loggers.i("", "requestAddressStarst");
@@ -339,7 +349,7 @@ public class ClientController {
 	}
 
 	public void requestAddressEnd(DataLog log) {
-		if(log == null)
+		if (log == null)
 			return;
 		if (!getAddress.getStatus().equals(AsyncTask.Status.RUNNING)) {
 			Loggers.i("", "requestAddressEnds");

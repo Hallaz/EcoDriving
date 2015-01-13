@@ -51,6 +51,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.fragment.MainMenuFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.MainTrackingFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.ResultFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.SplashScreenFragment;
+import com.pertamina.tbbm.rewulu.ecodriving.helpers.TrackingTest;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnLayangCallback;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
@@ -331,7 +332,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void requestedStartTrip(Tripdata trip) {
 		// TODO Auto-generated method stub
 		if (onPause) {
-			// new TrackingTest(getApplicationContext(), null, this);
+			//new TrackingTest(getApplicationContext(), trip, this);
 			return;
 		} else {
 			mainTrackingFragment = new MainTrackingFragment();

@@ -107,9 +107,14 @@ public class Layang extends Service implements OnControllerCallback {
 		protected Boolean doInBackground(String... params) {
 			// TODO Auto-generated method stub
 			while (true) {
+				long sleep = 15000;
+				if (!newSession)
+					sleep = 5000;
+				else
+					sleep = 15000;
 				publishProgress(Utils.isInternetAvailable());
 				try {
-					Thread.sleep(15000);
+					Thread.sleep(sleep);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					Loggers.e("Timer", e.toString());
@@ -276,6 +281,7 @@ public class Layang extends Service implements OnControllerCallback {
 		unLogged.add(log);
 		logs.add(log);
 		Loggers.i("Layang", " receive log " + unLogged.size());
+		trip.Log("logData");
 		if (trip.getRow_id() < 0) {
 			clientController.trip(trip);
 		} else if (unLogged.size() > 25) {
@@ -291,9 +297,15 @@ public class Layang extends Service implements OnControllerCallback {
 		}
 		if (!unLogged.isEmpty()) {
 			Loggers.i("Layang", "trying to log data size " + unLogged.size());
-			tempLogs = unLogged;
-			unLogged = new ArrayList<>();
-			clientController.logData(tempLogs);
+			for (int w = 0; w < unLogged.size(); w++) {
+				tempLogs.add(unLogged.get(w));
+				unLogged.remove(w);
+				if (tempLogs.size() >= 0)
+					break;
+				w -= 1;
+			}
+			if (!tempLogs.isEmpty())
+				clientController.logData(tempLogs);
 		}
 	}
 
@@ -421,8 +433,8 @@ public class Layang extends Service implements OnControllerCallback {
 	@Override
 	public void onLoggingResult(ResponseLogs result) {
 		// TODO Auto-generated method stub
-		if (result != null) {
-			if (tempLogs != null)
+		if (result.logs != null) {
+			if (tempLogs != null && !tempLogs.isEmpty())
 				for (int e = 0; e < result.logs.size(); e++) {
 					// errorsd
 					for (int w = 0; w < tempLogs.size(); w++) {
@@ -447,6 +459,7 @@ public class Layang extends Service implements OnControllerCallback {
 				}
 			if (tempLogs != null && !tempLogs.isEmpty()) {
 				unLogged.addAll(tempLogs);
+				tempLogs.clear();
 			}
 			for (ResponseLog res : result.logs) {
 				logs.get(res.id).setRow_id(res.row_id);
@@ -457,6 +470,8 @@ public class Layang extends Service implements OnControllerCallback {
 				if (trip.isIncomplete())
 					logging();
 			}
+		} else {
+			unLogged.addAll(tempLogs);
 		}
 
 	}
