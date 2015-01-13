@@ -153,6 +153,7 @@ public class Layang extends Service implements OnControllerCallback {
 		trip();
 		logs = new ArrayList<>();
 		unLogged = new ArrayList<>();
+		tempLogs = new ArrayList<>();
 		start();
 		callback.requestedStartTrip(trip);
 		callback.onStartingLayang();
@@ -280,8 +281,9 @@ public class Layang extends Service implements OnControllerCallback {
 		log.setId(logs.size());
 		unLogged.add(log);
 		logs.add(log);
-		Loggers.i("Layang", " receive log " + unLogged.size());
-		trip.Log("logData");
+		Loggers.i("Layang",
+				" receive log, unLogged size now " + unLogged.size()
+						+ " and trip id now " + trip.getRow_id());
 		if (trip.getRow_id() < 0) {
 			clientController.trip(trip);
 		} else if (unLogged.size() > 25) {
@@ -298,9 +300,11 @@ public class Layang extends Service implements OnControllerCallback {
 		if (!unLogged.isEmpty()) {
 			Loggers.i("Layang", "trying to log data size " + unLogged.size());
 			for (int w = 0; w < unLogged.size(); w++) {
+				Loggers.w("", "tempLogs == null ? " + (tempLogs == null)
+						+ "unLogged == null ? " + (unLogged == null));
 				tempLogs.add(unLogged.get(w));
 				unLogged.remove(w);
-				if (tempLogs.size() >= 0)
+				if (tempLogs.size() >= 30)
 					break;
 				w -= 1;
 			}

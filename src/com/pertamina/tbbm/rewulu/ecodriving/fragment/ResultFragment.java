@@ -49,6 +49,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -464,6 +465,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		// TODO Auto-generated method stub
 		userDialog = new UserInputDialogFragment(USER_ACTION_SAVE_ID,
 				"Simpan Perjalanan", "Masukkan judul", true, this);
+		userDialog.setInputType(InputType.TYPE_CLASS_TEXT);
 		if (tripdata.isNamed())
 			userDialog.setTextField(tripdata.getTitle());
 		userDialog.show(getFragmentManager(), null);
@@ -474,6 +476,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		userDialog = new UserInputDialogFragment(
 				USER_SAVE_BACKPRESSED_INPUT_ID, "Simpan Perjalanan",
 				"Masukkan judul", true, this);
+		userDialog.setInputType(InputType.TYPE_CLASS_TEXT);
 		userDialog.setCustomTextButton("Hapus", "Simpan");
 		userDialog.show(getFragmentManager(), null);
 	}

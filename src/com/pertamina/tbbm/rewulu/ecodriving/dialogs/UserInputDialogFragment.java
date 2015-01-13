@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class UserInputDialogFragment extends DialogFragment implements
 	private String textRightButton = null;
 	private boolean singlemode = false;
 	private String textField = null;
+	private int inputType = InputType.TYPE_NUMBER_VARIATION_NORMAL;
 
 	public UserInputDialogFragment(final int id) {
 		// TODO Auto-generated constructor stub
@@ -67,6 +69,10 @@ public class UserInputDialogFragment extends DialogFragment implements
 		textField = null;
 	}
 
+	public void setInputType(int inputType) {
+		this.inputType = inputType;
+	}
+
 	public void singleButtonMode(boolean singleMode) {
 		this.singlemode = singleMode;
 	}
@@ -94,6 +100,8 @@ public class UserInputDialogFragment extends DialogFragment implements
 		if (actionInput) {
 			dialog.setContentView(R.layout.user_input_dialog);
 			userInput = (EditText) dialog.findViewById(R.id.editText_dialog);
+			userInput.setInputType(inputType);
+			// userInput.setInputType(EditText.)
 			if (textField != null)
 				userInput.setText(textField);
 			((Button) dialog.findViewById(R.id.btn_dialog_no))
