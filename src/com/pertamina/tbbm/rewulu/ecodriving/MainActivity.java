@@ -209,7 +209,9 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void goToMainMenu() {
 		// TODO Auto-generated method stub
 		removeNotif();
-		layang.release();
+		if (layang != null) {
+			layang.release();
+		}
 		if (motors == null)
 			motors = MotorDataAdapter.readAllMotor(getApplicationContext());
 		if (onPause)
@@ -242,11 +244,10 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		if (Backstack.isOnMainmenu()) {
 			mainmenuFragment.onBackPressed();
 			appExit();
-		} 
-		if(Backstack.isOnSplash()){
-			this.finish();
 		}
-		else
+		if (Backstack.isOnSplash()) {
+			this.finish();
+		} else
 			goToMainMenu();
 
 	}
