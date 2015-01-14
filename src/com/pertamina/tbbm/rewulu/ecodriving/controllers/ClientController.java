@@ -146,6 +146,11 @@ public class ClientController {
 			sessions = new Sessions();
 			sessions.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userdata);
 		}
+		Loggers.i(
+				"ClientController",
+				"trying to Session  "
+						+ (userdata != null && available && sessions
+								.getStatus() != AsyncTask.Status.RUNNING));
 	}
 
 	private Sessions sessions = new Sessions();
@@ -202,8 +207,10 @@ public class ClientController {
 		protected void onProgressUpdate(Boolean... values) {
 			// TODO Auto-generated method stub
 			super.onProgressUpdate(values);
-			if (values[0])
+			if (values[0]) {
+				Loggers.w("ClientController", "requestSession() from Tripping");
 				callback.requestSession();
+			}
 		}
 
 		@Override
@@ -320,6 +327,8 @@ public class ClientController {
 				if (!result.error) {
 					callback.onLoggingResult(result);
 				} else if (result.message.equalsIgnoreCase(Api.INVALID_API_KEY)) {
+					Loggers.w("ClientController",
+							"requestSession() from Logging");
 					callback.requestSession();
 				}
 
