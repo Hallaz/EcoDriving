@@ -16,11 +16,13 @@ public class Constant {
 	public static final double FAKTOR_EMISI = 2.32d;
 
 	public static final String MENU_CONST = "menu_text";
-	
+
 	public static final String ADDRESS_UNKNOWN = "unknown";
-	
+
 	public static final String TITLE_UNKNOWN = "NN";
-	
+
+	public static final double MIN_TRIP_DISTANCE = 0.5d;
+
 	public static ArrayList<HashMap<String, String>> menu_item(String[] menus) {
 		ArrayList<HashMap<String, String>> menu = new ArrayList<>();
 		for (int w = 0; w < menus.length; w++) {

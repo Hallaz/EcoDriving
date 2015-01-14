@@ -411,7 +411,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 			if (tracking.getLocations().isEmpty()
 					|| tracking.getLocations().size() == 1)
 				Utils.toast(getActivity(), R.string.err_no_location);
-			else if (distance < 1.0d) {
+			else if (distance < Constant.MIN_TRIP_DISTANCE) {
 				dialog = new UserInputDialogFragment(Constant.DIALOG_ERR,
 						getActivity().getString(R.string.err_too_short_trip),
 						false, this);
