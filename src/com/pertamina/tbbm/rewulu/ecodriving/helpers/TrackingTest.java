@@ -46,7 +46,7 @@ public class TrackingTest {
 				callback.storeLog(logs.get(0));
 				logs.remove(0);
 			} else {
-				callback.startResult(trip.getArrayGraph_time());
+				callback.startResult();
 				callback.setDataTrip(11, 21, 50, 60);
 				this.cancel();
 			}

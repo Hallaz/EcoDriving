@@ -1,6 +1,5 @@
 package com.pertamina.tbbm.rewulu.ecodriving.fragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -33,7 +32,6 @@ public class HistoriesFragment extends Fragment {
 	public void setData(List<Tripdata> trip) {
 		// TODO Auto-generated method stub
 		trips = trip;
-		buildData();
 	}
 
 	public void onBackPressed() {
@@ -51,15 +49,6 @@ public class HistoriesFragment extends Fragment {
 			throw new ClassCastException(activity.toString()
 					+ " must implement MainMenuCallback");
 		}
-	}
-
-	private void buildData() {
-		// TODO Auto-generated method stub
-		List<Tripdata> temp = new ArrayList<>();
-		for (Tripdata trip : trips)
-			if (!trip.isRunning())
-				temp.add(trip);
-		trips = temp;
 	}
 
 	@Override
@@ -108,7 +97,7 @@ public class HistoriesFragment extends Fragment {
 									trips.get(position).setSaved(false);
 									TripDataAdapter.updateTrip(getActivity(),
 											trips.get(position));
-									buildData();
+									trips.remove(position);
 									adapter.notifyDataSetChanged();
 								}
 

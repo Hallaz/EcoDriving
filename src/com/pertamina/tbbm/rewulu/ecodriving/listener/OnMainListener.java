@@ -1,6 +1,5 @@
 package com.pertamina.tbbm.rewulu.ecodriving.listener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.widget.ImageView;
@@ -16,7 +15,7 @@ public interface OnMainListener {
 	
 	public void startTrack(Tripdata tripdata);
 
-	public void startResult(ArrayList<Integer> graphDataWaktu);
+	public void startResult();
 
 	public void startResult(Tripdata trip);
 

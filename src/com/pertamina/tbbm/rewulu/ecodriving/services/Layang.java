@@ -15,6 +15,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.controllers.ClientController;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.DataLogAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
+import com.pertamina.tbbm.rewulu.ecodriving.helpers.HistoriesHelper;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnControllerCallback;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnLayangCallback;
 import com.pertamina.tbbm.rewulu.ecodriving.locations.LocationEngine;
@@ -39,6 +40,7 @@ public class Layang extends Service implements OnControllerCallback {
 	private List<DataLog> tempLogs;
 
 	private ClientController clientController;
+	private HistoriesHelper historiesHelper;
 
 	public class MyBinder extends Binder {
 		public Layang getService() {
@@ -85,11 +87,9 @@ public class Layang extends Service implements OnControllerCallback {
 
 	public void release() {
 		clientController.destroy();
-		this.trip = null;
-		logs = new ArrayList<>();
-		unLogged = new ArrayList<>();
-		tempLogs = new ArrayList<>();
+		clearQuery();
 		callback.onStoppingLayang();
+		buildHistory();
 	}
 
 	public void end() {
@@ -153,18 +153,31 @@ public class Layang extends Service implements OnControllerCallback {
 		}
 	}
 
+	private void buildHistory() {
+		// TODO Auto-generated method stub
+		if (historiesHelper == null)
+			historiesHelper = new HistoriesHelper(getApplicationContext());
+		historiesHelper.load();
+	}
+
+	private void clearQuery() {
+		// TODO Auto-generated method stub
+		this.trip = null;
+		tempLogs = new ArrayList<>();
+		logs = new ArrayList<>();
+		unLogged = new ArrayList<>();
+	}
+
 	public void startTrip(Tripdata trip) {
 		if (trip == null) {
 			Loggers.w("Layang - startTrip", "trip == null");
 			return;
 		}
 		clientController.destroy();
+		clearQuery();
 		this.trip = trip;
 		this.trip.setRunning();
 		trip();
-		logs = new ArrayList<>();
-		unLogged = new ArrayList<>();
-		tempLogs = new ArrayList<>();
 		start();
 		callback.requestedStartTrip(trip);
 		callback.onStartingLayang();
@@ -187,12 +200,12 @@ public class Layang extends Service implements OnControllerCallback {
 			Loggers.w("Layang - startResult", "trip == null");
 			return;
 		}
-		this.trip = null;
-		tempLogs = new ArrayList<>();
-		logs = new ArrayList<>();
-		unLogged = new ArrayList<>();
-		callback.requestedStartResult(trip,
-				DataLogAdapter.readAllLogByTrip(getApplicationContext(), trip));
+		List<DataLog> dataLogs = historiesHelper.getLogs(trip);
+		if (dataLogs == null || dataLogs.isEmpty())
+			historiesHelper.load();
+		dataLogs = historiesHelper.getLogs(trip);
+		clearQuery();
+		callback.requestedStartResult(trip, dataLogs);
 	}
 
 	public void setGraphTime_trip(ArrayList<Integer> graph) {
@@ -219,12 +232,17 @@ public class Layang extends Service implements OnControllerCallback {
 		trip.setIncomplete();
 		if (!trip.isAddressEndSet())
 			clientController.requestAddressEnd(logs.get(logs.size() - 1));
-			updateTrip();
+		updateTrip();
 	}
 
 	public void startHistories() {
-		callback.requestedHistories(TripDataAdapter
-				.readAllTrip(getApplicationContext()));
+		if (historiesHelper == null)
+			buildHistory();
+		List<Tripdata> tripss = historiesHelper.getTrips();
+		if (tripss == null || tripss.isEmpty())
+			historiesHelper.load();
+		tripss = historiesHelper.getTrips();
+		callback.requestedHistories(tripss);
 	}
 
 	public Tripdata getTripdata() {

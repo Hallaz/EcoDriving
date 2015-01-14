@@ -193,9 +193,8 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	}
 
 	@Override
-	public void startResult(ArrayList<Integer> graphDataWaktu) {
+	public void startResult() {
 		// TODO Auto-generated method stub
-		layang.setGraphTime_trip(graphDataWaktu);
 		layang.startResult();
 	}
 

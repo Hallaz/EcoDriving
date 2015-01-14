@@ -357,7 +357,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 		switch (id) {
 		case Constant.DIALOG_FINISH_TRACK:
 			if (action) {
-				callback.startResult(graphData);
+				callback.startResult();
 			}
 			break;
 		case Constant.DIALOG_FUEL_REFILL:
