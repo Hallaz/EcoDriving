@@ -4,9 +4,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -29,7 +29,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.UpdateClient;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.UpdateClient.ResponseUpdate;
@@ -294,7 +293,7 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 		return gmail.trim();
 	}
 
-	private class DatePick extends DialogFragment {
+	@SuppressLint("ValidFragment") private class DatePick extends DialogFragment {
 		// private DatePicker datePicker;
 		int year, month, day;
 		private OnPickedDate mCallback;
