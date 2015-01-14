@@ -5,7 +5,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
 public class Api {
 	public final static String API_URL = "http://data.ecodrivingclub.com/api";
 	public final static String INVALID_API_KEY = "Access Denied. Invalid Api key";
-	private final static String TRIP_URL = "http://trip.ecodrivingclub.com";
+	private final static String TRIP_URL = "http://trip.ecodrivingclub.com/";
 
 	private static String generateLink(int user_id, int trip_id, long time) {
 		String l = String.valueOf(time);

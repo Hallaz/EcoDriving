@@ -38,6 +38,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnPickedDate;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.UserData;
+import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
 public class SplashScreenFragment extends Fragment implements OnPickedDate {
@@ -77,6 +78,7 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		Backstack.onSplash();
+		Loggers.i("SplashScreenFragment", "Backstack.onSplash()");
 		View rootView = inflater.inflate(R.layout.fragment_splash_sceen,
 				container, false);
 		fade = (TextView) rootView.findViewById(R.id.textView1);

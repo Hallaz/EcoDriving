@@ -107,7 +107,6 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 				getFragmentManager().beginTransaction()
 						.replace(R.id.container, new SplashScreenFragment())
 						.commit();
-				splashViewed = true;
 			} else {
 				goToMainMenu();
 			}
@@ -152,6 +151,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 			this.user = UserDataSP.get(getApplicationContext());
 		}
 		layang.register(this.user);
+		splashViewed = true;
 		goToMainMenu();
 	}
 
