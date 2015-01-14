@@ -421,7 +421,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	@Override
 	public void onStoppingLayang() {
 		// TODO Auto-generated method stub
-		startService(intentKuli);
+		//startService(intentKuli);
 	}
 
 	@Override

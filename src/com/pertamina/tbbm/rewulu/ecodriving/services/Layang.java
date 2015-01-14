@@ -90,7 +90,7 @@ public class Layang extends Service implements OnControllerCallback {
 		logs = new ArrayList<>();
 		unLogged = new ArrayList<>();
 		tempLogs = new ArrayList<>();
-		callback.onStoppingLayang();	
+		callback.onStoppingLayang();
 	}
 
 	public void end() {
@@ -111,7 +111,7 @@ public class Layang extends Service implements OnControllerCallback {
 				clientController.setInternetAvailable(available);
 			}
 			available();
-			if(!LocationEngine.GPS_ENABLE)
+			if (!LocationEngine.GPS_ENABLE)
 				callback.GPSDisabled();
 		}
 
@@ -257,6 +257,8 @@ public class Layang extends Service implements OnControllerCallback {
 		}
 		Loggers.i("Layang", "trying to register trip");
 		trip.Log("trip");
+		if (callback.getUser() != null)
+			trip.setUser(callback.getUser());
 		clientController.trip(trip);
 	}
 
@@ -306,6 +308,8 @@ public class Layang extends Service implements OnControllerCallback {
 			for (int w = 0; w < unLogged.size(); w++) {
 				Loggers.w("", "tempLogs == null ? " + (tempLogs == null)
 						+ "unLogged == null ? " + (unLogged == null));
+				if (trip != null)
+					unLogged.get(w).setTripdata(trip);
 				tempLogs.add(unLogged.get(w));
 				unLogged.remove(w);
 				if (tempLogs.size() >= 30)
@@ -423,7 +427,7 @@ public class Layang extends Service implements OnControllerCallback {
 		if (result.getRow_id() >= 0) {
 			callback.registerResult(result);
 			newSession = true;
-			if(trip != null)
+			if (trip != null)
 				trip.setUser(result);
 		}
 	}

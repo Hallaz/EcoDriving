@@ -46,7 +46,6 @@ public class ClientController {
 		tripping.cancel(true);
 		updateTrip.cancel(true);
 		logging.cancel(true);
-		deleteTrip.cancel(true);
 		getAddress.cancel(true);
 	}
 
