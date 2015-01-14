@@ -7,10 +7,9 @@
     <color name="divider_grey">#a7a7a7</color>
     <color name="texttheme">#252525</color>
     <color name="text_dashboard">#FFFFFF</color>
-    <color name="text_fuel">#4c4c4d</color>
-    <color name="default_screen_bg">#f9f9f9</color>
+    <color name="text_fuel">#c0c0c0</color>
+	<color name="default_screen_bg">#f9f9f9</color>
     <color name="rounded_container_bg">#222222</color>
     <color name="rounded_container_border">#3b3f44</color>
     <color name="light_gray_header_color">#646663</color>
-
 </resources>
