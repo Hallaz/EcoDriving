@@ -72,7 +72,7 @@ public class ContentsAdapter {
 			return null;
 		Cursor cursor = this.mDb.query(SQLITE_TABLE, new String[] {
 				KEY_CONTENT_ROWID,KEY_CONTENT_JUDUL, KEY_CONTENT_CONTENT, KEY_CONTENT_TYPE, },
-				KEY_CONTENT_TYPE + " = '%" + type.toString() + "%'", null,
+				KEY_CONTENT_TYPE + " = '" + type.toString() + "'", null,
 				null, null, null);
 		if (cursor != null) {
 			cursor.moveToFirst();

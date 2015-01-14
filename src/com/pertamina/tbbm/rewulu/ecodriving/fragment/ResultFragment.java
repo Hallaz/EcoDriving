@@ -457,6 +457,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 				"Bagikan Perjalanan", "Bagikan dengan judul", true, this);
 		if (tripdata.isNamed())
 			userDialog.setTextField(tripdata.getTitle());
+		userDialog.setInputType(InputType.TYPE_TEXT_VARIATION_NORMAL);
 		userDialog.setCustomTextButton("Batal", "Bagikan");
 		userDialog.show(getFragmentManager(), null);
 	}
@@ -465,7 +466,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		// TODO Auto-generated method stub
 		userDialog = new UserInputDialogFragment(USER_ACTION_SAVE_ID,
 				"Simpan Perjalanan", "Masukkan judul", true, this);
-		userDialog.setInputType(InputType.TYPE_CLASS_TEXT);
+		userDialog.setInputType(InputType.TYPE_TEXT_VARIATION_NORMAL);
 		if (tripdata.isNamed())
 			userDialog.setTextField(tripdata.getTitle());
 		userDialog.show(getFragmentManager(), null);
@@ -476,7 +477,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		userDialog = new UserInputDialogFragment(
 				USER_SAVE_BACKPRESSED_INPUT_ID, "Simpan Perjalanan",
 				"Masukkan judul", true, this);
-		userDialog.setInputType(InputType.TYPE_CLASS_TEXT);
+		userDialog.setInputType(InputType.TYPE_TEXT_VARIATION_NORMAL);
 		userDialog.setCustomTextButton("Hapus", "Simpan");
 		userDialog.show(getFragmentManager(), null);
 	}

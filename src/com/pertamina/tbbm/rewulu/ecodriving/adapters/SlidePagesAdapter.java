@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.pertamina.tbbm.rewulu.ecodriving.databases.ContentsAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.SlidePagesFragment;
+import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
 public class SlidePagesAdapter extends FragmentPagerAdapter {
 	private final int PAGES_NUM;
@@ -24,7 +25,8 @@ public class SlidePagesAdapter extends FragmentPagerAdapter {
 		this.data = data;
 		PAGES_NUM = data.size();
 		this.sort();
-
+		Loggers.getInstance("SlidePagesAdapter");
+		Loggers.i("", "data.size()" + data.size());
 	}
 
 	@Override

@@ -286,7 +286,7 @@ public class TripDataAdapter {
 		db.open();
 		long l = db.deleteByLocal_id(data.getLocal_id());
 		db.close();
-		LogDataAdapter.deleteLogByTripId(context, data.getLocal_id());
+		DataLogAdapter.deleteLogByTripId(context, data.getLocal_id());
 		return l;
 	}
 }

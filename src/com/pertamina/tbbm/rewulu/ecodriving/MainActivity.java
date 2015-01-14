@@ -66,7 +66,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
 public class MainActivity extends FragmentActivity implements OnMainListener,
 		OnLayangCallback {
-
+	private static boolean splashViewed;
 	private boolean cdExit;
 	private boolean onPause;
 
@@ -103,11 +103,11 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		if (Utils.TrackingSP.isRunning(getApplicationContext()))
 			Utils.toast(getApplicationContext(), R.string.err_app_killed);
 		if (savedInstanceState == null) {
-			Intent intent = getIntent();
-			if (!intent.getBooleanExtra(ContentsActivity.FLAG, false)) {
+			if (!splashViewed) {
 				getFragmentManager().beginTransaction()
 						.replace(R.id.container, new SplashScreenFragment())
 						.commit();
+				splashViewed = true;
 			} else {
 				goToMainMenu();
 			}
@@ -117,8 +117,8 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-
 		super.onResume();
+		Loggers.w("", "super.onResume()");
 		if (layang == null)
 			bindService(new Intent().setClass(getApplicationContext(),
 					Layang.class), serviceConnection, Context.BIND_AUTO_CREATE);
@@ -129,6 +129,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		Loggers.w("", "onPause");
 		onPause = true;
 	}
 
@@ -136,6 +137,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		Loggers.w("", "onDestroy");
 		layang.destroy();
 		unbindService(serviceConnection);
 		removeNotif();
@@ -307,11 +309,13 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		public void onServiceDisconnected(ComponentName name) {
 			// TODO Auto-generated method stub
 			layang = null;
+			Loggers.w("ServiceConnection - Layang", "onServiceDisconnected");
 		}
 
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			// TODO Auto-generated method stub
+			Loggers.w("ServiceConnection - Layang", "onServiceConnected");
 			layang = ((MyBinder) service).getService();
 			layang.setOnCallback(MainActivity.this);
 		}

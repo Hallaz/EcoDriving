@@ -13,7 +13,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.clients.UserClient;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.LogsClient.ResponseLogs;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient.ResponseData;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.UserClient.ResponseUser;
-import com.pertamina.tbbm.rewulu.ecodriving.databases.LogDataAdapter;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.DataLogAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnControllerCallback;
@@ -263,7 +263,7 @@ public class ClientController {
 		} else if (!available) {
 			for (DataLog log : logs)
 				if (log.getLocal_id() < 0)
-					log.setLocal_id((int) LogDataAdapter
+					log.setLocal_id((int) DataLogAdapter
 							.insertLog(context, log));
 		}
 	}
@@ -290,7 +290,7 @@ public class ClientController {
 				return null;
 			for (DataLog log : lgs)
 				if (log.getLocal_id() < 0)
-					log.setLocal_id((int) LogDataAdapter
+					log.setLocal_id((int) DataLogAdapter
 							.insertLog(context, log));
 			return LogsClient.logging(this.lgs);
 		}

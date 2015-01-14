@@ -31,7 +31,7 @@ public class UserInputDialogFragment extends DialogFragment implements
 	private String textRightButton = null;
 	private boolean singlemode = false;
 	private String textField = null;
-	private int inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_DATETIME_VARIATION_DATE;
+	private int inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER;
 
 	public UserInputDialogFragment(final int id) {
 		// TODO Auto-generated constructor stub
@@ -70,7 +70,7 @@ public class UserInputDialogFragment extends DialogFragment implements
 	}
 
 	public void setInputType(int inputType) {
-		this.inputType = inputType;
+		this.inputType = this.inputType | inputType;
 	}
 
 	public void singleButtonMode(boolean singleMode) {

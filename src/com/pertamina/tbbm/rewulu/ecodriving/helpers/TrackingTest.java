@@ -6,7 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.os.CountDownTimer;
 
-import com.pertamina.tbbm.rewulu.ecodriving.databases.LogDataAdapter;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.DataLogAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
@@ -25,7 +25,7 @@ public class TrackingTest {
 		for(Tripdata tp : trips)
 			if(tp.getLocal_id() == 15)
 				this.trip = tp;
-		logs = LogDataAdapter.readAllLogByTrip(context, trip);
+		logs = DataLogAdapter.readAllLogByTrip(context, trip);
 		Loggers.getInstance("TrackingTest");
 		Loggers.i("", trips.size());
 		//this.bulder();

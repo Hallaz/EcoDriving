@@ -23,7 +23,6 @@ package com.pertamina.tbbm.rewulu.ecodriving;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -43,7 +42,7 @@ public class ContentsActivity extends FragmentActivity implements
 	public static final String FLAG = ContentsActivity.class.getSimpleName();
 	private ViewPager viewPager;
 	private SlidePagesAdapter adapter;
-	/*private boolean onIntro;*/
+	/* private boolean onIntro; */
 	private final String PAGER_POS = "pager_pos";
 	public static final String ON_INTRO = "on_intro";
 	private LinearLayout panel;
@@ -54,40 +53,6 @@ public class ContentsActivity extends FragmentActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		/*super.onCreate(savedInstanceState);
-		getActionBar().hide();
-		setContentView(R.layout.activity_contents);
-		if (savedInstanceState == null) {
-			Bundle extras = getIntent().getExtras();
-			if (extras != null) {
-				onIntro = extras.getBoolean(ON_INTRO);
-			}
-		}
-		panel = (LinearLayout) findViewById(R.id.panel_pages_content);
-		params.setMargins(8, 8, 8, 8);
-		params.weight = 1;
-		onIntro = Utils.FirstStartSP.onFirstStart(getApplicationContext());
-		viewPager = (ViewPager) findViewById(R.id.pager);
-		ArrayList<HashMap<String, String>> data;
-		panel.setVisibility(View.VISIBLE);
-		if (onIntro) {
-			data = ContentsAdapter.readContents(getApplicationContext(),
-					Type.INTRO);
-		} else {
-			data = ContentsAdapter.readContents(getApplicationContext(),
-					Type.GUIDE);
-		}
-		this.pageSize = data.size();
-		adapter = new SlidePagesAdapter(getApplicationContext(),
-				getSupportFragmentManager(), data);
-		viewPager.setAdapter(adapter);
-		initPanel();
-		if (savedInstanceState != null) {
-			viewPager.setCurrentItem(savedInstanceState.getInt(PAGER_POS));
-			onPagePossiton(savedInstanceState.getInt(PAGER_POS));
-		} else
-			onPagePossiton(0);*/
-		
 		super.onCreate(savedInstanceState);
 		getActionBar().hide();
 		setContentView(R.layout.activity_contents);
@@ -97,8 +62,8 @@ public class ContentsActivity extends FragmentActivity implements
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		ArrayList<HashMap<String, String>> data;
 		panel.setVisibility(View.VISIBLE);
-		data = ContentsAdapter.readContents(getApplicationContext(),
-				Type.GUIDE);
+		data = ContentsAdapter
+				.readContents(getApplicationContext(), Type.GUIDE);
 		this.pageSize = data.size();
 		adapter = new SlidePagesAdapter(getApplicationContext(),
 				getSupportFragmentManager(), data);
@@ -121,8 +86,6 @@ public class ContentsActivity extends FragmentActivity implements
 	@Override
 	public void onBackPressed() {
 		if (viewPager.getCurrentItem() == 0) {
-			startActivity(new Intent().setClass(getApplicationContext(),
-					MainActivity.class).putExtra(FLAG, true));
 			this.finish();
 		} else {
 			viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
@@ -163,8 +126,8 @@ public class ContentsActivity extends FragmentActivity implements
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		for(int w = 0 ; w < imgs.size() ; w ++) {
-			if(v.equals(imgs.get(w)))
+		for (int w = 0; w < imgs.size(); w++) {
+			if (v.equals(imgs.get(w)))
 				viewPager.setCurrentItem(w);
 		}
 	}

@@ -14,19 +14,19 @@ import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
-public class LogDataAdapter {
+public class DataLogAdapter {
 
 	private DataBaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
 	private static final String SQLITE_TABLE = "t_datalog";
 	private final Context context;
 
-	private LogDataAdapter(Context context) {
+	private DataLogAdapter(Context context) {
 		this.context = context;
 		this.mDbHelper = new DataBaseHelper(this.context);
 	}
 
-	private LogDataAdapter open() throws SQLException {
+	private DataLogAdapter open() throws SQLException {
 		try {
 			this.mDbHelper.openDataBase();
 			this.mDbHelper.close();
@@ -44,7 +44,7 @@ public class LogDataAdapter {
 		}
 	}
 
-	private LogDataAdapter createDatabase() throws SQLException {
+	private DataLogAdapter createDatabase() throws SQLException {
 		try {
 			this.mDbHelper.createDataBase();
 		} catch (IOException e) {
@@ -141,7 +141,7 @@ public class LogDataAdapter {
 
 	public static ArrayList<DataLog> readAllLogByTrip(Context context) {
 		ArrayList<DataLog> data = new ArrayList<>();
-		LogDataAdapter db = new LogDataAdapter(context);
+		DataLogAdapter db = new DataLogAdapter(context);
 		db.createDatabase();
 		db.open();
 		Cursor cursor;
@@ -181,7 +181,7 @@ public class LogDataAdapter {
 	public static ArrayList<DataLog> readAllLogByTrip(Context context,
 			Tripdata trip) {
 		ArrayList<DataLog> data = new ArrayList<>();
-		LogDataAdapter db = new LogDataAdapter(context);
+		DataLogAdapter db = new DataLogAdapter(context);
 		db.createDatabase();
 		db.open();
 		Cursor cursor;
@@ -220,7 +220,7 @@ public class LogDataAdapter {
 	}
 
 	public static long insertLog(Context context, DataLog data) {
-		LogDataAdapter db = new LogDataAdapter(context);
+		DataLogAdapter db = new DataLogAdapter(context);
 		db.createDatabase();
 		db.open();
 		long l = db.insertLog(data.getRow_id(), data.getTripdata().getLocal_id(),
@@ -232,7 +232,7 @@ public class LogDataAdapter {
 	}
 
 	public static long updateLog(Context context, DataLog data) {
-		LogDataAdapter db = new LogDataAdapter(context);
+		DataLogAdapter db = new DataLogAdapter(context);
 		db.createDatabase();
 		db.open();
 		long l = db.updateLog(data.getLocal_id(), data.getRow_id(),
@@ -245,7 +245,7 @@ public class LogDataAdapter {
 	}
 
 	public static long deleteLogById(Context context, DataLog data) {
-		LogDataAdapter db = new LogDataAdapter(context);
+		DataLogAdapter db = new DataLogAdapter(context);
 		db.createDatabase();
 		db.open();
 		long l = db.deleteByLocal_id(data.getTripdata_id());
@@ -254,7 +254,7 @@ public class LogDataAdapter {
 	}
 
 	public static long deleteLogByTripId(Context context, DataLog data) {
-		LogDataAdapter db = new LogDataAdapter(context);
+		DataLogAdapter db = new DataLogAdapter(context);
 		db.createDatabase();
 		db.open();
 		long l = db.deleteByTripId(data.getTripdata_id());
@@ -263,7 +263,7 @@ public class LogDataAdapter {
 	}
 
 	public static long deleteLogByTripId(Context context, int trip_id) {
-		LogDataAdapter db = new LogDataAdapter(context);
+		DataLogAdapter db = new DataLogAdapter(context);
 		db.createDatabase();
 		db.open();
 		long l = db.deleteByTripId(trip_id);

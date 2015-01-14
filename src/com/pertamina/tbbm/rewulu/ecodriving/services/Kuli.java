@@ -7,7 +7,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.clients.LogsClient;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.LogsClient.ResponseLogs;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient.ResponseData;
-import com.pertamina.tbbm.rewulu.ecodriving.databases.LogDataAdapter;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.DataLogAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
 import com.pertamina.tbbm.rewulu.ecodriving.locations.GeocoderEngine;
@@ -103,7 +103,7 @@ public class Kuli extends IntentService {
 				return null;
 			for (Tripdata trip : trips) {
 				trip.setUser(UserDataSP.get(getApplicationContext()));
-				List<DataLog> logs = LogDataAdapter.readAllLogByTrip(
+				List<DataLog> logs = DataLogAdapter.readAllLogByTrip(
 						getApplicationContext(), trip);
 				if (logs.isEmpty()) {
 					trip.setStatus(Tripdata.STATUS_RUNNING);
@@ -166,7 +166,7 @@ public class Kuli extends IntentService {
 													.getId()) {
 												unLogged.get(w).setRow_id(
 														rs.row_id);
-												LogDataAdapter
+												DataLogAdapter
 														.updateLog(
 																getApplicationContext(),
 																unLogged.get(w));

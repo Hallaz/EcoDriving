@@ -12,7 +12,7 @@ import android.os.IBinder;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.LogsClient.ResponseLogs;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient.ResponseData;
 import com.pertamina.tbbm.rewulu.ecodriving.controllers.ClientController;
-import com.pertamina.tbbm.rewulu.ecodriving.databases.LogDataAdapter;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.DataLogAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnControllerCallback;
@@ -194,7 +194,7 @@ public class Layang extends Service implements OnControllerCallback {
 		logs = new ArrayList<>();
 		unLogged = new ArrayList<>();
 		callback.requestedStartResult(trip,
-				LogDataAdapter.readAllLogByTrip(getApplicationContext(), trip));
+				DataLogAdapter.readAllLogByTrip(getApplicationContext(), trip));
 	}
 
 	public void setGraphTime_trip(ArrayList<Integer> graph) {
@@ -456,7 +456,7 @@ public class Layang extends Service implements OnControllerCallback {
 						if (tempLogs.get(w).getId() == result.logs.get(e).id) {
 							logs.get(tempLogs.get(w).getId()).setRow_id(
 									result.logs.get(e).row_id);
-							LogDataAdapter.updateLog(getApplicationContext(),
+							DataLogAdapter.updateLog(getApplicationContext(),
 									logs.get(tempLogs.get(w).getId()));
 							tempLogs.remove(w);
 							w -= 1;
@@ -473,7 +473,7 @@ public class Layang extends Service implements OnControllerCallback {
 			}
 			for (ResponseLog res : result.logs) {
 				logs.get(res.id).setRow_id(res.row_id);
-				LogDataAdapter.updateLog(getApplicationContext(),
+				DataLogAdapter.updateLog(getApplicationContext(),
 						logs.get(res.id));
 			}
 			if (trip != null && !unLogged.isEmpty()) {

@@ -214,7 +214,6 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		getActivity().startActivity(
 				new Intent().setClass(getActivity(), ContentsActivity.class));
-		getActivity().finish();
 	}
 
 	@Override
