@@ -42,7 +42,6 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
                     android:layout_weight="0.4"
                     android:gravity="center" >
 
@@ -75,13 +74,6 @@
                     </LinearLayout>
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="1dip"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/divider_grey" />
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -94,7 +86,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_weight="0.5"
-                        android:background="@drawable/drop_shadow"
+                        android:background="@drawable/eco_shadow"
                         android:gravity="center"
                         android:padding="2dp" >
 
@@ -119,11 +111,13 @@
 
                             <ImageView
                                 android:id="@+id/ic_distance"
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentTop="true"
                                 android:layout_gravity="center_horizontal"
+                                android:layout_marginBottom="4dp"
+                                android:layout_marginTop="6dp"
                                 android:src="@drawable/ic_dist" />
 
                             <TextView
@@ -140,13 +134,6 @@
                                 android:textSize="12sp" />
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="1dip"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginTop="8dp"
-                            android:background="@color/divider_grey" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -159,7 +146,8 @@
                                 android:layout_height="16dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_gravity="center_horizontal"
-                                android:src="@drawable/ic_av_speed" />
+                                android:layout_marginTop="2dp"
+                                android:src="@drawable/ic_time" />
 
                             <TextView
                                 android:id="@+id/textView_timer"
@@ -173,13 +161,6 @@
                                 android:textSize="12sp" />
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="1dip"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginTop="8dp"
-                            android:background="@color/divider_grey" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -188,10 +169,12 @@
 
                             <ImageView
                                 android:id="@+id/ic_average_speed"
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_gravity="center_horizontal"
+                                android:layout_marginBottom="4dp"
+                                android:layout_marginTop="6dp"
                                 android:src="@drawable/ic_av_speed" />
 
                             <TextView
@@ -250,11 +233,6 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:background="@color/divider_grey" />
 
     <LinearLayout
         android:layout_width="match_parent"

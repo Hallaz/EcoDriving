@@ -114,7 +114,7 @@
                 android:layout_marginRight="8dp"
                 android:dropDownHorizontalOffset="0dip"
                 android:dropDownVerticalOffset="-10dip"
-                android:gravity="center"/>
+                android:gravity="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -126,26 +126,28 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/ic_fuel" />
+                android:src="@drawable/fuel" />
 
             <TextView
                 android:id="@+id/txt_fuel_start"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
-                android:text="0 L" />
+                android:text="0 L"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txt_max_start"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Max 10L" />
+                android:text="Max 10L"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout

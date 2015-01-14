@@ -128,7 +128,7 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 				fuel = 0f;
 				tripdata.setMotor(motors.get(arg2));
 				setFuel();
-				textMaxFuel.setText("Max " + motors.get(arg2).getMax_fuel()
+				textMaxFuel.setText("Maks " + motors.get(arg2).getMax_fuel()
 						+ " L");
 			}
 
