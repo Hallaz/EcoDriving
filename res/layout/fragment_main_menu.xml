@@ -114,8 +114,7 @@
                 android:layout_marginRight="8dp"
                 android:dropDownHorizontalOffset="0dip"
                 android:dropDownVerticalOffset="-10dip"
-                android:gravity="center"
-                android:popupBackground="@android:color/transparent" />
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout

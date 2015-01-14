@@ -274,15 +274,12 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 			fuel_stats.setImageResource(R.drawable.ic_fuel);
 
 		if (!onEco) {
-			if (onRedEco) {
-				eco_stats.setImageResource(R.drawable.ic_stats);
-				onRedEco = false;
-			} else {
-				eco_stats.setImageResource(R.drawable.ic_stats_non);
+			if (!onRedEco) {
+				eco_stats.setImageResource(R.drawable.ic_eco_stat_non);
 				onRedEco = true;
 			}
 		} else if (onRedEco)
-			eco_stats.setImageResource(R.drawable.ic_stats);
+			eco_stats.setImageResource(R.drawable.ic_eco_stat);
 
 	}
 

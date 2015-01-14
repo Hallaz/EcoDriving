@@ -91,6 +91,7 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 				try {
 					count.cancel();
 					interupted();
+					interupted = true;
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -158,7 +159,7 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 		}
 	}
 
-	private CountDownTimer count = new CountDownTimer(5000, 1000) {
+	private CountDownTimer count = new CountDownTimer(3000, 1000) {
 
 		@Override
 		public void onTick(long millisUntilFinished) {
