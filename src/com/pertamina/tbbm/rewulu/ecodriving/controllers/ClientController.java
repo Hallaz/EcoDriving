@@ -117,9 +117,10 @@ public class ClientController {
 				if (!res.error) {
 					params[0].setApi_key(res.api_key);
 					params[0].setRow_id(res.row_id);
+					UserDataSP.put(context, params[0]);
+					return params[0];
 				}
 			}
-			Loggers.w("Registrar", "res.error2 " + res.error);
 			UserDataSP.put(context, params[0]);
 			params[0].setRow_id(-1);
 			return params[0];
@@ -156,8 +157,8 @@ public class ClientController {
 		protected UserData doInBackground(UserData... params) {
 			// TODO Auto-generated method stub
 			ResponseUser res = UserClient.session(params[0]);
-			Loggers.w("Sessions", "res.error " + res.error);
 			if (res != null) {
+				Loggers.w("Sessions", "res.error " + res.error);
 				if (!res.error) {
 					params[0].setApi_key(res.api_key);
 					params[0].setRow_id(res.row_id);
@@ -165,7 +166,6 @@ public class ClientController {
 					return params[0];
 				}
 			}
-			Loggers.w("Sessions", "res.error2 " + res.error);
 			params[0].setRow_id(-1);
 			return params[0];
 
