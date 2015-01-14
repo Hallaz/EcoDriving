@@ -22,6 +22,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.UserData;
+import com.pertamina.tbbm.rewulu.ecodriving.utils.Api;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
 public class ClientController {
@@ -95,7 +96,7 @@ public class ClientController {
 					registrar = new Registrar();
 					registrar.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
 							userdata);
-				} else if(userdata.getRow_id() >= 0)
+				} else if (userdata.getRow_id() >= 0)
 					session(userdata);
 			} else {
 				UserDataSP.put(context, userdata);
@@ -111,12 +112,16 @@ public class ClientController {
 		protected UserData doInBackground(UserData... params) {
 			// TODO Auto-generated method stub
 			ResponseUser res = UserClient.register(params[0]);
-			if (res != null)
+			if (res != null) {
+				Loggers.w("Registrar", "res.error " + res.error);
 				if (!res.error) {
 					params[0].setApi_key(res.api_key);
 					params[0].setRow_id(res.row_id);
 				}
+			}
+			Loggers.w("Registrar", "res.error2 " + res.error);
 			UserDataSP.put(context, params[0]);
+			params[0].setRow_id(-1);
 			return params[0];
 		}
 
@@ -124,7 +129,8 @@ public class ClientController {
 		protected void onPostExecute(UserData result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-			if (callback != null) {
+			Loggers.w("Registrar", "result.getRow_id() " + result.getRow_id());
+			if (callback != null && result.getRow_id() >= 0) {
 				callback.registerResult(result);
 			}
 		}
@@ -150,13 +156,16 @@ public class ClientController {
 		protected UserData doInBackground(UserData... params) {
 			// TODO Auto-generated method stub
 			ResponseUser res = UserClient.session(params[0]);
-			if (res != null)
+			Loggers.w("Sessions", "res.error " + res.error);
+			if (res != null) {
 				if (!res.error) {
 					params[0].setApi_key(res.api_key);
 					params[0].setRow_id(res.row_id);
 					UserDataSP.put(context, params[0]);
 					return params[0];
 				}
+			}
+			Loggers.w("Sessions", "res.error2 " + res.error);
 			params[0].setRow_id(-1);
 			return params[0];
 
@@ -166,6 +175,7 @@ public class ClientController {
 		protected void onPostExecute(UserData result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
+			Loggers.w("Registrar", "result.getRow_id() " + result.getRow_id());
 			if (callback != null && result.getRow_id() >= 0) {
 				callback.registerResult(result);
 			} else {
@@ -187,7 +197,14 @@ public class ClientController {
 
 	private Tripping tripping = new Tripping();
 
-	private class Tripping extends AsyncTask<Tripdata, String, Tripdata> {
+	private class Tripping extends AsyncTask<Tripdata, Boolean, Tripdata> {
+		@Override
+		protected void onProgressUpdate(Boolean... values) {
+			// TODO Auto-generated method stub
+			super.onProgressUpdate(values);
+			if (values[0])
+				callback.requestSession();
+		}
 
 		@Override
 		protected Tripdata doInBackground(Tripdata... params) {
@@ -202,7 +219,8 @@ public class ClientController {
 						params[0].setLocal_id((int) TripDataAdapter.insertTrip(
 								context, params[0]));
 					return params[0];
-				}
+				} else if (res.message.equalsIgnoreCase(Api.INVALID_API_KEY))
+					publishProgress(true);
 			if (params[0].getLocal_id() == -1)
 				params[0].setLocal_id((int) TripDataAdapter.insertTrip(context,
 						params[0]));
@@ -301,7 +319,10 @@ public class ClientController {
 			if (result != null)
 				if (!result.error) {
 					callback.onLoggingResult(result);
+				} else if (result.message.equalsIgnoreCase(Api.INVALID_API_KEY)) {
+					callback.requestSession();
 				}
+
 		}
 	}
 

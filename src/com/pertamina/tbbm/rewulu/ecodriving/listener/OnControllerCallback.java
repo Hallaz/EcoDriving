@@ -25,5 +25,7 @@ public interface OnControllerCallback {
 	void onTripResult(Tripdata result);
 
 	void onEndAddressResult(String result);
-	
+
+	void requestSession();
+
 }

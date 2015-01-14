@@ -71,7 +71,6 @@ public class Layang extends Service implements OnControllerCallback {
 		if (timer.getStatus() != AsyncTask.Status.RUNNING)
 			timer.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 		available = true;
-		newSession = false;
 		if (clientController != null)
 			clientController.destroy();
 		clientController = new ClientController(getApplicationContext(), this);
@@ -243,10 +242,12 @@ public class Layang extends Service implements OnControllerCallback {
 	}
 
 	public void register(UserData userdata) {
+		Loggers.i("register", "UserData.getRow_id() " + userdata.getRow_id());
 		clientController.register(userdata);
 	}
 
 	public void session(UserData userdata) {
+		Loggers.i("session", "UserData.getRow_id() " + userdata.getRow_id());
 		clientController.session(userdata);
 	}
 
@@ -429,7 +430,10 @@ public class Layang extends Service implements OnControllerCallback {
 			newSession = true;
 			if (trip != null)
 				trip.setUser(result);
+			Loggers.i("registerResult", "set trip UserData.getRow_id()"
+					+ result.getRow_id());
 		}
+		Loggers.w("registerResult", "UserData.getRow_id()" + result.getRow_id());
 	}
 
 	@Override
@@ -519,5 +523,11 @@ public class Layang extends Service implements OnControllerCallback {
 		if (!logs.isEmpty())
 			for (DataLog log : logs)
 				log.setTripdata(result);
+	}
+
+	@Override
+	public void requestSession() {
+		// TODO Auto-generated method stub
+		clientController.session(callback.getUser());
 	}
 }
