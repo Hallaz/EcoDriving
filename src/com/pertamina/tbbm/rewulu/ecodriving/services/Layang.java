@@ -313,9 +313,9 @@ public class Layang extends Service implements OnControllerCallback {
 					unLogged.get(w).setTripdata(trip);
 				tempLogs.add(unLogged.get(w));
 				unLogged.remove(w);
+				w -= 1;
 				if (tempLogs.size() >= 30)
 					break;
-				w -= 1;
 			}
 			if (!tempLogs.isEmpty())
 				clientController.logData(tempLogs);

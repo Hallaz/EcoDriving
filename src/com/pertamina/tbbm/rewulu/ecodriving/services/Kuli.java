@@ -14,6 +14,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.locations.GeocoderEngine;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.ResponseLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
+import com.pertamina.tbbm.rewulu.ecodriving.utils.Api;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
@@ -101,6 +102,8 @@ public class Kuli extends IntentService {
 			// TODO Auto-generated method stub
 			if (trips == null)
 				return null;
+			Loggers.getInstance("Kuli");
+			Loggers.i("Builders()", "Trying to build trip size " + trips.size());
 			for (Tripdata trip : trips) {
 				trip.setUser(UserDataSP.get(getApplicationContext()));
 				List<DataLog> logs = DataLogAdapter.readAllLogByTrip(
@@ -111,16 +114,16 @@ public class Kuli extends IntentService {
 					return null;
 				}
 				List<DataLog> unLogged = new ArrayList<>();
+				trip.Log("Kuli - Builders");
+				Loggers.i("", "all log size " + logs.size());
 				for (DataLog log : logs)
 					if (log.getRow_id() < 0) {
 						unLogged.add(log);
 					}
-				int c = 0;
 				boolean net = Utils.isInternetAvailable();
 				Loggers.i("Kuli", "net " + net);
-				//
 				while (net) {
-					trip.Log("Kuli - Builders");
+					Loggers.v("Kuli", "===================================== ");
 					if (!trip.isAddressStartSet()) {
 						Loggers.i("Kuli", "getAddress Start");
 						GeocoderEngine geocoder = new GeocoderEngine(
@@ -130,11 +133,10 @@ public class Kuli extends IntentService {
 						if (addrss != null) {
 							Loggers.i("Kuli", "result getAddress Start"
 									+ addrss);
-							c += 1;
 							trip.setAddrss_start(addrss);
 						}
 					}
-					if (trip.isAddressEndSet()) {
+					if (!trip.isAddressEndSet()) {
 						Loggers.i("Kuli", "getAddress End");
 						GeocoderEngine geocoder = new GeocoderEngine(
 								getApplicationContext());
@@ -143,47 +145,67 @@ public class Kuli extends IntentService {
 										.get(logs.size() - 1).getLongitude());
 						if (addrss != null) {
 							Loggers.i("Kuli", "result getAddress End" + addrss);
-							c += 1;
 							trip.setAddrss_end(addrss);
 						}
 					}
-					if (c == 2) {
+					if (trip.isAddressEndSet() && trip.isAddressStartSet()) {
 						TripDataAdapter.updateTrip(getApplicationContext(),
 								trip);
+						List<DataLog> temp = new ArrayList<>();
 						Loggers.i("Kuli",
 								"trying to logs size " + unLogged.size());
 						while (!unLogged.isEmpty() && net) {
 							Loggers.i("Kuli",
 									"trying to logs size " + unLogged.size());
-							ResponseLogs res = LogsClient.logging(unLogged);
-							if (res != null) {
-								Loggers.i("Kuli", "responselogs size "
-										+ res.logs.size());
-								for (ResponseLog rs : res.logs) {
-									if (!rs.error) {
-										for (int w = 0; w < unLogged.size(); w++) {
-											if (rs.id == unLogged.get(w)
-													.getId()) {
-												unLogged.get(w).setRow_id(
-														rs.row_id);
-												DataLogAdapter
-														.updateLog(
-																getApplicationContext(),
-																unLogged.get(w));
-												unLogged.remove(w);
-												w -= 1;
+							if (temp.size() < 30)
+								for (int w = 0; w < unLogged.size(); w++) {
+									temp.add(unLogged.get(w));
+									unLogged.remove(w);
+									w -= 1;
+									if (temp.size() > 30)
+										break;
+								}
+							Loggers.i(
+									"Kuli",
+									"trying to logs size " + temp.size()
+											+ " from unLogged size "
+											+ unLogged.size());
+							ResponseLogs res = LogsClient.logging(temp);
+							if (res != null)
+								if (res.logs != null) {
+									Loggers.i("Kuli", "responselogs size "
+											+ res.logs.size());
+									for (ResponseLog rs : res.logs) {
+										if (!rs.error) {
+											for (int w = 0; w < temp.size(); w++) {
+												if (rs.id == temp.get(w)
+														.getId()) {
+													temp.get(w).setRow_id(
+															rs.row_id);
+													DataLogAdapter
+															.updateLog(
+																	getApplicationContext(),
+																	temp.get(w));
+													temp.remove(w);
+													w -= 1;
+													break;
+												}
 											}
 										}
 									}
 								}
-							}
 							try {
 								Thread.sleep(10000);
 							} catch (Exception e) {
 								// TODO: handle exception
 							}
 						}
-						break;
+						ResponseData res = TripClient.update(trip);
+						if (res != null) {
+							if (!res.error)
+								break;
+							Loggers.w("TripClient.update(trip)", res.message);
+						}
 					}
 					try {
 						Thread.sleep(5000);
@@ -222,7 +244,7 @@ public class Kuli extends IntentService {
 				return null;
 			for (Tripdata trip : trips) {
 				trip.setUser(UserDataSP.get(getApplicationContext()));
-				if(trip.getRow_id() < 0) {
+				if (trip.getRow_id() < 0) {
 					TripDataAdapter.deleteById(getApplicationContext(), trip);
 					break;
 				}

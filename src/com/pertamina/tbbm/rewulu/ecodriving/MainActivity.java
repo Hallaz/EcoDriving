@@ -242,7 +242,11 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		if (Backstack.isOnMainmenu()) {
 			mainmenuFragment.onBackPressed();
 			appExit();
-		} else
+		} 
+		if(Backstack.isOnSplash()){
+			this.finish();
+		}
+		else
 			goToMainMenu();
 
 	}
@@ -421,7 +425,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	@Override
 	public void onStoppingLayang() {
 		// TODO Auto-generated method stub
-		//startService(intentKuli);
+		startService(intentKuli);
 	}
 
 	@Override
