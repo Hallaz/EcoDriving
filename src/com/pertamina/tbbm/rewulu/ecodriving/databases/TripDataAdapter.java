@@ -62,8 +62,7 @@ public class TripDataAdapter {
 				Tripdata.KEY_TRIP_TIME_START, Tripdata.KEY_TRIP_TOTAL_TIME,
 				Tripdata.KEY_TRIP_ECO_FUEL, Tripdata.KEY_TRIP_NON_ECO_FUEL,
 				Tripdata.KEY_TRIP_ECO_DISTANCE,
-				Tripdata.KEY_TRIP_NON_ECO_DISTANCE,
-				Tripdata.KEY_TRIP_GRAPH_TIME, Tripdata.KEY_TRIP_STATUS,
+				Tripdata.KEY_TRIP_NON_ECO_DISTANCE, Tripdata.KEY_TRIP_STATUS,
 				Tripdata.KEY_TRIP_TITLE, Tripdata.KEY_TRIP_USER_SAVE, }, null,
 				null, null, null, "cast(" + Tripdata.KEY_TRIP_TIME_START
 						+ " as REAL) DESC");
@@ -81,8 +80,7 @@ public class TripDataAdapter {
 				Tripdata.KEY_TRIP_TIME_START, Tripdata.KEY_TRIP_TOTAL_TIME,
 				Tripdata.KEY_TRIP_ECO_FUEL, Tripdata.KEY_TRIP_NON_ECO_FUEL,
 				Tripdata.KEY_TRIP_ECO_DISTANCE,
-				Tripdata.KEY_TRIP_NON_ECO_DISTANCE,
-				Tripdata.KEY_TRIP_GRAPH_TIME, Tripdata.KEY_TRIP_STATUS,
+				Tripdata.KEY_TRIP_NON_ECO_DISTANCE, Tripdata.KEY_TRIP_STATUS,
 				Tripdata.KEY_TRIP_TITLE, Tripdata.KEY_TRIP_USER_SAVE, },
 				Tripdata.KEY_TRIP_LOCAL_ID + " = '" + local_id + "'", null,
 				null, null, null);
@@ -96,7 +94,7 @@ public class TripDataAdapter {
 			String title, String addrss_start, String addrss_end,
 			long time_start, long total_time, double eco_fuel,
 			double non_eco_fuel, double eco_distance, double non_eco_distance,
-			String graph_time, int status) {
+			int status) {
 		Loggers.w("insertTrip", "motor_id" + motor_id);
 		ContentValues cv = new ContentValues();
 		cv.put(Tripdata.KEY_TRIP_ROW_ID, row_id);
@@ -111,7 +109,6 @@ public class TripDataAdapter {
 		cv.put(Tripdata.KEY_TRIP_NON_ECO_FUEL, non_eco_fuel);
 		cv.put(Tripdata.KEY_TRIP_ECO_DISTANCE, eco_distance);
 		cv.put(Tripdata.KEY_TRIP_NON_ECO_DISTANCE, non_eco_distance);
-		cv.put(Tripdata.KEY_TRIP_GRAPH_TIME, graph_time);
 		cv.put(Tripdata.KEY_TRIP_STATUS, status);
 		return this.mDb.insert(SQLITE_TABLE, null, cv);
 	}
@@ -120,7 +117,7 @@ public class TripDataAdapter {
 			int motor_id, String title, String addrss_start, String addrss_end,
 			long time_start, long total_time, double eco_fuel,
 			double non_eco_fuel, double eco_distance, double non_eco_distance,
-			String graph_time, int status, boolean saved) {
+			int status, boolean saved) {
 		Loggers.w("insertTrip", "motor_id" + motor_id);
 		Loggers.w("updateTrip", local_id);
 		ContentValues cv = new ContentValues();
@@ -137,7 +134,6 @@ public class TripDataAdapter {
 		cv.put(Tripdata.KEY_TRIP_NON_ECO_FUEL, non_eco_fuel);
 		cv.put(Tripdata.KEY_TRIP_ECO_DISTANCE, eco_distance);
 		cv.put(Tripdata.KEY_TRIP_NON_ECO_DISTANCE, non_eco_distance);
-		cv.put(Tripdata.KEY_TRIP_GRAPH_TIME, graph_time);
 		cv.put(Tripdata.KEY_TRIP_STATUS, status);
 		cv.put(Tripdata.KEY_TRIP_USER_SAVE, saved);
 		return this.mDb.update(SQLITE_TABLE, cv, Tripdata.KEY_TRIP_LOCAL_ID
@@ -192,8 +188,6 @@ public class TripDataAdapter {
 						.getColumnIndexOrThrow(Tripdata.KEY_TRIP_ECO_DISTANCE)));
 				trip.setNon_eco_distance(cursor.getDouble(cursor
 						.getColumnIndexOrThrow(Tripdata.KEY_TRIP_NON_ECO_DISTANCE)));
-				trip.setGraph_time(cursor.getString(cursor
-						.getColumnIndexOrThrow(Tripdata.KEY_TRIP_GRAPH_TIME)));
 				trip.setStatus(cursor.getInt(cursor
 						.getColumnIndexOrThrow(Tripdata.KEY_TRIP_STATUS)));
 				trip.setSaved(cursor.getInt(cursor
@@ -239,8 +233,6 @@ public class TripDataAdapter {
 					.getColumnIndexOrThrow(Tripdata.KEY_TRIP_ECO_DISTANCE)));
 			trip.setNon_eco_distance(cursor.getDouble(cursor
 					.getColumnIndexOrThrow(Tripdata.KEY_TRIP_NON_ECO_DISTANCE)));
-			trip.setGraph_time(cursor.getString(cursor
-					.getColumnIndexOrThrow(Tripdata.KEY_TRIP_GRAPH_TIME)));
 			trip.setStatus(cursor.getInt(cursor
 					.getColumnIndexOrThrow(Tripdata.KEY_TRIP_STATUS)));
 			trip.setSaved(cursor.getInt(cursor
@@ -259,8 +251,7 @@ public class TripDataAdapter {
 				.getAddrss_start(), data.getAddrss_end(), data.getTime_start(),
 				data.getTotal_time(), data.getEco_fuel(), data
 						.getNon_eco_fuel(), data.getEco_distance(), data
-						.getNon_eco_distance(), data.getGraph_time(), data
-						.getStatus());
+						.getNon_eco_distance(), data.getStatus());
 		db.close();
 		return l;
 	}
@@ -274,8 +265,7 @@ public class TripDataAdapter {
 				data.getTitle(), data.getAddrss_start(), data.getAddrss_end(),
 				data.getTime_start(), data.getTotal_time(), data.getEco_fuel(),
 				data.getNon_eco_fuel(), data.getEco_distance(),
-				data.getNon_eco_distance(), data.getGraph_time(),
-				data.getStatus(), data.isSaved());
+				data.getNon_eco_distance(), data.getStatus(), data.isSaved());
 		db.close();
 		return l;
 	}

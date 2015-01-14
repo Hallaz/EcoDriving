@@ -58,6 +58,7 @@ public class TrackingTest {
 		}
 	};
 
+	@SuppressWarnings("unused")
 	private void bulder() {
 		// TODO Auto-generated method stub
 		List<Lokasi> lokasi = new ArrayList<>();

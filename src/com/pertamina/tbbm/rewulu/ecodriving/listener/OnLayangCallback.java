@@ -2,7 +2,7 @@ package com.pertamina.tbbm.rewulu.ecodriving.listener;
 
 import java.util.List;
 
-import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
+import com.pertamina.tbbm.rewulu.ecodriving.helpers.ResultData;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.UserData;
@@ -14,7 +14,7 @@ public interface OnLayangCallback {
 
 	public void requestedStartTrip(Tripdata trip);
 
-	public void requestedStartResult(Tripdata trip, List<DataLog> logs);
+	public void requestedStartResult(ResultData resultData);
 
 	public void requestedHistories(List<Tripdata> trips);
 

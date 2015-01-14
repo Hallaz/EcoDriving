@@ -20,7 +20,6 @@
 
 package com.pertamina.tbbm.rewulu.ecodriving;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.NotificationManager;
@@ -52,6 +51,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.fragment.MainMenuFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.MainTrackingFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.ResultFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.SplashScreenFragment;
+import com.pertamina.tbbm.rewulu.ecodriving.helpers.ResultData;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnLayangCallback;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
@@ -367,13 +367,13 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	}
 
 	@Override
-	public void requestedStartResult(Tripdata trip, List<DataLog> logs) {
+	public void requestedStartResult(ResultData resultData) {
 		// TODO Auto-generated method stub
 		if (onPause) {
 			return;
 		}
 		resultFragment = new ResultFragment();
-		resultFragment.setData(trip, (ArrayList<DataLog>) logs, this);
+		resultFragment.setData(resultData, this);
 		getFragmentManager().beginTransaction()
 				.replace(R.id.container, resultFragment).commit();
 		removeNotif();
@@ -406,11 +406,6 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 
 	private HistoriesFragment historiesFragment = new HistoriesFragment();
 
-	@Override
-	public void rqstResult(Tripdata trip, List<DataLog> logs) {
-		// TODO Auto-generated method stub
-		requestedStartResult(trip, logs);
-	}
 
 	@Override
 	public void onStartingLayang() {

@@ -10,6 +10,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient.ResponseData;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.DataLogAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
+import com.pertamina.tbbm.rewulu.ecodriving.helpers.ResultData;
 import com.pertamina.tbbm.rewulu.ecodriving.locations.GeocoderEngine;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.ResponseLog;
@@ -147,6 +148,14 @@ public class Kuli extends IntentService {
 							trip.setAddrss_end(addrss);
 						}
 					}
+
+					if (trip.getEco_fuel() < 0) {
+						ResultData result = new ResultData(trip, logs);
+						trip.setEco_fuel(result.getEcoFuel());
+						trip.setNon_eco_fuel(result.getNonEcoFuel());
+						trip.setEco_distance(result.getEcoDistance());
+						trip.setNon_eco_distance(result.getNonEcoDistance());
+					}
 					if (trip.isAddressEndSet() && trip.isAddressStartSet()) {
 						TripDataAdapter.updateTrip(getApplicationContext(),
 								trip);
@@ -251,12 +260,14 @@ public class Kuli extends IntentService {
 				while (net) {
 					ResponseData res = TripClient.delete(trip);
 					if (res != null) {
-						TripDataAdapter.deleteById(getApplicationContext(),
-								trip);
-						break;
+						if (!res.error) {
+							TripDataAdapter.deleteById(getApplicationContext(),
+									trip);
+							break;
+						}
 					}
 					try {
-						Thread.sleep(5000);
+						Thread.sleep(9000);
 					} catch (Exception e) {
 						// TODO: handle exception
 					}

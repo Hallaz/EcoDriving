@@ -4,6 +4,7 @@ import java.io.File;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ public class ImagesManager {
 	private final String PATH;
 	private final String IMAGES_MOTOR_PATH = "/motor/images/";
 	private Context context;
+	private Bitmap defBitmap;
 
 	public ImagesManager(Context context) {
 		// TODO Auto-generated constructor stub
@@ -27,6 +29,14 @@ public class ImagesManager {
 				+ "/Android/data/" + context.getPackageName();
 		this.context = context;
 		checkDir();
+		loadDefauldBitmap();
+	}
+
+	private void loadDefauldBitmap() {
+		// TODO Auto-generated method stub
+		Drawable myDrawable = context.getResources().getDrawable(
+				R.drawable.default_motor);
+		defBitmap = ((BitmapDrawable) myDrawable).getBitmap();
 	}
 
 	private void checkDir() {
@@ -59,9 +69,15 @@ public class ImagesManager {
 		Loggers.getInstance("ImagesManager");
 		Loggers.i("viewInto",
 				"motor " + motor.getSample() + " at " + motor.getImg_sample());
+		if (defBitmap != null)
+			view.setImageBitmap(defBitmap);
+		else {
+			loadDefauldBitmap();
+			viewInto(motor, view);
+		}
 		Picasso.with(context).load(motor.getImg_sample())
-				.error(R.drawable.default_motor).resize(72, 72)
-				.centerCrop().into(new CustomeTarget(view));
+				.error(R.drawable.default_motor).resize(72, 72).centerCrop()
+				.into(new CustomeTarget(view));
 	}
 
 	private class CustomeTarget implements Target {

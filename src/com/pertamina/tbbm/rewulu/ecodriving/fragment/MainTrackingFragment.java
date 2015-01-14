@@ -244,7 +244,6 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 		}
 	}
 
-	// ///HELPER
 	private int getAvgSpeed() {
 		// TODO Auto-generated method stub
 		int val = 0;
@@ -257,7 +256,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 		// TODO Auto-generated method stub
 		if (fuel == 0.0d)
 			return "0.0";
-		return String.format("%.2f", (fuel / 1000d));
+		return String.format("%.2f", fuel);
 	}
 
 	private void checkStats() {
@@ -372,14 +371,13 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 				}
 				double dFuel = 0;
 				try {
-					dFuel = (Double.parseDouble(arg0) * 1000) + fuel;
+					dFuel = Double.parseDouble(arg0) + fuel;
 				} catch (Exception e) {
 					// TODO: handle exception
 					Utils.toast(getActivity(), "Masukkan harus angka !");
 					return;
 				}
-				if (dFuel < 0.5d
-						|| dFuel > (tripdata.getMotor().getMax_fuel() * 1000))
+				if (dFuel < 0.5d || dFuel > (tripdata.getMotor().getMax_fuel()))
 					Utils.toast(getActivity(), R.string.err_data_fuel_false);
 				else {
 					dialog = new UserInputDialogFragment(

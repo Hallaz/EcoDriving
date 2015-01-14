@@ -36,8 +36,6 @@ public interface OnMainListener {
 	public void setDataTrip(double eco_fuel, double non_eco_fuel,
 			double eco_distance, double non_eco_distance);
 	
-	public void rqstResult(Tripdata trip, List<DataLog> logs);
-	
 	public void loadImageTo(Motor motor, ImageView view);
 	
 }
