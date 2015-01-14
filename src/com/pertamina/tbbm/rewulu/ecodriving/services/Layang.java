@@ -175,7 +175,6 @@ public class Layang extends Service implements OnControllerCallback {
 			Loggers.w("Layang -startResult ", "trip == null");
 			return;
 		}
-		trip.setIncomplete();
 		logging();
 		if (!trip.isAddressStartSet())
 			clientController.requestAddressStart(logs.get(0));
@@ -210,10 +209,6 @@ public class Layang extends Service implements OnControllerCallback {
 			Loggers.w("Layang - setDataTrip", "trip == null");
 			return;
 		}
-		if (trip.getEco_fuel() <= 0) {
-			Loggers.w("Layang", "trip.getEco_fuel() >= 0");
-			return;
-		}
 		this.trip.setEco_fuel(eco_fuel);
 		trip.setTotal_time(logs.get(logs.size() - 1).getTime()
 				- logs.get(0).getTime());
@@ -221,7 +216,10 @@ public class Layang extends Service implements OnControllerCallback {
 		trip.setEco_distance(eco_distance);
 		trip.setNon_eco_distance(non_eco_distance);
 		trip.Log("setDataTrip");
-		updateTrip();
+		trip.setIncomplete();
+		if (!trip.isAddressEndSet())
+			clientController.requestAddressEnd(logs.get(logs.size() - 1));
+			updateTrip();
 	}
 
 	public void startHistories() {

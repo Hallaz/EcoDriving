@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnDialogListener;
+import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
 public class UserInputDialogFragment extends DialogFragment implements
 		OnClickListener {
@@ -31,7 +32,11 @@ public class UserInputDialogFragment extends DialogFragment implements
 	private String textRightButton = null;
 	private boolean singlemode = false;
 	private String textField = null;
-	private int inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER;
+	private int inputTypeText = InputType.TYPE_CLASS_TEXT
+			| InputType.TYPE_TEXT_VARIATION_NORMAL;
+	private int inputTypeNumber = InputType.TYPE_CLASS_TEXT
+			| InputType.TYPE_NUMBER_VARIATION_NORMAL;
+	private int inputType = inputTypeNumber;
 
 	public UserInputDialogFragment(final int id) {
 		// TODO Auto-generated constructor stub
@@ -69,8 +74,12 @@ public class UserInputDialogFragment extends DialogFragment implements
 		textField = null;
 	}
 
-	public void setInputType(int inputType) {
-		this.inputType = this.inputType | inputType;
+	public void setInputTypeNumber() {
+		this.inputType = inputTypeNumber;
+	}
+
+	public void setInputTypeText() {
+		this.inputType = inputTypeText;
 	}
 
 	public void singleButtonMode(boolean singleMode) {
@@ -100,6 +109,7 @@ public class UserInputDialogFragment extends DialogFragment implements
 		if (actionInput) {
 			dialog.setContentView(R.layout.user_input_dialog);
 			userInput = (EditText) dialog.findViewById(R.id.editText_dialog);
+			Loggers.i("UserInputDialogFragment", "setInputType" + inputType);
 			userInput.setInputType(inputType);
 			// userInput.setInputType(EditText.)
 			if (textField != null)
@@ -109,6 +119,9 @@ public class UserInputDialogFragment extends DialogFragment implements
 			if (textLeftButton != null)
 				((Button) dialog.findViewById(R.id.btn_dialog_no))
 						.setText(textLeftButton);
+			if (textRightButton != null)
+				((Button) dialog.findViewById(R.id.btn_dialog_ok))
+						.setText(textRightButton);
 		} else {
 			if (singlemode) {
 				dialog.setContentView(R.layout.user_notif_dialog);
@@ -119,10 +132,13 @@ public class UserInputDialogFragment extends DialogFragment implements
 				if (textLeftButton != null)
 					((Button) dialog.findViewById(R.id.btn_dialog_no))
 							.setText(textLeftButton);
+				if (textRightButton != null)
+					((Button) dialog.findViewById(R.id.btn_dialog_ok))
+							.setText(textRightButton);
 			}
 		}
 		((TextView) dialog.findViewById(R.id.text_user_dialog)).setText(text);
-		if (title != null && actionInput)
+		if (title != null && !singlemode)
 			((TextView) dialog.findViewById(R.id.text_user_title))
 					.setText(title);
 		else if (actionInput)

@@ -57,7 +57,7 @@ public class HistoriesFragment extends Fragment {
 		// TODO Auto-generated method stub
 		List<Tripdata> temp = new ArrayList<>();
 		for (Tripdata trip : trips)
-			if (trip.isSaved() && !trip.isRunning())
+			if (!trip.isRunning())
 				temp.add(trip);
 		trips = temp;
 	}
