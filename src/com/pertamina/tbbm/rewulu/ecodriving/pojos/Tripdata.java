@@ -1,8 +1,6 @@
 package com.pertamina.tbbm.rewulu.ecodriving.pojos;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Constant;
@@ -29,7 +27,6 @@ public class Tripdata {
 	private double non_eco_fuel = -1d;
 	private double eco_distance = -1d;
 	private double non_eco_distance = -1d;
-	private String graph_time = "";
 	private int status;
 	private boolean user_save = false;
 	
@@ -52,7 +49,6 @@ public class Tripdata {
 		android.util.Log.i("Tripdata", "non_eco_fuel " + non_eco_fuel);
 		android.util.Log.i("Tripdata", "eco_distance " + eco_distance);
 		android.util.Log.i("Tripdata", "non_eco_distance " + non_eco_distance);
-		android.util.Log.i("Tripdata", "graph_time " + graph_time);
 		android.util.Log.i("Tripdata", "status " + status);
 		android.util.Log.i("Tripdata", "user_save " + user_save);
 	}
@@ -70,7 +66,6 @@ public class Tripdata {
 	public static final String KEY_TRIP_NON_ECO_FUEL = "non_eco_fuel";
 	public static final String KEY_TRIP_ECO_DISTANCE = "eco_distance";
 	public static final String KEY_TRIP_NON_ECO_DISTANCE = "non_eco_distance";
-	public static final String KEY_TRIP_GRAPH_TIME = "graph_time";
 	public static final String KEY_TRIP_STATUS = "status";
 	public static final String KEY_TRIP_USER_SAVE = "user_save";
 
@@ -227,46 +222,6 @@ public class Tripdata {
 	 */
 	public void setLocal_id(int local_id) {
 		this.local_id = local_id;
-	}
-
-	/**
-	 * @return the graph_time
-	 */
-	public String getGraph_time() {
-		return graph_time;
-	}
-
-	public ArrayList<Integer> getArrayGraph_time() {
-		if (!graph_time.isEmpty() && graph_time != null) {
-			ArrayList<Integer> times = new ArrayList<>();
-			String[] graph = graph_time.split("-");
-			for (String sr : graph)
-				times.add(Integer.parseInt(sr));
-			return times;
-		}
-		return null;
-	}
-
-	/**
-	 * @param graph_time
-	 *            the graph_time to set
-	 */
-	public void setGraph_time(String graph_time) {
-		this.graph_time = graph_time;
-	}
-
-	public void setGraph_time(List<Integer> arg0) {
-		if (arg0 == null)
-			return;
-		if (!arg0.isEmpty()) {
-			if (graph_time == null || graph_time.isEmpty()) {
-				graph_time += arg0.get(0).toString();
-				int l = 0;
-				arg0.remove(l);
-			}
-			for (Integer in : arg0)
-				graph_time += ("-" + in);
-		}
 	}
 
 	/**

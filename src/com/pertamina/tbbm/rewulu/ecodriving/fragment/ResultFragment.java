@@ -34,8 +34,6 @@
 
 package com.pertamina.tbbm.rewulu.ecodriving.fragment;
 
-import java.util.ArrayList;
-
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
@@ -64,11 +62,11 @@ import android.widget.TextView;
 import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserInputDialogFragment;
+import com.pertamina.tbbm.rewulu.ecodriving.helpers.ResultData;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnDialogListener;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
-import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
-import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Api;
+import com.pertamina.tbbm.rewulu.ecodriving.utils.Api.Builder;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Constant;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
@@ -80,56 +78,34 @@ public class ResultFragment extends Fragment implements OnClickListener,
 	private static final int USER_ACTION_SHARE_ID = 75864;
 	private static final int USER_ACTION_DELETE_ID = 81346;
 
-	private Tripdata tripdata;
-	private ArrayList<DataLog> dataLogs;
-	private double totalDistance = 0d;
-	private int avSpeed = 0;
-	private double totalTripFuel = 0d;
-	private double remainingFuel = 0d;
-	private double ecoDistance = 0d;
-	private double ecoFuel = 0d;
-	private double vice_ecoFuel = 0d;
-	private double save_ecoFuel = 0d;
-	private double nonEcoDistance = 0d;
-	private double nonEcoFuel = 0d;
-	private double vice_nonEcoFuel = 0d;
-	private double boros_nonEcoFuel = 0d;
+	private ResultData resultData;
+
 	private LinearLayout chartContainer;
 	private LinearLayout leftT, centerT, rightT;
 	private LinearLayout leftB, centerB, rightB;
+
+	private boolean fromTrip;
+
 	// research
-	private ArrayList<Integer> graphDataWaktu;
-	private ArrayList<Integer> graphDataSpeed;
-	private ArrayList<Double> distanceWaktu;
-	private ArrayList<Double> distanceSpeed;
-	private double distancePivot = 1d;
-	private double timePivot = -1;
 	private final String[] graphModel = new String[] {
 			"waktu (detik) - jarak (km)", "kecepatan (km/h) - jarak (km)" };
 	private OnMainListener callback;
 	private UserInputDialogFragment userDialog = new UserInputDialogFragment(
 			USER_SAVE_BACKPRESSED_INPUT_ID);
 
-	public void setData(Tripdata tripdata, ArrayList<DataLog> dataLogs,
-			OnMainListener callback) {
-		Loggers.i("ResultFragment - setData",
-				"dataLogs.size() " + dataLogs.size());
-		this.tripdata = tripdata;
-		this.dataLogs = dataLogs;
-		this.graphDataWaktu = new ArrayList<>();
-		this.graphDataSpeed = new ArrayList<>();
-		this.distanceSpeed = new ArrayList<>();
-		this.distanceWaktu = new ArrayList<>();
-		this.graphDataWaktu.add(0);
-		this.distanceWaktu.add(0d);
+	public void setData(ResultData resultData, OnMainListener callback) {
+		this.resultData = resultData;
 		this.callback = callback;
+		fromTrip = Backstack.isOnMaintracking();
 	}
 
 	public void onBackPressed() {
-		if (!tripdata.isSaved() && userDialog != null) {
+		if (!resultData.getTripdata().isSaved() && userDialog != null)
 			initDialogSaveBackPressed();
-		} else
+		else if (fromTrip)
 			callback.goToMainMenu();
+		else
+			callback.startHistory();
 	}
 
 	@Override
@@ -139,11 +115,12 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		View rootView = inflater.inflate(R.layout.fragment_result_tracking,
 				container, false);
 		Backstack.onResult();
-		initData();
-		Loggers.i("fuel start",
-				Utils.decimalFormater(dataLogs.get(0).getFuel()));
-		Loggers.i("fuel end", Utils.decimalFormater(dataLogs.get(
-				dataLogs.size() - 1).getFuel()));
+		Loggers.i("fuel start", Utils.decimalFormater(resultData.getDataLogs()
+				.get(0).getFuel()));
+		Loggers.i(
+				"fuel end",
+				Utils.decimalFormater(resultData.getDataLogs()
+						.get(resultData.getDataLogs().size() - 1).getFuel()));
 
 		((ImageButton) rootView.findViewById(R.id.btn_share_result))
 				.setOnClickListener(this);
@@ -153,63 +130,89 @@ public class ResultFragment extends Fragment implements OnClickListener,
 				.setOnClickListener(this);
 
 		((TextView) rootView.findViewById(R.id.text_jarak_tempuh_result))
-				.setText(String.format("%.2f", totalDistance) + " km");
-		Loggers.i("totalDistance", Utils.decimalFormater(totalDistance));
+				.setText(String.format("%.2f", resultData.getTotalDistance())
+						+ " km");
+		Loggers.i("totalDistance",
+				Utils.decimalFormater(resultData.getTotalDistance()));
 		((TextView) rootView.findViewById(R.id.text_av_speed_result))
-				.setText(avSpeed + " km/h");
+				.setText(resultData.getAvSpeed() + " km/h");
 		((TextView) rootView.findViewById(R.id.text_konsumsi_bbm_result))
-				.setText(String.format("%.2f", totalTripFuel) + " L");
-		Loggers.i("totalTripFuel", Utils.decimalFormater(totalTripFuel));
+				.setText(String.format("%.2f", resultData.getTotalTripFuel())
+						+ " L");
+		Loggers.i("totalTripFuel",
+				Utils.decimalFormater(resultData.getTotalTripFuel()));
 		((TextView) rootView.findViewById(R.id.text_sisa_bbm_result))
-				.setText(String.format("%.2f", remainingFuel) + " L");
-		Loggers.i("remainingFuel", Utils.decimalFormater(remainingFuel));
+				.setText(String.format("%.2f", resultData.getRemainingFuel())
+						+ " L");
+		Loggers.i("remainingFuel",
+				Utils.decimalFormater(resultData.getRemainingFuel()));
 
 		// ==============================================================
 		// ==============================================================
 
 		((TextView) rootView.findViewById(R.id.text_jarak_tempuh_eco_result))
-				.setText(String.format("%.2f", ecoDistance) + " km");
-		Loggers.i("ecoDistance", Utils.decimalFormater(ecoDistance));
+				.setText(String.format("%.2f", resultData.getEcoDistance())
+						+ " km");
+		Loggers.i("ecoDistance",
+				Utils.decimalFormater(resultData.getEcoDistance()));
 		((TextView) rootView.findViewById(R.id.text_konsumsi_bbm_eco_result))
-				.setText(String.format("%.2f", ecoFuel) + " L");
-		Loggers.i("ecoFuel", Utils.decimalFormater(ecoFuel));
+				.setText(String.format("%.2f", resultData.getEcoFuel()) + " L");
+		Loggers.i("ecoFuel", Utils.decimalFormater(resultData.getEcoFuel()));
 		((TextView) rootView.findViewById(R.id.text_hemat_bbm_result))
-				.setText(String.format("%.2f", save_ecoFuel) + " L");
-		Loggers.i("save_ecoFuel", Utils.decimalFormater(save_ecoFuel));
+				.setText(String.format("%.2f", resultData.getSave_ecoFuel())
+						+ " L");
+		Loggers.i("save_ecoFuel",
+				Utils.decimalFormater(resultData.getSave_ecoFuel()));
 		((TextView) rootView.findViewById(R.id.text_hemat_emisi_result))
 				.setText(String.format("%.2f",
-						(save_ecoFuel * Constant.FAKTOR_EMISI)) + " kgCO2eq");
-		Loggers.i("text_hemat_emisi_result",
-				Utils.decimalFormater(save_ecoFuel * Constant.FAKTOR_EMISI));
+						(resultData.getSave_ecoFuel() * Constant.FAKTOR_EMISI))
+						+ " kgCO2eq");
+		Loggers.i(
+				"text_hemat_emisi_result",
+				Utils.decimalFormater(resultData.getSave_ecoFuel()
+						* Constant.FAKTOR_EMISI));
 		((TextView) rootView
 				.findViewById(R.id.text_konsumsi_bbm_if_non_eco_result))
-				.setText(String.format("%.2f", vice_ecoFuel) + " L");
-		Loggers.i("vice_ecoFuel", Utils.decimalFormater(vice_ecoFuel));
+				.setText(String.format("%.2f", resultData.getVice_ecoFuel())
+						+ " L");
+		Loggers.i("vice_ecoFuel",
+				Utils.decimalFormater(resultData.getVice_ecoFuel()));
 
 		// ==============================================================
 		// ==============================================================
 
-		Loggers.i("nonEcoDistance", Utils.decimalFormater(nonEcoDistance));
+		Loggers.i("nonEcoDistance",
+				Utils.decimalFormater(resultData.getNonEcoDistance()));
 		((TextView) rootView
 				.findViewById(R.id.text_jarak_tempuh_non_eco_result))
-				.setText(String.format("%.2f", nonEcoDistance) + " km");
-		Loggers.i("boros_nonEcoFuel", Utils.decimalFormater(boros_nonEcoFuel));
+				.setText(String.format("%.2f", resultData.getNonEcoDistance())
+						+ " km");
+		Loggers.i("boros_nonEcoFuel",
+				Utils.decimalFormater(resultData.getBoros_nonEcoFuel()));
 		((TextView) rootView.findViewById(R.id.text_boros_bbm_result))
-				.setText(String.format("%.2f", boros_nonEcoFuel) + " L");
-		Loggers.i("text_boros_emisi_result",
-				Utils.decimalFormater(Constant.FAKTOR_EMISI * boros_nonEcoFuel));
+				.setText(String.format("%.2f", resultData.getBoros_nonEcoFuel())
+						+ " L");
+		Loggers.i(
+				"text_boros_emisi_result",
+				Utils.decimalFormater(Constant.FAKTOR_EMISI
+						* resultData.getBoros_nonEcoFuel()));
 		((TextView) rootView.findViewById(R.id.text_boros_emisi_result))
 				.setText(String.format("%.2f",
-						(Constant.FAKTOR_EMISI * boros_nonEcoFuel))
+						(Constant.FAKTOR_EMISI * resultData
+								.getBoros_nonEcoFuel()))
 						+ " kgCO2eq");
-		Loggers.i("vice_nonEcoFuel", Utils.decimalFormater(vice_nonEcoFuel));
+		Loggers.i("vice_nonEcoFuel",
+				Utils.decimalFormater(resultData.getVice_nonEcoFuel()));
 		((TextView) rootView
 				.findViewById(R.id.text_konsumsi_bbm_if_eco_non_eco_result))
-				.setText(String.format("%.2f", vice_nonEcoFuel) + " L");
-		Loggers.i("nonEcoFuel", Utils.decimalFormater(nonEcoFuel));
+				.setText(String.format("%.2f", resultData.getVice_nonEcoFuel())
+						+ " L");
+		Loggers.i("nonEcoFuel",
+				Utils.decimalFormater(resultData.getNonEcoFuel()));
 		((TextView) rootView
 				.findViewById(R.id.text_konsumsi_bbm_non_eco_result))
-				.setText(String.format("%.2f", nonEcoFuel) + " L");
+				.setText(String.format("%.2f", resultData.getNonEcoFuel())
+						+ " L");
 
 		// ==============================================================
 		// ==============================================================
@@ -261,80 +264,11 @@ public class ResultFragment extends Fragment implements OnClickListener,
 			}
 		});
 		drawChart(0);
+		callback.setDataTrip(resultData.getEcoFuel(),
+				resultData.getNonEcoFuel(), resultData.getEcoDistance(),
+				resultData.getNonEcoDistance());
 		return rootView;
 	}
-
-	private void initData() {
-		// TODO Auto-generated method stub
-		double ecoFuelAgeData = tripdata.getMotor().getEco_fuelage();
-		double nonEcoFuelAgeData = tripdata.getMotor().getNon_eco_fuelage();
-		// ==========
-		for (DataLog log : dataLogs) {
-			avSpeed += log.getSpeed();
-			totalDistance += log.getDistance();
-			totalTripFuel += (log.getFuel_age());
-			if (log.getDrive_state()) {
-				ecoDistance += log.getDistance();
-				ecoFuel += (log.getFuel_age());
-			} else {
-				nonEcoDistance += log.getDistance();
-				nonEcoFuel += (log.getFuel_age());
-			}
-
-			int sspeed = log.getSpeed();
-			if (sspeed != 0) {
-				graphDataSpeed.add(sspeed);
-				distanceSpeed.add(totalDistance);
-			}
-
-			if (timePivot < 0)
-				timePivot = log.getTime();
-			else {
-				time += (log.getTime() - timePivot) / 1000;
-				timePivot = log.getTime();
-			}
-			if (totalDistance > distancePivot) {
-				graphDataWaktu.add(time);
-				distanceWaktu.add(totalDistance);
-				distancePivot = totalDistance + 1;
-				time = 0;
-			}
-
-		}
-
-		graphDataWaktu.add(time);
-		distanceWaktu.add(totalDistance);
-		// ecoFuel = Utils.doubleDecimalFormater(ecoFuel);
-		// nonEcoFuel = Utils.doubleDecimalFormater(nonEcoFuel);
-		Loggers.d("ecoFuelAgeData", ecoFuelAgeData);
-		Loggers.d("nonEcoFuelAgeData", nonEcoFuelAgeData);
-		remainingFuel = (dataLogs.get(dataLogs.size() - 1).getFuel());
-		avSpeed = avSpeed / dataLogs.size();
-		vice_ecoFuel = 1 / nonEcoFuelAgeData * ecoDistance;
-		save_ecoFuel = vice_ecoFuel - ecoFuel;
-		vice_nonEcoFuel = 1 / ecoFuelAgeData * nonEcoDistance;
-		boros_nonEcoFuel = nonEcoFuel - vice_nonEcoFuel;
-		totalDistance = ecoDistance + nonEcoDistance;
-		if (callback != null)
-			callback.setDataTrip(ecoFuel, nonEcoFuel, ecoDistance,
-					nonEcoDistance);
-		Loggers.i(
-				"ResultFragment",
-				"ecoFuel "
-						+ ecoFuel
-						+ " nonEcoFuel "
-						+ nonEcoFuel
-						+ " ecoDistance "
-						+ ecoDistance
-						+ " nonEcoDistance "
-						+ nonEcoDistance
-						+ " time "
-						+ Utils.getDurationBreakdown(dataLogs.get(
-								dataLogs.size() - 1).getTime()
-								- dataLogs.get(0).getTime()));
-	}
-
-	private int time = 0;
 
 	private void drawChart(int arg0) {
 		// TODO Auto-generated method stub
@@ -359,8 +293,8 @@ public class ResultFragment extends Fragment implements OnClickListener,
 			tt = graphModel[0].split("-");
 			renderer.setYTitle(tt[0].trim()); // waktu
 			renderer.setXTitle(tt[1]); // jarak
-			for (int w = 0; w < graphDataWaktu.size(); w++) {
-				xySeries.add(w, graphDataWaktu.get(w));
+			for (int w = 0; w < resultData.getGraphDataWaktu().size(); w++) {
+				xySeries.add(w, resultData.getGraphDataWaktu().get(w));
 			}
 			dataset.addSeries(xySeries);
 			renderer.addSeriesRenderer(xySeriesRenderer);
@@ -373,8 +307,9 @@ public class ResultFragment extends Fragment implements OnClickListener,
 			tt = graphModel[1].split("-");
 			renderer.setYTitle(tt[0].trim()); // speed
 			renderer.setXTitle(tt[1]); // jarak
-			for (int w = 0; w < distanceSpeed.size(); w++) {
-				xySeries.add(distanceSpeed.get(w), graphDataSpeed.get(w));
+			for (int w = 0; w < resultData.getDistanceSpeed().size(); w++) {
+				xySeries.add(resultData.getDistanceSpeed().get(w), resultData
+						.getGraphDataSpeed().get(w));
 			}
 			dataset.addSeries(xySeries);
 			dataset.addSeries(getMaxEcoSpeedSeries());
@@ -420,9 +355,9 @@ public class ResultFragment extends Fragment implements OnClickListener,
 	private XYSeries getMaxEcoSpeedSeries() {
 		// TODO Auto-generated method stub
 		XYSeries maxEcoXySeries = new XYSeries("Max Eco Driving Speed");
-		int max = tripdata.getMotor().getMax_speed_eco();
-		for (double w = -Constant.SPEED_TOLERANCE; w < graphDataSpeed.size()
-				+ Constant.SPEED_TOLERANCE; w += 0.2d)
+		int max = resultData.getTripdata().getMotor().getMax_speed_eco();
+		for (double w = -Constant.SPEED_TOLERANCE; w < resultData
+				.getGraphDataSpeed().size() + Constant.SPEED_TOLERANCE; w += 0.2d)
 			maxEcoXySeries.add(w, max);
 		return maxEcoXySeries;
 	}
@@ -454,8 +389,8 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		// TODO Auto-generated method stub
 		userDialog = new UserInputDialogFragment(USER_ACTION_SHARE_ID,
 				"Bagikan Perjalanan", "Bagikan dengan judul", true, this);
-		if (tripdata.isNamed())
-			userDialog.setTextField(tripdata.getTitle());
+		if (resultData.getTripdata().isNamed())
+			userDialog.setTextField(resultData.getTripdata().getTitle());
 		userDialog.setInputTypeText();
 		userDialog.setCustomTextButton("Batal", "Bagikan");
 		userDialog.show(getFragmentManager(), null);
@@ -466,8 +401,8 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		userDialog = new UserInputDialogFragment(USER_ACTION_SAVE_ID,
 				"Simpan Perjalanan", "Masukkan judul", true, this);
 		userDialog.setInputTypeText();
-		if (tripdata.isNamed())
-			userDialog.setTextField(tripdata.getTitle());
+		if (resultData.getTripdata().isNamed())
+			userDialog.setTextField(resultData.getTripdata().getTitle());
 		userDialog.show(getFragmentManager(), null);
 	}
 
@@ -529,12 +464,12 @@ public class ResultFragment extends Fragment implements OnClickListener,
 					Utils.toast(getActivity(), "Kolom masukan harus diisi !");
 					return;
 				}
-				tripdata.setTitle(arg0);
-				tripdata.setSaved(true);
+				resultData.getTripdata().setTitle(arg0);
+				resultData.getTripdata().setSaved(true);
 			} else {
-				tripdata.setSaved(false);
+				resultData.getTripdata().setSaved(false);
 			}
-			TripDataAdapter.updateTrip(getActivity(), tripdata);
+			TripDataAdapter.updateTrip(getActivity(), resultData.getTripdata());
 			callback.goToMainMenu();
 			break;
 
@@ -548,9 +483,10 @@ public class ResultFragment extends Fragment implements OnClickListener,
 					Utils.toast(getActivity(), "Kolom masukan harus diisi !");
 					return;
 				}
-				tripdata.setTitle(arg0);
-				tripdata.setSaved(true);
-				TripDataAdapter.updateTrip(getActivity(), tripdata);
+				resultData.getTripdata().setTitle(arg0);
+				resultData.getTripdata().setSaved(true);
+				TripDataAdapter.updateTrip(getActivity(),
+						resultData.getTripdata());
 			}
 			break;
 		case USER_ACTION_SHARE_ID:
@@ -563,16 +499,18 @@ public class ResultFragment extends Fragment implements OnClickListener,
 					Utils.toast(getActivity(), "Kolom masukan harus diisi !");
 					return;
 				}
-				tripdata.setTitle(arg0);
-				tripdata.setSaved(true);
-				TripDataAdapter.updateTrip(getActivity(), tripdata);
+				resultData.getTripdata().setTitle(arg0);
+				resultData.getTripdata().setSaved(true);
+				TripDataAdapter.updateTrip(getActivity(),
+						resultData.getTripdata());
 				shareTrip();
 			}
 			break;
 		case USER_ACTION_DELETE_ID:
 			if (action) {
-				tripdata.setSaved(false);
-				TripDataAdapter.updateTrip(getActivity(), tripdata);
+				resultData.getTripdata().setSaved(false);
+				TripDataAdapter.updateTrip(getActivity(),
+						resultData.getTripdata());
 				callback.goToMainMenu();
 			}
 			break;
@@ -595,8 +533,14 @@ public class ResultFragment extends Fragment implements OnClickListener,
 
 		// Add data to the intent, the receiving app will decide what to do with
 		// it.
-		intent.putExtra(Intent.EXTRA_SUBJECT, "Bagikan Perjalanan");
-		intent.putExtra(Intent.EXTRA_TEXT, Api.shareFormatter(tripdata));
+		Api api = new Builder().title(resultData.getTripdata().getTitle())
+				.userName(resultData.getTripdata().getUser().getName())
+				.userId(resultData.getTripdata().getUser_id())
+				.tripId(resultData.getTripdata().getRow_id())
+				.time(resultData.getTripdata().getTime_start()).build();
+
+		intent.putExtra(Intent.EXTRA_SUBJECT, api.shareFormatterSubject());
+		intent.putExtra(Intent.EXTRA_TEXT, api.shareFormatterBody());
 		startActivity(Intent.createChooser(intent, "Bagikan via "));
 	}
 }

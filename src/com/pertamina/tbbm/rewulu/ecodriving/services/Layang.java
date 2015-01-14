@@ -16,6 +16,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.databases.DataLogAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.helpers.HistoriesHelper;
+import com.pertamina.tbbm.rewulu.ecodriving.helpers.ResultData;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnControllerCallback;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnLayangCallback;
 import com.pertamina.tbbm.rewulu.ecodriving.locations.LocationEngine;
@@ -192,7 +193,9 @@ public class Layang extends Service implements OnControllerCallback {
 		if (!trip.isAddressStartSet())
 			clientController.requestAddressStart(logs.get(0));
 		clientController.requestAddressEnd(logs.get(logs.size() - 1));
-		callback.requestedStartResult(trip, logs);
+		////============================= its should be loading screen boys
+		ResultData resultdata = new ResultData(trip, logs);
+		callback.requestedStartResult(resultdata);
 	}
 
 	public void startHistoryResult(Tripdata trip) {
@@ -205,15 +208,9 @@ public class Layang extends Service implements OnControllerCallback {
 			historiesHelper.load();
 		dataLogs = historiesHelper.getLogs(trip);
 		clearQuery();
-		callback.requestedStartResult(trip, dataLogs);
-	}
-
-	public void setGraphTime_trip(ArrayList<Integer> graph) {
-		if (this.trip == null) {
-			Loggers.w("Layang - setGraphTime_trip", "trip == null");
-			return;
-		}
-		trip.setGraph_time(graph);
+		////============================= its should be loading screen boys
+		ResultData resultdata = new ResultData(trip, dataLogs);
+		callback.requestedStartResult(resultdata);
 	}
 
 	public void setDataTrip(double eco_fuel, double non_eco_fuel,
