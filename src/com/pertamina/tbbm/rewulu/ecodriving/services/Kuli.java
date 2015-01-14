@@ -14,7 +14,6 @@ import com.pertamina.tbbm.rewulu.ecodriving.locations.GeocoderEngine;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.ResponseLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
-import com.pertamina.tbbm.rewulu.ecodriving.utils.Api;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
