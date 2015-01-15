@@ -264,13 +264,13 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 		if (fuel < warnFuelPivot) {
 			if (onRedFuel) {
 				onRedFuel = false;
-				fuel_stats.setImageResource(R.drawable.btn_refill);
+				fuel_stats.setImageResource(R.drawable.ic_fuel);
 			} else {
 				onRedFuel = true;
 				fuel_stats.setImageResource(R.drawable.ic_fuel_warn);
 			}
 		} else if (onRedFuel)
-			fuel_stats.setImageResource(R.drawable.btn_refill);
+			fuel_stats.setImageResource(R.drawable.ic_fuel);
 
 		if (!onEco) {
 			if (!onRedEco) {

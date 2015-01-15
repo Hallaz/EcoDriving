@@ -6,97 +6,119 @@
     android:orientation="horizontal" >
 
     <LinearLayout
-        android:id="@+id/askjdaksdjkasd"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:background="@drawable/btn_selector"
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/txt_time_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="12dp"
-            android:gravity="center"
-            android:text="6 hours ago"
-            android:textSize="8sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/shfgdghdgh"
-        android:layout_width="wrap_content"
-        android:layout_height="72dp"
-        android:layout_toEndOf="@+id/askjdaksdjkasd"
-        android:layout_toStartOf="@+id/asfasfdasfas"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/txt_title_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Perjalanan pulang"
-            android:textSize="12sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="4dip"
-            android:layout_marginRight="4dip"
-            android:background="?android:attr/dividerVertical" />
+        android:orientation="horizontal"
+        android:weightSum="4" >
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/askjdaksdjkasd"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_margin="2dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/btn_selector"
             android:gravity="center"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/txt_addrss_start_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:id="@+id/txt_time_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
                 android:gravity="center"
-                android:text="Bakung, Deresan, Sleman, Yogyakarta"
-                android:textSize="8sp" />
+                android:text="6 hours ago"
+                android:textColor="#FFFFFF"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-            <ImageView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_weight="1"
-                android:src="@drawable/arrow_right" />
+        <LinearLayout
+            android:id="@+id/shfgdghdgh"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_toEndOf="@+id/askjdaksdjkasd"
+            android:layout_toStartOf="@+id/asfasfdasfas"
+            android:layout_weight="3"
+            android:background="@drawable/drop_shadow"
+            android:gravity="center"
+            android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/txt_addrss_end_list"
+                android:id="@+id/txt_title_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:text="Kalimalang, Ponorogo, Jawa Timur"
-                android:textSize="8sp" />
+                android:padding="10dp"
+                android:text="Perjalanan pulang"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="4dip"
+                android:layout_marginRight="4dip"
+                android:background="?android:attr/dividerVertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/txt_addrss_start_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Bakung, Deresan, Sleman, Yogyakarta"
+                    android:textSize="8sp" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/arrow_right" />
+
+                <TextView
+                    android:id="@+id/txt_addrss_end_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Kalimalang, Ponorogo, Jawa Timur"
+                    android:textSize="8sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/asfasfdasfas"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_alignParentRight="true"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txt_total_time_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
+                android:background="@drawable/drop_shadow"
+                android:gravity="center"
+                android:text=" 7 Jam"
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/asfasfdasfas"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_alignParentRight="true"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/txt_total_time_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="12dp"
-            android:gravity="center"
-            android:text=" 7 Jam"
-            android:textSize="8sp" />
-    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/linearLayout1"
+        android:background="?android:attr/dividerVertical" />
 
 </RelativeLayout>

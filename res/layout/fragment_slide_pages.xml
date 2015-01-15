@@ -8,7 +8,7 @@
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/action_bar"
+        android:background="@drawable/action_bar"
         android:gravity="right"
         android:orientation="horizontal" >
 
