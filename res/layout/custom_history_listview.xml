@@ -17,22 +17,28 @@
             android:id="@+id/askjdaksdjkasd"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:layout_margin="2dp"
-            android:layout_weight="0.5"
-            android:background="@drawable/btn_selector"
+            android:layout_weight="0.67"
             android:gravity="center"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/txt_time_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="12dp"
+            <LinearLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/btn_selector"
                 android:gravity="center"
-                android:text="6 hours ago"
-                android:textColor="#FFFFFF"
-                android:textSize="8sp"
-                android:textStyle="bold" />
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/txt_time_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:gravity="center"
+                    android:text="6 hours ago"
+                    android:textColor="#FFFFFF"
+                    android:textSize="8sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +64,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dip"
-                android:layout_alignParentTop="true"
                 android:layout_marginLeft="4dip"
                 android:layout_marginRight="4dip"
                 android:background="?android:attr/dividerVertical" />
@@ -107,7 +112,7 @@
                 android:id="@+id/txt_total_time_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="12dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/drop_shadow"
                 android:gravity="center"
                 android:text=" 7 Jam"
