@@ -17,7 +17,7 @@
             android:id="@+id/askjdaksdjkasd"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:layout_weight="0.67"
+            android:layout_weight="0.5"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -45,10 +45,7 @@
             android:id="@+id/shfgdghdgh"
             android:layout_width="wrap_content"
             android:layout_height="72dp"
-            android:layout_toEndOf="@+id/askjdaksdjkasd"
-            android:layout_toStartOf="@+id/asfasfdasfas"
             android:layout_weight="3"
-            android:background="@drawable/drop_shadow"
             android:gravity="center"
             android:orientation="vertical" >
 
