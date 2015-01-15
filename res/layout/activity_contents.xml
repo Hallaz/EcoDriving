@@ -8,22 +8,43 @@
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_alignParentTop="true"
         android:background="@drawable/action_bar"
         android:gravity="right"
-        android:layout_alignParentTop="true"
         android:orientation="horizontal" >
 
         <LinearLayout
-            android:layout_width="96dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical" >
+            android:gravity="left"
+            android:padding="1dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_eco_small" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical" >
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:text="PANDUAN ECO DRIVING"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:weightSum="0.5" >
 
             <Button
                 android:id="@+id/btn_slide_end"
@@ -35,11 +56,11 @@
     </LinearLayout>
 
     <android.support.v4.view.ViewPager
-        android:layout_below="@+id/action_bar"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_below="@+id/action_bar" >
     </android.support.v4.view.ViewPager>
 
     <LinearLayout
