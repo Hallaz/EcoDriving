@@ -139,7 +139,7 @@ public class DataLogAdapter {
 				+ trip_id, null);
 	}
 
-	public static ArrayList<DataLog> readAllLogByTrip(Context context) {
+	public static ArrayList<DataLog> readAllLog(Context context) {
 		ArrayList<DataLog> data = new ArrayList<>();
 		DataLogAdapter db = new DataLogAdapter(context);
 		db.createDatabase();
@@ -194,9 +194,7 @@ public class DataLogAdapter {
 				log.setLocal_id(cursor.getInt(cursor
 						.getColumnIndexOrThrow(KEY_LOG_LOCAL_ID)));
 				
-				log.setTripdata(TripDataAdapter.readTripByLocalId(context, cursor
-						.getInt(cursor
-								.getColumnIndexOrThrow(KEY_LOG_TRIPDATA_ID))));
+				log.setTripdata(trip);
 				log.setDistance(cursor.getDouble(cursor
 						.getColumnIndexOrThrow(KEY_LOG_DISTANCE)));
 				log.setDrive_state(cursor.getInt(cursor

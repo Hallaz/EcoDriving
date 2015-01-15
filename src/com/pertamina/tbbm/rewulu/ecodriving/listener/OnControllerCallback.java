@@ -26,6 +26,6 @@ public interface OnControllerCallback {
 
 	void onEndAddressResult(String result);
 
-	void requestSession();
+	void requestNewAPI_KEY();
 
 }

@@ -3,15 +3,19 @@ package com.pertamina.tbbm.rewulu.ecodriving.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.content.Context;
 import android.os.AsyncTask;
 
 import com.pertamina.tbbm.rewulu.ecodriving.clients.LogsClient;
-import com.pertamina.tbbm.rewulu.ecodriving.clients.MotorClient;
-import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient;
-import com.pertamina.tbbm.rewulu.ecodriving.clients.UserClient;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.LogsClient.ResponseLogs;
+import com.pertamina.tbbm.rewulu.ecodriving.clients.MotorClient;
+import com.pertamina.tbbm.rewulu.ecodriving.clients.MotorClient.ResponseMotor;
+import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.TripClient.ResponseData;
+import com.pertamina.tbbm.rewulu.ecodriving.clients.UserClient;
 import com.pertamina.tbbm.rewulu.ecodriving.clients.UserClient.ResponseUser;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.DataLogAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
@@ -62,7 +66,7 @@ public class ClientController {
 					AsyncTask.THREAD_POOL_EXECUTOR, email);
 	}
 
-	private class RetrieveMotor extends AsyncTask<String, String, List<Motor>> {
+	private class RetrieveMotor extends AsyncTask<String, String, Boolean> {
 		private List<Motor> motors = new ArrayList<>();
 
 		public RetrieveMotor() {
@@ -74,18 +78,27 @@ public class ClientController {
 			this.motors = motors;
 		}
 
-		@Override
-		protected List<Motor> doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			return MotorClient.retrieveData(params[0]);
-		}
+		private Callback<ResponseMotor> callbackMotor = new Callback<MotorClient.ResponseMotor>() {
+
+			@Override
+			public void success(ResponseMotor arg0, Response arg1) {
+				// TODO Auto-generated method stub
+				callback.retrievingDataMotors(arg0.motors, motors);
+			}
+
+			@Override
+			public void failure(RetrofitError arg0) {
+				// TODO Auto-generated method stub
+			}
+		};
 
 		@Override
-		protected void onPostExecute(List<Motor> result) {
+		protected Boolean doInBackground(String... params) {
 			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			callback.retrievingDataMotors(result, this.motors);
+			MotorClient.retrieveData(params[0], this.callbackMotor);
+			return true;
 		}
+
 	}
 
 	public void register(UserData userdata) {
@@ -106,34 +119,39 @@ public class ClientController {
 
 	private Registrar registrar = new Registrar();
 
-	private class Registrar extends AsyncTask<UserData, String, UserData> {
+	private class Registrar extends AsyncTask<UserData, String, Boolean> {
+		private UserData user;
+		private Callback<ResponseUser> regcallback = new Callback<UserClient.ResponseUser>() {
 
-		@Override
-		protected UserData doInBackground(UserData... params) {
-			// TODO Auto-generated method stub
-			ResponseUser res = UserClient.register(params[0]);
-			if (res != null) {
-				Loggers.w("Registrar", "res.error " + res.error);
-				if (!res.error) {
-					params[0].setApi_key(res.api_key);
-					params[0].setRow_id(res.row_id);
-					UserDataSP.put(context, params[0]);
-					return params[0];
+			@Override
+			public void success(ResponseUser arg0, Response arg1) {
+				// TODO Auto-generated method stub
+				if (!arg0.error) {
+					user.setApi_key(arg0.api_key);
+					user.setRow_id(arg0.row_id);
+					UserDataSP.put(context, user);
+					callback.registerResult(user);
 				}
 			}
-			UserDataSP.put(context, params[0]);
-			params[0].setRow_id(-1);
-			return params[0];
-		}
+
+			@Override
+			public void failure(RetrofitError arg0) {
+				// TODO Auto-generated method stub
+				if (arg0.getMessage() != null) {
+					Loggers.e("Registrar", "" + arg0.getMessage());
+				} else
+
+					Loggers.e("Registrar", "" + "arg0.getMessage() ERROR");
+
+				UserDataSP.put(context, user);
+			}
+		};
 
 		@Override
-		protected void onPostExecute(UserData result) {
+		protected Boolean doInBackground(UserData... params) {
 			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			Loggers.w("Registrar", "result.getRow_id() " + result.getRow_id());
-			if (callback != null && result.getRow_id() >= 0) {
-				callback.registerResult(result);
-			}
+			UserClient.register(params[0], regcallback);
+			return true;
 		}
 	}
 
@@ -151,36 +169,40 @@ public class ClientController {
 
 	private Sessions sessions = new Sessions();
 
-	private class Sessions extends AsyncTask<UserData, String, UserData> {
+	private class Sessions extends AsyncTask<UserData, String, Boolean> {
+		private UserData user;
+		private Callback<ResponseUser> regcallback = new Callback<UserClient.ResponseUser>() {
 
-		@Override
-		protected UserData doInBackground(UserData... params) {
-			// TODO Auto-generated method stub
-			ResponseUser res = UserClient.session(params[0]);
-			if (res != null) {
-				Loggers.w("Sessions", "res.error " + res.error);
-				if (!res.error) {
-					params[0].setApi_key(res.api_key);
-					params[0].setRow_id(res.row_id);
-					UserDataSP.put(context, params[0]);
-					return params[0];
+			@Override
+			public void success(ResponseUser arg0, Response arg1) {
+				// TODO Auto-generated method stub
+				if (!arg0.error) {
+					user.setApi_key(arg0.api_key);
+					user.setRow_id(arg0.row_id);
+					UserDataSP.put(context, user);
+					callback.registerResult(user);
 				}
 			}
-			params[0].setRow_id(-1);
-			return params[0];
 
-		}
+			@Override
+			public void failure(RetrofitError arg0) {
+				// TODO Auto-generated method stub
+				if (arg0.getMessage() != null) {
+					if (arg0.getMessage().contains(Api.INVALID_API_KEY))
+						callback.requestNewAPI_KEY();
+				} else {
+					user.setRow_id(-1);
+					register(user);
+				}
+			}
+		};
 
 		@Override
-		protected void onPostExecute(UserData result) {
+		protected Boolean doInBackground(UserData... params) {
 			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			Loggers.w("Registrar", "result.getRow_id() " + result.getRow_id());
-			if (callback != null && result.getRow_id() >= 0) {
-				callback.registerResult(result);
-			} else {
-				register(result);
-			}
+			this.user = params[0];
+			UserClient.session(params[0], regcallback);
+			return true;
 		}
 	}
 
@@ -198,43 +220,41 @@ public class ClientController {
 	private Tripping tripping = new Tripping();
 
 	private class Tripping extends AsyncTask<Tripdata, Boolean, Tripdata> {
-		@Override
-		protected void onProgressUpdate(Boolean... values) {
-			// TODO Auto-generated method stub
-			super.onProgressUpdate(values);
-			if (values[0])
-				callback.requestSession();
-		}
+		private Tripdata trip;
+		private Callback<ResponseData> tripcallback = new Callback<TripClient.ResponseData>() {
+
+			@Override
+			public void success(ResponseData arg0, Response arg1) {
+				// TODO Auto-generated method stub
+				trip.setRow_id(arg0.row_id);
+				if (trip.getLocal_id() == -1)
+					trip.setLocal_id((int) TripDataAdapter.insertTrip(context,
+							trip));
+				else
+					TripDataAdapter.updateTrip(context, trip);
+				callback.onTripResult(trip);
+			}
+
+			@Override
+			public void failure(RetrofitError arg0) {
+				// TODO Auto-generated method stub
+				if (arg0.getMessage() != null)
+					if (arg0.getMessage().contains(Api.INVALID_API_KEY)) {
+						callback.requestNewAPI_KEY();
+					}
+				trip.setLocal_id((int) TripDataAdapter
+						.insertTrip(context, trip));
+				callback.onTripResult(trip);
+			}
+		};
 
 		@Override
 		protected Tripdata doInBackground(Tripdata... params) {
 			// TODO Auto-generated method stub
-			ResponseData res = TripClient.trip(params[0]);
-			if (res != null)
-				if (!res.error) {
-					Loggers.getInstance("Tripping");
-					Loggers.w("Tripping", res.row_id);
-					params[0].setRow_id(res.row_id);
-					if (params[0].getLocal_id() == -1)
-						params[0].setLocal_id((int) TripDataAdapter.insertTrip(
-								context, params[0]));
-					return params[0];
-				} else if (res.message.equalsIgnoreCase(Api.INVALID_API_KEY))
-					publishProgress(true);
-			if (params[0].getLocal_id() == -1)
-				params[0].setLocal_id((int) TripDataAdapter.insertTrip(context,
-						params[0]));
-			return params[0];
+			trip = params[0];
+			TripClient.trip(params[0], tripcallback);
+			return null;
 
-		}
-
-		@Override
-		protected void onPostExecute(Tripdata result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			if (callback != null) {
-				callback.onTripResult(result);
-			}
 		}
 	}
 
@@ -253,12 +273,31 @@ public class ClientController {
 	private UpdateTrip updateTrip = new UpdateTrip();
 
 	private class UpdateTrip extends AsyncTask<Tripdata, String, ResponseData> {
+		private Tripdata trip;
+		private Callback<ResponseData> tripcallback = new Callback<TripClient.ResponseData>() {
+
+			@Override
+			public void success(ResponseData arg0, Response arg1) {
+				// TODO Auto-generated method stub
+				TripDataAdapter.updateTrip(context, trip);
+				callback.onUpdateTripResult(arg0);
+			}
+
+			@Override
+			public void failure(RetrofitError arg0) {
+				// TODO Auto-generated method stub
+				TripDataAdapter.updateTrip(context, trip);
+				callback.onUpdateTripResult(null);
+			}
+		};
 
 		@Override
 		protected ResponseData doInBackground(Tripdata... params) {
 			// TODO Auto-generated method stub
+			this.trip = params[0];
 			TripDataAdapter.updateTrip(context, params[0]);
-			return TripClient.update(params[0]);
+			TripClient.update(params[0], tripcallback);
+			return null;
 		}
 
 		@Override
@@ -289,6 +328,23 @@ public class ClientController {
 
 	private class Logging extends AsyncTask<DataLog, String, ResponseLogs> {
 		private List<DataLog> lgs;
+		private Callback<ResponseLogs> logsCallback = new Callback<LogsClient.ResponseLogs>() {
+
+			@Override
+			public void success(ResponseLogs arg0, Response arg1) {
+				// TODO Auto-generated method stub
+				callback.onLoggingResult(arg0);
+			}
+
+			@Override
+			public void failure(RetrofitError arg0) {
+				// TODO Auto-generated method stub
+				if (arg0.getMessage() != null)
+					if (arg0.getMessage().contains(Api.INVALID_API_KEY)) {
+						callback.requestNewAPI_KEY();
+					}
+			}
+		};
 
 		public Logging() {
 			// TODO Auto-generated constructor stub
@@ -309,20 +365,8 @@ public class ClientController {
 				if (log.getLocal_id() < 0)
 					log.setLocal_id((int) DataLogAdapter
 							.insertLog(context, log));
-			return LogsClient.logging(this.lgs);
-		}
-
-		@Override
-		protected void onPostExecute(ResponseLogs result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			if (result != null)
-				if (!result.error) {
-					callback.onLoggingResult(result);
-				} else if (result.message.equalsIgnoreCase(Api.INVALID_API_KEY)) {
-					callback.requestSession();
-				}
-
+			LogsClient.logging(this.lgs, logsCallback);
+			return null;
 		}
 	}
 
@@ -339,28 +383,34 @@ public class ClientController {
 	private DeleteTrip deleteTrip = new DeleteTrip();
 
 	private class DeleteTrip extends AsyncTask<Tripdata, String, Tripdata> {
+		private Tripdata trip;
+		private Callback<ResponseData> delCallback = new Callback<TripClient.ResponseData>() {
+
+			@Override
+			public void success(ResponseData arg0, Response arg1) {
+				// TODO Auto-generated method stub
+				TripDataAdapter.deleteById(context, trip);
+				trip.setRow_id(-1);
+				callback.onDeletedTrip(trip);
+			}
+
+			@Override
+			public void failure(RetrofitError arg0) {
+				// TODO Auto-generated method stub
+				if (arg0.getMessage() != null)
+					if (arg0.getMessage().contains(Api.INVALID_API_KEY))
+						callback.requestNewAPI_KEY();
+				callback.onDeletedTrip(null);
+			}
+		};
 
 		@Override
 		protected Tripdata doInBackground(Tripdata... params) {
 			// TODO Auto-generated method stub
-			ResponseData res = TripClient.delete(params[0]);
-			TripDataAdapter.deleteById(context, params[0]);
-			if (res != null)
-				if (!res.error) {
-					params[0].setRow_id(-1);
-				}
-			return params[0];
+			trip = params[0];
+			TripClient.delete(params[0], delCallback);
+			return null;
 		}
-
-		@Override
-		protected void onPostExecute(Tripdata result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			if (result != null) {
-				callback.onDeletedTrip(result);
-			}
-		}
-
 	}
 
 	public void requestAddressStart(DataLog log) {

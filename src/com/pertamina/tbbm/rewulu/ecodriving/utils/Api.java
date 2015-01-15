@@ -1,10 +1,10 @@
 package com.pertamina.tbbm.rewulu.ecodriving.utils;
 
-
 public class Api {
 	public final static String API_URL = "http://data.ecodrivingclub.com/api";
 	public final static String INVALID_API_KEY = "Access Denied. Invalid Api key";
 	private final static String TRIP_URL = "http://trip.ecodrivingclub.com/";
+	public final static String ERROR_UPDATE = "Oops! An error occurred while updating";
 
 	private String generateLink() {
 		String l = String.valueOf(time);
@@ -45,7 +45,7 @@ public class Api {
 
 	public static class Builder {
 		private String user_name = "";
-		private String title= "";
+		private String title = "";
 		private int user_id;
 		private int trip_id;
 		private long time;

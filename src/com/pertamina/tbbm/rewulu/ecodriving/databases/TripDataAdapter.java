@@ -160,7 +160,7 @@ public class TripDataAdapter {
 						.getColumnIndexOrThrow(Tripdata.KEY_TRIP_ROW_ID)));
 				trip.setLocal_id(cursor.getInt(cursor
 						.getColumnIndexOrThrow(Tripdata.KEY_TRIP_LOCAL_ID)));
-				trip.setUser(UserDataSP.get(context));
+				trip.setUser(UserDataSP.get(context), "readAllTrip");
 				trip.setTitle(cursor.getString(cursor
 						.getColumnIndexOrThrow(Tripdata.KEY_TRIP_TITLE)));
 				Loggers.w(
@@ -211,7 +211,7 @@ public class TripDataAdapter {
 					.getColumnIndexOrThrow(Tripdata.KEY_TRIP_ROW_ID)));
 			trip.setLocal_id(cursor.getInt(cursor
 					.getColumnIndexOrThrow(Tripdata.KEY_TRIP_LOCAL_ID)));
-			trip.setUser(UserDataSP.get(context));
+			trip.setUser(UserDataSP.get(context), "readTripByLocalId " + local_id);
 			trip.setTitle(cursor.getString(cursor
 					.getColumnIndexOrThrow(Tripdata.KEY_TRIP_TITLE)));
 			trip.setMotor(MotorDataAdapter.readMotorByLocalId(context, cursor

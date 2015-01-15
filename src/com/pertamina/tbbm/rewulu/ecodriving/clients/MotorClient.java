@@ -2,6 +2,7 @@ package com.pertamina.tbbm.rewulu.ecodriving.clients;
 
 import java.util.List;
 
+import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -12,34 +13,30 @@ import com.pertamina.tbbm.rewulu.ecodriving.utils.Error.MyErrorHandler;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
 public class MotorClient {
-	
-	private static class ResponseMotor{
-		private boolean error;
-		private String message;
-		private List<Motor> motors;
+
+	public static class ResponseMotor {
+		public boolean error = true;
+		public String message = "";
+		public List<Motor> motors;
 	}
-	
+
 	interface MotorCallback {
 		@GET("/askmotor/:{email}")
-		public ResponseMotor getMotors(@Path("email") String email);
+		public void getMotors(@Path("email") String email,
+				Callback<ResponseMotor> c);
 	}
-	
-	public static List<Motor> retrieveData(final String email) {
+
+	public static void retrieveData(final String email,
+			Callback<ResponseMotor> c) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 				.setEndpoint(Api.API_URL).setErrorHandler(new MyErrorHandler())
-                .setLogLevel(RestAdapter.LogLevel.FULL)
-				.build();
+				.setLogLevel(RestAdapter.LogLevel.FULL).build();
 		MotorCallback motorList = restAdapter.create(MotorCallback.class);
 		try {
-			ResponseMotor motor = motorList.getMotors(email);
-			if(!motor.error)
-				return motor.motors;
-			else 
-				Loggers.w("MotorClient", motor.message);;
+			motorList.getMotors(email, c);
 		} catch (Exception e) {
 			// TODO: handle exception
 			Loggers.e("MotorClient ", e.toString());
 		}
-		return null;
 	}
 }

@@ -193,7 +193,7 @@ public class Layang extends Service implements OnControllerCallback {
 		if (!trip.isAddressStartSet())
 			clientController.requestAddressStart(logs.get(0));
 		clientController.requestAddressEnd(logs.get(logs.size() - 1));
-		////============================= its should be loading screen boys
+		// //============================= its should be loading screen boys
 		ResultData resultdata = new ResultData(trip, logs);
 		callback.requestedStartResult(resultdata);
 	}
@@ -208,7 +208,7 @@ public class Layang extends Service implements OnControllerCallback {
 			historiesHelper.load();
 		dataLogs = historiesHelper.getLogs(trip);
 		clearQuery();
-		////============================= its should be loading screen boys
+		// //============================= its should be loading screen boys
 		ResultData resultdata = new ResultData(trip, dataLogs);
 		callback.requestedStartResult(resultdata);
 	}
@@ -272,7 +272,7 @@ public class Layang extends Service implements OnControllerCallback {
 		Loggers.i("Layang", "trying to register trip");
 		trip.Log("trip");
 		if (callback.getUser() != null)
-			trip.setUser(callback.getUser());
+			trip.setUser(callback.getUser(), "trip");
 		clientController.trip(trip);
 	}
 
@@ -305,6 +305,8 @@ public class Layang extends Service implements OnControllerCallback {
 				" receive log, unLogged size now " + unLogged.size()
 						+ " and trip id now " + trip.getRow_id());
 		if (trip.getRow_id() < 0) {
+			if (trip.getUser() == null)
+				trip.setUser(callback.getUser(), "logData");
 			clientController.trip(trip);
 		} else if (unLogged.size() > 25) {
 			logging();
@@ -442,7 +444,7 @@ public class Layang extends Service implements OnControllerCallback {
 			callback.registerResult(result);
 			newSession = true;
 			if (trip != null)
-				trip.setUser(result);
+				trip.setUser(result, "registerResult");
 			Loggers.i("registerResult", "set trip UserData.getRow_id()"
 					+ result.getRow_id());
 		}
@@ -539,8 +541,9 @@ public class Layang extends Service implements OnControllerCallback {
 	}
 
 	@Override
-	public void requestSession() {
+	public void requestNewAPI_KEY() {
 		// TODO Auto-generated method stub
-		clientController.session(callback.getUser());
+		Loggers.w("Layang", "requestSession()");
+		clientController.register(callback.getUser());
 	}
 }

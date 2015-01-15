@@ -48,7 +48,7 @@ public class DataLog {
 		android.util.Log.i("DataLog", "id " + id);
 		android.util.Log.i("DataLog", "row_id " + row_id);
 		android.util.Log.i("DataLog", "local_id " + local_id);
-		android.util.Log.i("DataLog", "tripdata " + (tripdata == null));
+		android.util.Log.i("DataLog", "tripdata null " + (tripdata == null));
 		android.util.Log.i("DataLog", "tripdata_id " + tripdata_id);
 		android.util.Log.i("DataLog", "drive_state " + drive_state);
 		android.util.Log.i("DataLog", "speed " + speed);

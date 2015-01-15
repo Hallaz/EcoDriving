@@ -4,6 +4,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
@@ -121,6 +125,32 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 				callback.setDataMotor(values[0]);
 		}
 
+		private Callback<ResponseUpdate> motorCallback = new Callback<UpdateClient.ResponseUpdate>() {
+
+			@Override
+			public void success(ResponseUpdate arg0, Response arg1) {
+				// TODO Auto-generated method stub
+				if (!arg0.error) {
+					String date = MotorDataAdapter
+							.getLastdStringDate(getActivity());
+					if (!date.trim().equals(arg0.created_at.trim())) {
+						callback.upDateMotor(email);
+					}
+				}
+
+				interupted();
+				interupted = true;
+			}
+
+			@Override
+			public void failure(RetrofitError arg0) {
+				// TODO Auto-generated method stub
+				interupted();
+				interupted = true;
+			}
+
+		};
+
 		@SuppressWarnings("unchecked")
 		@Override
 		protected Boolean doInBackground(String... params) {
@@ -130,20 +160,8 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 			publishProgress(motors);
 			if (!Utils.isInternetAvailable())
 				return true;
-			String date = MotorDataAdapter.getLastdStringDate(getActivity());
-			ResponseUpdate lastUpdate = UpdateClient.update(params[0]);
-			return date.trim().equals(lastUpdate.created_at.trim());
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			if (!result && callback != null) {
-				callback.upDateMotor(email);
-			}
-			interupted();
-			interupted = true;
+			UpdateClient.update(params[0], motorCallback);
+			return true;
 		}
 	}
 
@@ -282,7 +300,8 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 		return gmail.trim();
 	}
 
-	@SuppressLint("ValidFragment") private class DatePick extends DialogFragment {
+	@SuppressLint("ValidFragment")
+	private class DatePick extends DialogFragment {
 		// private DatePicker datePicker;
 		int year, month, day;
 		private OnPickedDate mCallback;

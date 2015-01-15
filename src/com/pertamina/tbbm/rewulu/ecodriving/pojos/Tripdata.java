@@ -29,15 +29,15 @@ public class Tripdata {
 	private double non_eco_distance = -1d;
 	private int status;
 	private boolean user_save = false;
-	
+
 	public void Log(String from) {
 		if (!Loggers.LOG)
 			return;
 		android.util.Log.i("Tripdata", "LOGGING FROM " + from);
 		android.util.Log.i("Tripdata", "row_id " + row_id);
 		android.util.Log.i("Tripdata", "local_id " + local_id);
-		android.util.Log.i("Tripdata", "user " + (user == null));
-		android.util.Log.i("Tripdata", "motor " + (motor == null));
+		android.util.Log.i("Tripdata", "user null" + (user == null));
+		android.util.Log.i("Tripdata", "motor null " + (motor == null));
 		android.util.Log.i("Tripdata", "title " + title);
 		android.util.Log.i("Tripdata", "fuel " + fuel);
 		android.util.Log.i("Tripdata", "end_fuel " + end_fuel);
@@ -205,7 +205,9 @@ public class Tripdata {
 	 * @param user
 	 *            the user to set
 	 */
-	public void setUser(UserData user) {
+	public void setUser(UserData user, String instance) {
+		Loggers.getInstance(instance);
+		Loggers.w("setUser", "user.getRow_id() " + user.getRow_id());
 		this.user = user;
 	}
 
@@ -376,12 +378,13 @@ public class Tripdata {
 	}
 
 	/**
-	 * @param deleted the deleted to set
+	 * @param deleted
+	 *            the deleted to set
 	 */
 	public void setSaved(boolean saved) {
 		this.user_save = saved;
 	}
-	
+
 	public boolean isNamed() {
 		return !title.equals(Constant.TITLE_UNKNOWN);
 	}

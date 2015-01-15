@@ -1,8 +1,8 @@
 package com.pertamina.tbbm.rewulu.ecodriving.pojos;
 
 public class ResponseLog {
-	public boolean error;
-	public String message;
+	public boolean error = true;
+	public String message = "";
 	public int id;
 	public int row_id;
 

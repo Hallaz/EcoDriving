@@ -2,6 +2,7 @@ package com.pertamina.tbbm.rewulu.ecodriving.clients;
 
 import java.util.Map;
 
+import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.FieldMap;
 import retrofit.http.FormUrlEncoded;
@@ -16,11 +17,10 @@ import com.pertamina.tbbm.rewulu.ecodriving.utils.Error.MyErrorHandler;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
 public class UserClient {
-	// $name, $email, $addrss, $city, $dob, $phone_model, $os
 
 	public static class ResponseUser {
-		public boolean error;
-		public String message;
+		public boolean error = true;
+		public String message = "";
 		public int row_id = -1;
 		public String api_key;
 	}
@@ -28,43 +28,42 @@ public class UserClient {
 	private interface RegisterCallback {
 		@FormUrlEncoded
 		@POST("/reg")
-		public ResponseUser register(@FieldMap Map<String, String> field);
+		public void register(@FieldMap Map<String, String> field,
+				Callback<ResponseUser> c);
 	}
 
 	private interface SessionCallback {
 		@FormUrlEncoded
 		@PUT("/session/:{id}")
-		public ResponseUser session(@Path("id") int id,
+		public void session(@Path("id") int id,
 				@Header("Authorization") String api_key,
-				@FieldMap Map<String, String> field);
+				@FieldMap Map<String, String> field, Callback<ResponseUser> c);
 	}
 
-	public static ResponseUser register(UserData userdata) {
+	public static void register(UserData userdata, Callback<ResponseUser> c) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 				.setEndpoint(Api.API_URL).setErrorHandler(new MyErrorHandler())
 				.setLogLevel(RestAdapter.LogLevel.FULL).build();
 		RegisterCallback callback = restAdapter.create(RegisterCallback.class);
 		try {
-			return callback.register(userdata.getParameterMap());
+			callback.register(userdata.getParameterMap(),c);
 		} catch (Exception e) {
 			// TODO: handle exception
 			Loggers.e("RegisterClient", "" + e.toString());
 		}
-		return null;
 	}
 
-	public static ResponseUser session(UserData userdata) {
+	public static void session(UserData userdata, Callback<ResponseUser> c) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 				.setEndpoint(Api.API_URL).setErrorHandler(new MyErrorHandler())
 				.setLogLevel(RestAdapter.LogLevel.FULL).build();
 		SessionCallback callback = restAdapter.create(SessionCallback.class);
 		try {
-			return callback.session(userdata.getRow_id(),
-					userdata.getApi_key(), userdata.getParameterMap());
+			callback.session(userdata.getRow_id(),
+					userdata.getApi_key(), userdata.getParameterMap(), c);
 		} catch (Exception e) {
 			// TODO: handle exception
 			Loggers.e("SessionClient", "" + e.toString());
 		}
-		return null;
 	}
 }

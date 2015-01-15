@@ -181,7 +181,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		// TODO Auto-generated method stub
 		if (onPause)
 			return;
-		tripdata.setUser(user);
+		tripdata.setUser(user, "startTrack");
 		layang.startTrip(tripdata);
 		notif();
 	}
