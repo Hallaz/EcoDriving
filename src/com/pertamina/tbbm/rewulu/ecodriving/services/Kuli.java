@@ -44,7 +44,7 @@ public class Kuli extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		Loggers.i("Kuli", "START");
-		// runTask();
+		runTask();
 	}
 
 	@Override
