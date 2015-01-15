@@ -29,6 +29,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -50,12 +51,16 @@ public class ContentsActivity extends FragmentActivity implements
 			new LayoutParams(LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT));
 	private int pageSize;
+	private Button btn_end;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getActionBar().hide();
 		setContentView(R.layout.activity_contents);
+		btn_end = (Button) findViewById(R.id.btn_slide_end);
+		btn_end.setVisibility(View.GONE);
+		btn_end.setOnClickListener(this);
 		panel = (LinearLayout) findViewById(R.id.panel_pages_content);
 		params.setMargins(8, 8, 8, 8);
 		params.weight = 1;
@@ -120,15 +125,22 @@ public class ContentsActivity extends FragmentActivity implements
 				imgs.get(w).setImageResource(R.drawable.panel_indicator_full);
 			} else
 				imgs.get(w).setImageResource(R.drawable.panel_indicator);
+			if (arg0 == imgs.size() - 1) {
+				btn_end.setVisibility(View.VISIBLE);
+			} else
+				btn_end.setVisibility(View.GONE);
 		}
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		for (int w = 0; w < imgs.size(); w++) {
-			if (v.equals(imgs.get(w)))
-				viewPager.setCurrentItem(w);
-		}
+		if (v.equals(btn_end)) {
+			this.finish();
+		} else
+			for (int w = 0; w < imgs.size(); w++) {
+				if (v.equals(imgs.get(w)))
+					viewPager.setCurrentItem(w);
+			}
 	}
 }

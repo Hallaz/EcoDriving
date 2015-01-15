@@ -56,10 +56,7 @@ public class SlidePagesAdapter extends FragmentPagerAdapter {
 	public Fragment getItem(int arg0) {
 		// TODO Auto-generated method stub
 		SlidePagesFragment fm = new SlidePagesFragment();
-		boolean req = false;
-		if (arg0 == data.size() - 1)
-			req = true;
-		fm.setContent(data.get(arg0), req, arg0);
+		fm.setContent(data.get(arg0), arg0);
 		return fm;
 	}
 

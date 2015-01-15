@@ -309,6 +309,7 @@ public class Kuli extends IntentService {
 							tripRequested = true;
 						}
 					}
+					
 					if (!logsRequested && !unLogged.isEmpty()) {
 						tripsToBuild.get(pivot).setUser(user, "Builder2");
 						List<DataLog> temp = new ArrayList<>();

@@ -5,25 +5,19 @@ import java.util.HashMap;
 import junit.framework.Assert;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pertamina.tbbm.rewulu.ecodriving.ContentsActivity;
-import com.pertamina.tbbm.rewulu.ecodriving.MainActivity;
 import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.ContentsAdapter;
-import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
 public class SlidePagesFragment extends Fragment {
 	private HashMap<String, String> data;
-	private boolean requestBackButton;
 	private int pageIndex;
 	private onSlidePagesChange onSlidePagesChange;
 
@@ -44,11 +38,10 @@ public class SlidePagesFragment extends Fragment {
 	}
 
 	public void setContent(HashMap<String, String> data,
-			boolean requestBackButton, int paggeIndex) {
+			 int paggeIndex) {
 		// TODO Auto-generated method stub
 		this.pageIndex = paggeIndex;
 		this.data = data;
-		this.requestBackButton = requestBackButton;
 	}
 
 	@Override
@@ -70,24 +63,6 @@ public class SlidePagesFragment extends Fragment {
 		((ImageView) rootView.findViewById(R.id.slide_context_imgview))
 				.setImageResource(getDrawable(getActivity(),
 						data.get(ContentsAdapter.KEY_CONTENT_CONTENT)));
-
-		Button btn = (Button) rootView.findViewById(R.id.btn_slide_start);
-		if (requestBackButton) {
-			btn.setVisibility(View.VISIBLE);
-			btn.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					startActivity(new Intent().setClass(getActivity(),
-							MainActivity.class).putExtra(ContentsActivity.FLAG, true));
-					Utils.FirstStartSP.setFirstStart(getActivity());
-					getActivity().finish();
-				}
-			});
-		} else {
-			btn.setVisibility(View.GONE);
-		}
 		return rootView;
 	}
 
