@@ -9,6 +9,7 @@ import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Path;
 
+import com.pertamina.tbbm.rewulu.ecodriving.adapters.LogsConverter;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.ResponseLog;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Api;

@@ -1,4 +1,4 @@
-package com.pertamina.tbbm.rewulu.ecodriving.clients;
+package com.pertamina.tbbm.rewulu.ecodriving.adapters;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

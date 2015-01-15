@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
+import retrofit.RetrofitError.Kind;
 import retrofit.client.Response;
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -145,6 +146,10 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 			@Override
 			public void failure(RetrofitError arg0) {
 				// TODO Auto-generated method stub
+				Loggers.e("UpdateClient.update", "failure "
+						+ arg0.getKind().toString());
+				Loggers.e("UpdateClient.update",
+						"failure " + (arg0.getKind().equals(Kind.NETWORK)));
 				interupted();
 				interupted = true;
 			}
@@ -248,6 +253,7 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 		user.setEmail(getGmail());
 		user.setOs(getOs());
 		user.setPhone_model(getDeviceName().trim());
+		UserDataSP.put(getActivity(), user);
 		if (callback != null)
 			callback.startApp(user);
 	}

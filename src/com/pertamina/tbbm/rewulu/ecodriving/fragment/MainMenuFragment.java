@@ -171,7 +171,7 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		});
 		textFuel = (TextView) rootView.findViewById(R.id.txt_fuel_start);
 		textMaxFuel = (TextView) rootView.findViewById(R.id.txt_max_start);
-		if(!LocationEngine.GPS_ENABLE) {
+		if (!LocationEngine.GPS_ENABLE) {
 			btn_start.setClickable(false);
 		}
 		return rootView;
@@ -238,12 +238,13 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		if (locationEngine != null)
 			locationEngine.onDestroy();
 	}
-	
+
 	public void setAvailable(boolean available) {
-		if(LocationEngine.GPS_ENABLE) {
-			if (!available)
-				btn_start.setClickable(false);
-			else
+		if (LocationEngine.GPS_ENABLE) {
+			if (!available) {
+				if (btn_start != null)
+					btn_start.setClickable(false);
+			} else if (btn_start != null)
 				btn_start.setClickable(true);
 		}
 	}

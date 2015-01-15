@@ -104,13 +104,11 @@ public class ClientController {
 	public void register(UserData userdata) {
 		if (userdata != null) {
 			if (available) {
-				if (userdata.getRow_id() < 0
-						&& registrar.getStatus() != AsyncTask.Status.RUNNING) {
+				if (registrar.getStatus() != AsyncTask.Status.RUNNING) {
 					registrar = new Registrar();
 					registrar.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
 							userdata);
-				} else if (userdata.getRow_id() >= 0)
-					session(userdata);
+				} 
 			} else {
 				UserDataSP.put(context, userdata);
 			}
@@ -150,6 +148,7 @@ public class ClientController {
 		@Override
 		protected Boolean doInBackground(UserData... params) {
 			// TODO Auto-generated method stub
+			this.user = params[0];
 			UserClient.register(params[0], regcallback);
 			return true;
 		}
@@ -238,10 +237,12 @@ public class ClientController {
 			@Override
 			public void failure(RetrofitError arg0) {
 				// TODO Auto-generated method stub
-				if (arg0.getMessage() != null)
+				if (arg0.getMessage() != null) {
+					Loggers.e("Tripping", "arg0.getMessage() " + arg0.getMessage());
 					if (arg0.getMessage().contains(Api.INVALID_API_KEY)) {
 						callback.requestNewAPI_KEY();
 					}
+				}
 				trip.setLocal_id((int) TripDataAdapter
 						.insertTrip(context, trip));
 				callback.onTripResult(trip);

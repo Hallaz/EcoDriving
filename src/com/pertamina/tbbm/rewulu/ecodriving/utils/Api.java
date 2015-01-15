@@ -2,7 +2,7 @@ package com.pertamina.tbbm.rewulu.ecodriving.utils;
 
 public class Api {
 	public final static String API_URL = "http://data.ecodrivingclub.com/api";
-	public final static String INVALID_API_KEY = "Access Denied. Invalid Api key";
+	public final static String INVALID_API_KEY = "401 Unauthorized";
 	private final static String TRIP_URL = "http://trip.ecodrivingclub.com/";
 	public final static String ERROR_UPDATE = "Oops! An error occurred while updating";
 
