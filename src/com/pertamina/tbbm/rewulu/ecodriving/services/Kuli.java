@@ -153,6 +153,7 @@ public class Kuli extends IntentService {
 				if (arg0.getMessage() != null)
 					if (arg0.getMessage().contains(Api.INVALID_API_KEY)) {
 						requestUpdateAPI_KEY = true;
+						tripRequested = false;
 						return;
 					}
 				if (arg0.getKind().equals(Kind.HTTP)) {
@@ -163,6 +164,7 @@ public class Kuli extends IntentService {
 					tripRequested = false;
 					report();
 				}
+				tripRequested = false;
 			}
 		};
 
@@ -207,7 +209,7 @@ public class Kuli extends IntentService {
 				if (arg0.getMessage() != null)
 					if (arg0.getMessage().contains(Api.INVALID_API_KEY)) {
 						requestUpdateAPI_KEY = true;
-						return;
+						tripRequested = false;
 					}
 				tripRequested = false;
 			}
@@ -296,6 +298,10 @@ public class Kuli extends IntentService {
 									result.getNonEcoDistance());
 						} else if (tripsToBuild.get(pivot).isAddressEndSet()
 								&& tripsToBuild.get(pivot).isAddressStartSet()) {
+
+							Loggers.i("Kuli",
+									"trying to update trip size ");
+							tripsToBuild.get(pivot).Log("Kuli");
 							TripDataAdapter.updateTrip(getApplicationContext(),
 									tripsToBuild.get(pivot));
 							TripClient.update(tripsToBuild.get(pivot),
@@ -303,7 +309,7 @@ public class Kuli extends IntentService {
 							tripRequested = true;
 						}
 					}
-					if (!logsRequested) {
+					if (!logsRequested && !unLogged.isEmpty()) {
 						tripsToBuild.get(pivot).setUser(user, "Builder2");
 						List<DataLog> temp = new ArrayList<>();
 						Loggers.i("Kuli",

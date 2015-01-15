@@ -391,7 +391,6 @@ public class ClientController {
 			public void success(ResponseData arg0, Response arg1) {
 				// TODO Auto-generated method stub
 				TripDataAdapter.deleteById(context, trip);
-				trip.setRow_id(-1);
 				callback.onDeletedTrip(trip);
 			}
 
