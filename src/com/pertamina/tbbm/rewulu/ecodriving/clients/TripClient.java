@@ -14,7 +14,6 @@ import retrofit.http.Path;
 
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Api;
-import com.pertamina.tbbm.rewulu.ecodriving.utils.Error.MyErrorHandler;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
 public class TripClient {
@@ -53,7 +52,7 @@ public class TripClient {
 
 	public static void trip(Tripdata tripdata, Callback<ResponseData> c) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-				.setEndpoint(Api.API_URL).setErrorHandler(new MyErrorHandler())
+				.setEndpoint(Api.API_URL)
 				.setLogLevel(RestAdapter.LogLevel.FULL).build();
 		TripdataCallback callback = restAdapter.create(TripdataCallback.class);
 		Loggers.i("TripClient", "@POST");
@@ -68,7 +67,7 @@ public class TripClient {
 
 	public static void update(Tripdata tripdata, Callback<ResponseData> c) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-				.setEndpoint(Api.API_URL).setErrorHandler(new MyErrorHandler())
+				.setEndpoint(Api.API_URL)
 				.setLogLevel(RestAdapter.LogLevel.FULL).build();
 		UpdateCallback callback = restAdapter.create(UpdateCallback.class);
 		Loggers.i("TripClient", "@PUT");
@@ -84,7 +83,7 @@ public class TripClient {
 
 	public static void delete(Tripdata tripdata, Callback<ResponseData> c) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-				.setEndpoint(Api.API_URL).setErrorHandler(new MyErrorHandler())
+				.setEndpoint(Api.API_URL)
 				.setLogLevel(RestAdapter.LogLevel.FULL).build();
 		deleteCallback callback = restAdapter.create(deleteCallback.class);
 		Loggers.i("TripClient", "@DELETE");

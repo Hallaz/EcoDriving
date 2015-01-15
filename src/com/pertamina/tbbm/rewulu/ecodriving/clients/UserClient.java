@@ -13,7 +13,6 @@ import retrofit.http.Path;
 
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.UserData;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Api;
-import com.pertamina.tbbm.rewulu.ecodriving.utils.Error.MyErrorHandler;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
 public class UserClient {
@@ -42,7 +41,7 @@ public class UserClient {
 
 	public static void register(UserData userdata, Callback<ResponseUser> c) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-				.setEndpoint(Api.API_URL).setErrorHandler(new MyErrorHandler())
+				.setEndpoint(Api.API_URL)
 				.setLogLevel(RestAdapter.LogLevel.FULL).build();
 		RegisterCallback callback = restAdapter.create(RegisterCallback.class);
 		try {
@@ -55,7 +54,7 @@ public class UserClient {
 
 	public static void session(UserData userdata, Callback<ResponseUser> c) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-				.setEndpoint(Api.API_URL).setErrorHandler(new MyErrorHandler())
+				.setEndpoint(Api.API_URL)
 				.setLogLevel(RestAdapter.LogLevel.FULL).build();
 		SessionCallback callback = restAdapter.create(SessionCallback.class);
 		try {

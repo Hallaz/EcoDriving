@@ -104,11 +104,12 @@ public class ClientController {
 	public void register(UserData userdata) {
 		if (userdata != null) {
 			if (available) {
-				if (registrar.getStatus() != AsyncTask.Status.RUNNING) {
+				if (registrar.getStatus() == AsyncTask.Status.FINISHED
+						|| registrar.getStatus() == AsyncTask.Status.PENDING) {
 					registrar = new Registrar();
 					registrar.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
 							userdata);
-				} 
+				}
 			} else {
 				UserDataSP.put(context, userdata);
 			}
@@ -159,8 +160,10 @@ public class ClientController {
 			register(userdata);
 			return;
 		}
-		if (userdata != null && available
-				&& sessions.getStatus() != AsyncTask.Status.RUNNING) {
+		if (userdata != null
+				&& available
+				&& (sessions.getStatus() == AsyncTask.Status.FINISHED || sessions
+						.getStatus() == AsyncTask.Status.PENDING)) {
 			sessions = new Sessions();
 			sessions.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, userdata);
 		}
@@ -189,9 +192,6 @@ public class ClientController {
 				if (arg0.getMessage() != null) {
 					if (arg0.getMessage().contains(Api.INVALID_API_KEY))
 						callback.requestNewAPI_KEY();
-				} else {
-					user.setRow_id(-1);
-					register(user);
 				}
 			}
 		};
@@ -238,13 +238,15 @@ public class ClientController {
 			public void failure(RetrofitError arg0) {
 				// TODO Auto-generated method stub
 				if (arg0.getMessage() != null) {
-					Loggers.e("Tripping", "arg0.getMessage() " + arg0.getMessage());
+					Loggers.e("Tripping",
+							"arg0.getMessage() " + arg0.getMessage());
 					if (arg0.getMessage().contains(Api.INVALID_API_KEY)) {
 						callback.requestNewAPI_KEY();
 					}
 				}
-				trip.setLocal_id((int) TripDataAdapter
-						.insertTrip(context, trip));
+				if (trip.getLocal_id() < 0)
+					trip.setLocal_id((int) TripDataAdapter.insertTrip(context,
+							trip));
 				callback.onTripResult(trip);
 			}
 		};

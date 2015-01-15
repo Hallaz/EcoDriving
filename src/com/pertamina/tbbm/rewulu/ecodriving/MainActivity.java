@@ -121,6 +121,10 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		if (layang == null)
 			bindService(new Intent().setClass(getApplicationContext(),
 					Layang.class), serviceConnection, Context.BIND_AUTO_CREATE);
+		if(layang != null && user == null) {
+			user = UserDataSP.get(getApplicationContext());
+			layang.session(user);
+		}
 		onPause = false;
 	}
 
@@ -181,6 +185,11 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		// TODO Auto-generated method stub
 		if (onPause)
 			return;
+		if(user == null) {
+			user = UserDataSP.get(getApplicationContext());
+			if(layang != null)
+				layang.session(user);
+		}
 		tripdata.setUser(user, "startTrack");
 		layang.startTrip(tripdata);
 		notif();
@@ -405,7 +414,6 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	}
 
 	private HistoriesFragment historiesFragment = new HistoriesFragment();
-
 
 	@Override
 	public void onStartingLayang() {

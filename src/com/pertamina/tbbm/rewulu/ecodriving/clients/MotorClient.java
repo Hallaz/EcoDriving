@@ -9,7 +9,6 @@ import retrofit.http.Path;
 
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Api;
-import com.pertamina.tbbm.rewulu.ecodriving.utils.Error.MyErrorHandler;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
 public class MotorClient {
@@ -29,7 +28,7 @@ public class MotorClient {
 	public static void retrieveData(final String email,
 			Callback<ResponseMotor> c) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-				.setEndpoint(Api.API_URL).setErrorHandler(new MyErrorHandler())
+				.setEndpoint(Api.API_URL)
 				.setLogLevel(RestAdapter.LogLevel.FULL).build();
 		MotorCallback motorList = restAdapter.create(MotorCallback.class);
 		try {

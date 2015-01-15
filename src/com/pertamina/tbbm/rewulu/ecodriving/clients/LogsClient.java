@@ -13,7 +13,6 @@ import com.pertamina.tbbm.rewulu.ecodriving.adapters.LogsConverter;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.ResponseLog;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Api;
-import com.pertamina.tbbm.rewulu.ecodriving.utils.Error.MyErrorHandler;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
 public class LogsClient {
@@ -34,7 +33,7 @@ public class LogsClient {
 	public static void logging(List<DataLog> logs,
 			Callback<ResponseLogs> c) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-				.setEndpoint(Api.API_URL).setErrorHandler(new MyErrorHandler())
+				.setEndpoint(Api.API_URL)
 				.setConverter(new LogsConverter())
 				.setLogLevel(RestAdapter.LogLevel.FULL).build();
 		LogCallback callback = restAdapter.create(LogCallback.class);

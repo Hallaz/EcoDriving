@@ -6,7 +6,6 @@ import retrofit.http.GET;
 import retrofit.http.Path;
 
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Api;
-import com.pertamina.tbbm.rewulu.ecodriving.utils.Error.MyErrorHandler;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
 public class UpdateClient {
@@ -26,7 +25,7 @@ public class UpdateClient {
 	public static void update(final String email,
 			Callback<ResponseUpdate> c) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-				.setEndpoint(Api.API_URL).setErrorHandler(new MyErrorHandler())
+				.setEndpoint(Api.API_URL)
 				.setLogLevel(RestAdapter.LogLevel.FULL).build();
 		UpdateCallback motorList = restAdapter.create(UpdateCallback.class);
 		try {
