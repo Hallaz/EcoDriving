@@ -34,17 +34,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center|left"
+                android:gravity="center"
                 android:text="PANDUAN ECO DRIVING"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="48dp"
+            android:layout_width="36dp"
             android:layout_height="match_parent"
+            android:layout_weight="0.04"
             android:gravity="center|right"
-            android:weightSum="0.5" >
+            android:weightSum="0.7" >
 
             <Button
                 android:id="@+id/btn_slide_end"

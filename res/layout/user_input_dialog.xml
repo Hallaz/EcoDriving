@@ -13,7 +13,7 @@
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="25dp" >
+        android:paddingTop="16dp" >
 
         <LinearLayout
             android:id="@+id/lin_user_title"
@@ -24,7 +24,7 @@
 
             <TextView
                 android:id="@+id/text_user_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="TextView"
@@ -44,34 +44,41 @@
 
         <TextView
             android:id="@+id/text_user_dialog"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="TextView"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/editText_dialog"
-            android:layout_width="128dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:inputType="number|numberDecimal" >
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
 
-            <requestFocus />
-        </EditText>
+            <EditText
+                android:id="@+id/editText_dialog"
+                android:layout_width="128dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:inputType="number|numberDecimal" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_marginLeft="4dip"
+            android:layout_marginRight="4dip"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/dividerVertical" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="25dp" >
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="4dip"
-                android:layout_marginRight="4dip"
-                android:background="?android:attr/dividerVertical" />
+            android:layout_marginTop="4dp" >
 
             <View
                 android:id="@+id/ViewColorPickerHelper"
@@ -91,9 +98,12 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_toLeftOf="@id/ViewColorPickerHelper"
-                android:background="?android:attr/selectableItemBackground"
-                android:text="@string/action_no" />
+                android:background="@drawable/btn_login"
+                android:text="@string/action_no"
+                android:textColor="@color/text_dashboard" />
 
             <Button
                 android:id="@+id/btn_dialog_ok"
@@ -102,9 +112,12 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_toRightOf="@id/ViewColorPickerHelper"
-                android:background="?android:attr/selectableItemBackground"
-                android:text="@string/action_ok" />
+                android:background="@drawable/btn_login"
+                android:text="@string/action_ok"
+                android:textColor="@color/text_dashboard" />
         </RelativeLayout>
     </LinearLayout>
 

@@ -41,12 +41,11 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="@drawable/btn_login"
                 android:text="@string/action_ok"
+                android:textColor="@color/text_dashboard"
                 android:textStyle="bold" />
-
         </RelativeLayout>
-
     </LinearLayout>
 
 </LinearLayout>

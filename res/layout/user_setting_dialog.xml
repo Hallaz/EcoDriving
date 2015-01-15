@@ -22,9 +22,9 @@
 
         <CheckBox
             android:id="@+id/checkBoxVib"
-            android:layout_marginTop="16dp"
             android:layout_width="94dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Getar" />
 
         <CheckBox
@@ -66,8 +66,9 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:background="?android:attr/selectableItemBackground"
-                android:text="@string/action_ok" />
+                android:background="@drawable/btn_login"
+                android:text="@string/action_ok"
+                android:textColor="@color/text_dashboard" />
         </RelativeLayout>
     </LinearLayout>
 
