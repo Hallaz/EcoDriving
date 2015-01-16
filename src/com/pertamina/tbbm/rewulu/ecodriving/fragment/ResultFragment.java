@@ -503,7 +503,11 @@ public class ResultFragment extends Fragment implements OnClickListener,
 				resultData.getTripdata().setSaved(true);
 				TripDataAdapter.updateTrip(getActivity(),
 						resultData.getTripdata());
-				shareTrip();
+				if (resultData.getTripdata().getRow_id() >= 0)
+					shareTrip();
+				else
+					Utils.toast(getActivity(),
+							"Tidak bisa berbagi perjalanan, tidak terdapat koneksi internet");
 			}
 			break;
 		case USER_ACTION_DELETE_ID:
@@ -536,8 +540,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		Api api = new Builder().title(resultData.getTripdata().getTitle())
 				.userName(resultData.getTripdata().getUser().getName())
 				.userId(resultData.getTripdata().getUser_id())
-				.tripId(resultData.getTripdata().getRow_id())
-				.time(resultData.getTripdata().getTime_start()).build();
+				.tripId(resultData.getTripdata().getRow_id()).build();
 
 		intent.putExtra(Intent.EXTRA_SUBJECT, api.shareFormatterSubject());
 		intent.putExtra(Intent.EXTRA_TEXT, api.shareFormatterBody());
@@ -547,6 +550,6 @@ public class ResultFragment extends Fragment implements OnClickListener,
 	@Override
 	public void onDismiss(int id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

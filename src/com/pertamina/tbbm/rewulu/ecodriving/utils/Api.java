@@ -6,41 +6,57 @@ public class Api {
 	private final static String TRIP_URL = "http://trip.ecodrivingclub.com/";
 	public final static String ERROR_UPDATE = "Oops! An error occurred while updating";
 
+	private final String[] TABLE_URI = new String[] { "t", "v", "8", "f", "b",
+			"a", "z", "7", "p", "9" };
+
 	private String generateLink() {
-		String l = String.valueOf(time);
-		String nl = String.copyValueOf(l.toCharArray(), 0, l.length() / 2);
-		return TRIP_URL + user_id
-				+ new String(new char[] { randChar(), randChar() }) + trip_id
-				+ new String(new char[] { randChar(), randChar() }) + nl;
+		Integer[] user = getRow(user_id);
+		Integer[] trip = getRow(trip_id);
+		String link = new String();
+		for (int w = 0; w < user.length; w++)
+			link += TABLE_URI[user[w]];
+		link += "e";
+		for (int w = 0; w < trip.length; w++)
+			link += TABLE_URI[trip[w]];
+		link += "/t?=";
+		String[] t = title.split("\\s+");
+		String tile = new String();
+		for (int w = 0; w < t.length; w++) {
+			if (w == 0)
+				tile = t[w];
+			else
+				tile += "_" + t[w];
+		}
+		return TRIP_URL + link.trim() + tile.trim();
+	}
+
+	private Integer[] getRow(int raw) {
+		String t = Integer.toString(raw);
+		Integer[] row = new Integer[t.length()];
+		for (int w = 0; w < t.length(); w++)
+			row[w] = t.charAt(w) - '0';
+		return row;
 	}
 
 	private String user_name;
 	private String title;
 	private int user_id;
 	private int trip_id;
-	private long time;
 
 	public Api(Builder builder) {
 		// TODO Auto-generated constructor stub
 		this.user_name = builder.user_name;
-		this.time = builder.time;
 		this.title = builder.title;
 		this.trip_id = builder.trip_id;
 		this.user_id = builder.user_id;
 	}
 
 	public String shareFormatterBody() {
-		return title + ". Perjalanan via " + generateLink();
+		return '"' + title + '"' + ". Perjalanan via " + generateLink();
 	}
 
 	public String shareFormatterSubject() {
 		return user_name + " membagi perjalanan ";
-	}
-
-	private static char randChar() {
-		int rnd = (int) (Math.random() * 52);
-		char base = (rnd < 26) ? 'A' : 'a';
-		return (char) (base + rnd % 26);
 	}
 
 	public static class Builder {
@@ -48,7 +64,6 @@ public class Api {
 		private String title = "";
 		private int user_id;
 		private int trip_id;
-		private long time;
 
 		public Builder() {
 			// TODO Auto-generated constructor stub
@@ -71,11 +86,6 @@ public class Api {
 
 		public Builder tripId(int trip_id) {
 			this.trip_id = trip_id;
-			return this;
-		}
-
-		public Builder time(long time) {
-			this.time = time;
 			return this;
 		}
 

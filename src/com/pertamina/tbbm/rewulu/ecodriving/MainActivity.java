@@ -123,7 +123,8 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 					Layang.class), serviceConnection, Context.BIND_AUTO_CREATE);
 		if (layang != null && user == null) {
 			user = UserDataSP.get(getApplicationContext());
-			layang.session(user);
+			if (user != null)
+				layang.session(user);
 		}
 		onPause = false;
 	}

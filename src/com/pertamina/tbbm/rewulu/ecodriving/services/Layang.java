@@ -144,10 +144,12 @@ public class Layang extends Service implements OnControllerCallback {
 			UserData user = callback.getUser();
 			if (user == null)
 				user = UserDataSP.get(getApplicationContext());
-			if (user.getRow_id() >= 0)
-				session(user);
-			else
-				register(user);
+			if (user != null) {
+				if (user.getRow_id() >= 0)
+					session(user);
+				else
+					register(user);
+			}
 		}
 	}
 
