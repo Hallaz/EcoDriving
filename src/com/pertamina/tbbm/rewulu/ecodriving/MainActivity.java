@@ -121,7 +121,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		if (layang == null)
 			bindService(new Intent().setClass(getApplicationContext(),
 					Layang.class), serviceConnection, Context.BIND_AUTO_CREATE);
-		if(layang != null && user == null) {
+		if (layang != null && user == null) {
 			user = UserDataSP.get(getApplicationContext());
 			layang.session(user);
 		}
@@ -185,9 +185,9 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		// TODO Auto-generated method stub
 		if (onPause)
 			return;
-		if(user == null) {
+		if (user == null) {
 			user = UserDataSP.get(getApplicationContext());
-			if(layang != null)
+			if (layang != null)
 				layang.session(user);
 		}
 		tripdata.setUser(user, "startTrack");
@@ -252,6 +252,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		if (Backstack.isOnMainmenu()) {
 			mainmenuFragment.onBackPressed();
 			appExit();
+			return;
 		}
 		if (Backstack.isOnSplash()) {
 			this.finish();
