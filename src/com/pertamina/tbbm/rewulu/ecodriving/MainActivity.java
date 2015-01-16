@@ -43,6 +43,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.MapFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.controllers.ImagesManager;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.TrackingSP;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.AboutFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.Backstack;
@@ -100,7 +101,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		notificationManager = (NotificationManager) this
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		imgsManager = new ImagesManager(getApplicationContext());
-		if (Utils.TrackingSP.isRunning(getApplicationContext()))
+		if (TrackingSP.isRunning(getApplicationContext()))
 			Utils.toast(getApplicationContext(), R.string.err_app_killed);
 		if (savedInstanceState == null) {
 			if (!splashViewed) {
@@ -293,7 +294,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		// TODO Auto-generated method stub
 		notificationManager
 				.notify(NOTIFICATION_ID, notificationBuilder.build());
-		Utils.TrackingSP.setRunning(getApplicationContext(), true);
+		TrackingSP.setRunning(getApplicationContext(), true);
 	}
 
 	private void removeNotif() {
@@ -309,7 +310,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 
 			e.printStackTrace();
 		}
-		Utils.TrackingSP.setRunning(getApplicationContext(), false);
+		TrackingSP.setRunning(getApplicationContext(), false);
 	}
 
 	@Override

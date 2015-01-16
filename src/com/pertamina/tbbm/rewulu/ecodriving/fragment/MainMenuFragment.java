@@ -26,6 +26,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.adapters.SpinnerMenuCustom;
 import com.pertamina.tbbm.rewulu.ecodriving.adapters.SpinnerMenuCustomAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.adapters.SpinnerMotorCustom;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.LocationSP;
 import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserSettingDialog;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.locations.LocationEngine;
@@ -142,7 +143,7 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		btn_start.setOnClickListener(this);
 		((ImageButton) rootView.findViewById(R.id.action_setting_menu))
 				.setOnClickListener(this);
-		if (Utils.LocationSP.isNeedKnowingLocation(getActivity())) {
+		if (LocationSP.isNeedKnowingLocation(getActivity())) {
 			locationEngine = new LocationEngine(getActivity());
 			locationEngine.settLastLocation();
 		}

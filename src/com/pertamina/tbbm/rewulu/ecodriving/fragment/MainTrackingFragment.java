@@ -63,6 +63,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.pertamina.tbbm.rewulu.ecodriving.R;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.LocationSP;
 import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserInputDialogFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.helpers.GraphHelper;
 import com.pertamina.tbbm.rewulu.ecodriving.helpers.TrackingHelper;
@@ -206,7 +207,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 		tracking = new TrackingHelper(getActivity(), tripdata.getMotor()
 				.getPsstv_acc(), tripdata.getMotor().getNgtv_acc(), this);
 		if (savedInstanceState == null || tracking.getLocation() == null) {
-			tracking.setLocation(Utils.LocationSP
+			tracking.setLocation(LocationSP
 					.getLastKnownLocation(getActivity()));
 		}
 		onEco = true;
