@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Nama"
-            android:inputType="textPersonName"
+            android:inputType="textCapSentences"
             android:textColorHint="@color/text_light_gray" >
 
             <requestFocus />
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Alamat"
-            android:inputType="textPostalAddress"
+            android:inputType="textCapSentences"
             android:textColorHint="@color/text_light_gray" />
 
         <EditText
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Kota"
-            android:inputType="textPostalAddress"
+            android:inputType="textCapCharacters"
             android:textColorHint="@color/text_light_gray" />
 
         <TextView

@@ -34,7 +34,7 @@ public class UserInputDialogFragment extends DialogFragment implements
 	private boolean singlemode = false;
 	private String textField = null;
 	private int inputTypeText = InputType.TYPE_CLASS_TEXT
-			| InputType.TYPE_TEXT_VARIATION_NORMAL;
+			| InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
 	private int inputTypeNumber = InputType.TYPE_CLASS_TEXT
 			| InputType.TYPE_NUMBER_VARIATION_NORMAL;
 	private int inputType = inputTypeNumber;
@@ -98,12 +98,14 @@ public class UserInputDialogFragment extends DialogFragment implements
 		this.textLeftButton = textLeftButton;
 		this.textRightButton = textRightButton;
 	}
+
 	@Override
 	public void onDismiss(DialogInterface dialog) {
 		// TODO Auto-generated method stub
 		super.onDismiss(dialog);
 		listener.onDismiss(ID);
 	}
+
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

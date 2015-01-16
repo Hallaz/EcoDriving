@@ -18,16 +18,16 @@ public class Api {
 		link += "e";
 		for (int w = 0; w < trip.length; w++)
 			link += TABLE_URI[trip[w]];
-		link += "/t?=";
+		link += "/";
 		String[] t = title.split("\\s+");
 		String tile = new String();
 		for (int w = 0; w < t.length; w++) {
 			if (w == 0)
 				tile = t[w];
 			else
-				tile += "_" + t[w];
+				tile += "-" + t[w];
 		}
-		return TRIP_URL + link.trim() + tile.trim();
+		return TRIP_URL + link.trim() + tile.toLowerCase().trim();
 	}
 
 	private Integer[] getRow(int raw) {
