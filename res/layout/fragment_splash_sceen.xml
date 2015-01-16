@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Kota"
-            android:inputType="textCapCharacters"
+            android:inputType="textCapSentences"
             android:textColorHint="@color/text_light_gray" />
 
         <TextView

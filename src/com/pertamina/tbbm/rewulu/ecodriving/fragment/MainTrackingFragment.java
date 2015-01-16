@@ -65,7 +65,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.LocationSP;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.SettingSP;
-import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserInputDialogFragment;
+import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserInputDialog;
 import com.pertamina.tbbm.rewulu.ecodriving.helpers.GraphHelper;
 import com.pertamina.tbbm.rewulu.ecodriving.helpers.TrackingHelper;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnDialogListener;
@@ -86,7 +86,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 	/***
 	 * dialog u/ refill n& track
 	 * **/
-	private UserInputDialogFragment dialog;
+	private UserInputDialog dialog;
 	/***
 	 * trip data tracking
 	 * **/
@@ -381,7 +381,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 				if (dFuel < 0.5d || dFuel > (tripdata.getMotor().getMax_fuel()))
 					Utils.toast(getActivity(), R.string.err_data_fuel_false);
 				else {
-					dialog = new UserInputDialogFragment(
+					dialog = new UserInputDialog(
 							Constant.DIALOG_FUEL_REFILL, getActivity()
 									.getString(R.string.dialog_fuel_refill),
 							true, this);
@@ -411,20 +411,20 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 					|| tracking.getLocations().size() == 1)
 				Utils.toast(getActivity(), R.string.err_no_location);
 			else if (distance < 1.0d) {
-				dialog = new UserInputDialogFragment(Constant.DIALOG_ERR,
+				dialog = new UserInputDialog(Constant.DIALOG_ERR,
 						getActivity().getString(R.string.err_too_short_trip),
 						false, this);
 				dialog.singleButtonMode(true);
 				dialog.show(getFragmentManager(), null);
 			} else {
-				dialog = new UserInputDialogFragment(
+				dialog = new UserInputDialog(
 						Constant.DIALOG_FINISH_TRACK, getActivity().getString(
 								R.string.dialog_text_finish_track), false, this);
 				dialog.show(getFragmentManager(), null);
 			}
 			break;
 		case R.id.btn_refill:
-			dialog = new UserInputDialogFragment(Constant.DIALOG_FUEL_REFILL,
+			dialog = new UserInputDialog(Constant.DIALOG_FUEL_REFILL,
 					getActivity().getString(R.string.dialog_fuel_refill), true,
 					this);
 			dialog.show(getFragmentManager(), null);

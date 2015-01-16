@@ -21,8 +21,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnDialogListener;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
-public class UserInputDialogFragment extends DialogFragment implements
-		OnClickListener {
+public class UserInputDialog extends DialogFragment implements OnClickListener {
 	private final int ID;
 	private OnDialogListener listener;
 	private String text;
@@ -39,7 +38,7 @@ public class UserInputDialogFragment extends DialogFragment implements
 			| InputType.TYPE_NUMBER_VARIATION_NORMAL;
 	private int inputType = inputTypeNumber;
 
-	public UserInputDialogFragment(final int id) {
+	public UserInputDialog(final int id) {
 		// TODO Auto-generated constructor stub
 		this.ID = id;
 		textLeftButton = null;
@@ -48,7 +47,7 @@ public class UserInputDialogFragment extends DialogFragment implements
 		textField = null;
 	}
 
-	public UserInputDialogFragment(final int id, String arg0, boolean arg1,
+	public UserInputDialog(final int id, String arg0, boolean arg1,
 			OnDialogListener arg2) {
 		// TODO Auto-generated constructor stub
 		this.ID = id;
@@ -61,7 +60,7 @@ public class UserInputDialogFragment extends DialogFragment implements
 		textField = null;
 	}
 
-	public UserInputDialogFragment(final int id, String title, String text,
+	public UserInputDialog(final int id, String title, String text,
 			boolean arg3, OnDialogListener arg2) {
 		// TODO Auto-generated constructor stub
 		this.ID = id;
@@ -113,9 +112,10 @@ public class UserInputDialogFragment extends DialogFragment implements
 		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		dialog.getWindow().setLayout(256, ViewGroup.LayoutParams.WRAP_CONTENT);
+		dialog.getWindow().setLayout(512,
+				800);
 		if (actionInput) {
-			dialog.setContentView(R.layout.user_input_dialog);
+			dialog.setContentView(R.layout.dialog_user_input);
 			userInput = (EditText) dialog.findViewById(R.id.editText_dialog);
 			Loggers.i("UserInputDialogFragment", "setInputType" + inputType);
 			userInput.setInputType(inputType);
@@ -132,9 +132,9 @@ public class UserInputDialogFragment extends DialogFragment implements
 						.setText(textRightButton);
 		} else {
 			if (singlemode) {
-				dialog.setContentView(R.layout.user_notif_dialog);
+				dialog.setContentView(R.layout.dialog_user_notif);
 			} else {
-				dialog.setContentView(R.layout.user_dialog);
+				dialog.setContentView(R.layout.dialog_user_confirm);
 				((Button) dialog.findViewById(R.id.btn_dialog_no))
 						.setOnClickListener(this);
 				if (textLeftButton != null)

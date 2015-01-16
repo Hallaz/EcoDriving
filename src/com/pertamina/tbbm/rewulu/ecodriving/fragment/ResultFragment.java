@@ -61,7 +61,7 @@ import android.widget.TextView;
 
 import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
-import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserInputDialogFragment;
+import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserInputDialog;
 import com.pertamina.tbbm.rewulu.ecodriving.helpers.ResultData;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnDialogListener;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
@@ -90,7 +90,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 	private final String[] graphModel = new String[] {
 			"waktu (detik) - jarak (km)", "kecepatan (km/h) - jarak (km)" };
 	private OnMainListener callback;
-	private UserInputDialogFragment userDialog = new UserInputDialogFragment(
+	private UserInputDialog userDialog = new UserInputDialog(
 			USER_SAVE_BACKPRESSED_INPUT_ID);
 
 	public void setData(ResultData resultData, OnMainListener callback) {
@@ -387,7 +387,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 
 	private void initDialogShare() {
 		// TODO Auto-generated method stub
-		userDialog = new UserInputDialogFragment(USER_ACTION_SHARE_ID,
+		userDialog = new UserInputDialog(USER_ACTION_SHARE_ID,
 				"Bagikan Perjalanan", "Bagikan dengan judul", true, this);
 		if (resultData.getTripdata().isNamed())
 			userDialog.setTextField(resultData.getTripdata().getTitle());
@@ -398,7 +398,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 
 	private void initDialogSave() {
 		// TODO Auto-generated method stub
-		userDialog = new UserInputDialogFragment(USER_ACTION_SAVE_ID,
+		userDialog = new UserInputDialog(USER_ACTION_SAVE_ID,
 				"Simpan Perjalanan", "Masukkan judul", true, this);
 		userDialog.setInputTypeText();
 		if (resultData.getTripdata().isNamed())
@@ -408,7 +408,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 
 	private void initDialogSaveBackPressed() {
 		// TODO Auto-generated method stub
-		userDialog = new UserInputDialogFragment(
+		userDialog = new UserInputDialog(
 				USER_SAVE_BACKPRESSED_INPUT_ID, "Simpan Perjalanan",
 				"Masukkan judul", true, this);
 		userDialog.setInputTypeText();
@@ -418,7 +418,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 
 	private void initDialogDelete() {
 		// TODO Auto-generated method stub
-		userDialog = new UserInputDialogFragment(USER_ACTION_DELETE_ID,
+		userDialog = new UserInputDialog(USER_ACTION_DELETE_ID,
 				"Hapus Perjalanan ?", false, this);
 		userDialog.show(getFragmentManager(), null);
 	}

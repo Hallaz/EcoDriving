@@ -27,11 +27,14 @@ import com.pertamina.tbbm.rewulu.ecodriving.adapters.SpinnerMenuCustom;
 import com.pertamina.tbbm.rewulu.ecodriving.adapters.SpinnerMenuCustomAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.adapters.SpinnerMotorCustom;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.LocationSP;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
+import com.pertamina.tbbm.rewulu.ecodriving.dialogs.IndicatorSettingDialog;
 import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserSettingDialog;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.locations.LocationEngine;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
+import com.pertamina.tbbm.rewulu.ecodriving.pojos.UserData;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Constant;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
@@ -63,7 +66,8 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 	private Tripdata tripdata;
 	private SpinnerMenuCustom menu;
 	private final String[] menus = new String[] { "Panduan Eco Driving",
-			"Setting Indikator", "Histori", "Tentang Aplikasi" };
+			"Rekaman Perjalanan", "Pengaturan Indikator", "Pengaturan Profile",
+			"Tentang Aplikasi" };
 	private SeekBar fuelControl;
 	private LocationEngine locationEngine;
 	private TextView textFuel;
@@ -100,12 +104,15 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 							startContent();
 							break;
 						case 1:
-							popUpSetting();
-							break;
-						case 2:
 							mMenuCallback.startHistory();
 							break;
+						case 2:
+							popUpIndicatorSetting();
+							break;
 						case 3:
+							popUpUserSetting();
+							break;
+						case 4:
 							mMenuCallback.startHelp();
 							break;
 						default:
@@ -186,10 +193,16 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		}
 	}
 
-	private void popUpSetting() {
+	private void popUpIndicatorSetting() {
 		// TODO Auto-generated method stub
 		menu.onDetachedFromWindow();
-		UserSettingDialog dialog = new UserSettingDialog();
+		IndicatorSettingDialog dialog = new IndicatorSettingDialog();
+		dialog.show(getFragmentManager(), null);
+	}
+
+	private void popUpUserSetting() {
+		UserData user = UserDataSP.get(getActivity());
+		UserSettingDialog dialog = new UserSettingDialog(user);
 		dialog.show(getFragmentManager(), null);
 	}
 

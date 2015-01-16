@@ -41,7 +41,7 @@ public class UserSingleConfrimDialog extends DialogFragment {
 		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		dialog.getWindow().setLayout(256, ViewGroup.LayoutParams.WRAP_CONTENT);
-		dialog.setContentView(R.layout.user_single_dialog);
+		dialog.setContentView(R.layout.dialog_user_delete);
 		TextView tv = (TextView) dialog
 				.findViewById(R.id.textView_user_single_dialog_confirm);
 		if (text != null)
