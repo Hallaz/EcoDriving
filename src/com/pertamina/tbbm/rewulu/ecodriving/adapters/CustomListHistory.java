@@ -10,12 +10,18 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class CustomListHistory extends BaseAdapter {
 	private static LayoutInflater inflater = null;
 	private List<Tripdata> trips;
+
+	private LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+			new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT));
 
 	public CustomListHistory(Context context, List<Tripdata> trips) {
 		// TODO Auto-generated constructor stub
@@ -57,7 +63,14 @@ public class CustomListHistory extends BaseAdapter {
 				.get(position).getAddrss_end());
 		((TextView) view.findViewById(R.id.txt_total_time_list)).setText(Utils
 				.getDurationBreakdown(trips.get(position).getTotal_time()));
-
+		if (position == 0)
+			params.setMargins(10, 10, 10, 5);
+		if(position == getCount() - 1)
+			params.setMargins(10, 5, 10, 10);
+		if(position != 0 && position != getCount() - 1)
+			params.setMargins(10, 5, 10, 5);
+		((LinearLayout) view.findViewById(R.id.linearLayout1))
+				.setLayoutParams(params);
 		return view;
 	}
 

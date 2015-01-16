@@ -25,7 +25,7 @@ public class HistoriesHelper {
 		initial();
 		this.trips = TripDataAdapter.readAllTrip(context);
 		for (int w = 0; w < trips.size(); w++)
-			if (trips.get(w).isRunning() || !trips.get(w).isSaved()) {
+			if (trips.get(w).isRunning() && !trips.get(w).isSaved()) {
 				trips.remove(w);
 				w -= 1;
 			}

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.pertamina.tbbm.rewulu.ecodriving.MainActivity"
+    android:background="@color/default_screen_bg"
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout

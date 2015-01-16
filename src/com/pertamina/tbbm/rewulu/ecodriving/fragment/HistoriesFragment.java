@@ -36,7 +36,6 @@ public class HistoriesFragment extends Fragment {
 	}
 
 	public void onBackPressed() {
-
 	}
 
 	@Override

@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/default_screen_bg"
     tools:context="com.pertamina.tbbm.rewulu.ecodriving.MainActivity$PlaceholderFragment" >
     <TextView
         android:id="@+id/slide_judul_text"

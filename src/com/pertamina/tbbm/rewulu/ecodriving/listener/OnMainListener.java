@@ -38,4 +38,6 @@ public interface OnMainListener {
 	
 	public void loadImageTo(Motor motor, ImageView view);
 	
+	public void onUserBackPressed();
+	
 }

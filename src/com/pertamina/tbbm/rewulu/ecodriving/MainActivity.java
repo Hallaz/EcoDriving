@@ -446,4 +446,10 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 				.setText("GPS is disable");
 	}
 
+	@Override
+	public void onUserBackPressed() {
+		// TODO Auto-generated method stub
+		onBackPressed();
+	}
+
 }

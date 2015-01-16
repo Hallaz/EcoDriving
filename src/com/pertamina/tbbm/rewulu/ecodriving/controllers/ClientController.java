@@ -351,7 +351,7 @@ public class ClientController {
 
 		public Logging() {
 			// TODO Auto-generated constructor stub
-
+		
 		}
 
 		public Logging(List<DataLog> lgs) {
