@@ -2,6 +2,7 @@ package com.pertamina.tbbm.rewulu.ecodriving.dialogs;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +27,12 @@ public class UserSingleConfrimDialog extends DialogFragment {
 		this.text = text;
 	}
 
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		// TODO Auto-generated method stub
+		super.onDismiss(dialog);
+		listener.onDismiss(ID);
+	}
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

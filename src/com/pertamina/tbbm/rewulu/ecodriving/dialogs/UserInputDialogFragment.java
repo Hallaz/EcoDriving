@@ -2,6 +2,7 @@ package com.pertamina.tbbm.rewulu.ecodriving.dialogs;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -97,7 +98,12 @@ public class UserInputDialogFragment extends DialogFragment implements
 		this.textLeftButton = textLeftButton;
 		this.textRightButton = textRightButton;
 	}
-
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		// TODO Auto-generated method stub
+		super.onDismiss(dialog);
+		listener.onDismiss(ID);
+	}
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

@@ -157,7 +157,7 @@ public class Kuli extends IntentService {
 						return;
 					}
 				if (arg0.getKind().equals(Kind.HTTP)) {
-					tripsToBuild.get(pivot).setRunning();
+					tripsToBuild.get(pivot).setComplete();
 					TripDataAdapter.updateTrip(getApplicationContext(),
 							tripsToBuild.get(pivot));
 					tripComplete = true;

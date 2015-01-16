@@ -545,4 +545,10 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 		textTimer.setText(Utils.getDurationBreakdown(milis));
 	}
 
+	@Override
+	public void onDismiss(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -456,8 +456,7 @@ public class Layang extends Service implements OnControllerCallback {
 			Loggers.w("Layang - onDeletedTrip", "trip == null");
 			return;
 		}
-		trip = null;
-		logs = null;
+		clearQuery();
 		callback.onStoppingLayang();
 	}
 
@@ -512,16 +511,16 @@ public class Layang extends Service implements OnControllerCallback {
 		// TODO Auto-generated method stub
 		if (this.trip == null) {
 			Loggers.w("Layang - onUpdateTripResult", "trip == null");
+		} else if (this.trip != null) {
+			if (unLogged.isEmpty()) {
+				Loggers.i("Layang", "Update trip success " + result.row_id);
+				Loggers.w("Layang - onUpdateTripResult", "trip == null ? "
+						+ (this.trip == null));
+				this.trip.setComplete();
+			}
+			TripDataAdapter.updateTrip(getApplicationContext(), this.trip);
+			this.trip.Log("onUpdateTripResult");
 		}
-		if (unLogged.isEmpty()) {
-			Loggers.i("Layang", "Update trip success " + result.row_id);
-			trip.setComplete();
-		}
-		if (trip != null) {
-			TripDataAdapter.updateTrip(getApplicationContext(), trip);
-			trip.Log("onUpdateTripResult");
-		}
-		trip = null;
 		callback.onStoppingLayang();
 	}
 

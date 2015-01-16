@@ -543,4 +543,10 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		intent.putExtra(Intent.EXTRA_TEXT, api.shareFormatterBody());
 		startActivity(Intent.createChooser(intent, "Bagikan via "));
 	}
+
+	@Override
+	public void onDismiss(int id) {
+		// TODO Auto-generated method stub
+		
+	}
 }

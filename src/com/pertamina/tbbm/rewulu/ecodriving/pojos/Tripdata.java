@@ -336,7 +336,7 @@ public class Tripdata {
 	 *            the complete to set
 	 */
 	public void setComplete() {
-		this.status = STATUS_COMPLETE;
+		status = STATUS_COMPLETE;
 	}
 
 	public void setIncomplete() {

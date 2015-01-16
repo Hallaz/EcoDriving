@@ -18,7 +18,6 @@ public class UserSettingDialog extends DialogFragment {
 	public UserSettingDialog() {
 		// TODO Auto-generated constructor stub
 	}
-
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

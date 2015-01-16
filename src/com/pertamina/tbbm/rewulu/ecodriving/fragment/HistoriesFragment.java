@@ -23,12 +23,13 @@ import com.pertamina.tbbm.rewulu.ecodriving.listener.OnDialogListener;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
+import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
 public class HistoriesFragment extends Fragment {
 	private List<Tripdata> trips;
 	private OnMainListener callback;
 	private CustomListHistory adapter;
-
+	private boolean onLongPressed;
 	public void setData(List<Tripdata> trip) {
 		// TODO Auto-generated method stub
 		trips = trip;
@@ -77,8 +78,10 @@ public class HistoriesFragment extends Fragment {
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
 					// TODO Auto-generated method stub
-					trips.get(arg2).Log("HistoriesFragment");
-					callback.startResult(trips.get(arg2));
+					if(!onLongPressed) {
+						trips.get(arg2).Log("HistoriesFragment");
+						callback.startResult(trips.get(arg2));
+					}
 				}
 			});
 			list.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -87,6 +90,7 @@ public class HistoriesFragment extends Fragment {
 				public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
 					// TODO Auto-generated method stub
+					onLongPressed = true;
 					final int position = arg2;
 					UserSingleConfrimDialog dialog = new UserSingleConfrimDialog(
 							8374, "Hapus", new OnDialogListener() {
@@ -95,10 +99,12 @@ public class HistoriesFragment extends Fragment {
 								public void onSubmitSingleDialog(int id) {
 									// TODO Auto-generated method stub
 									trips.get(position).setSaved(false);
+									Loggers.w("onSubmitSingleDialog", "onSubmitSingleDialog");
 									TripDataAdapter.updateTrip(getActivity(),
 											trips.get(position));
 									trips.remove(position);
 									adapter.notifyDataSetChanged();
+									onLongPressed = false;
 								}
 
 								@Override
@@ -106,6 +112,13 @@ public class HistoriesFragment extends Fragment {
 										boolean action, String arg0) {
 									// TODO Auto-generated method stub
 
+								}
+
+								@Override
+								public void onDismiss(int id) {
+									// TODO Auto-generated method stub
+									Loggers.w("onDismiss", "onDismiss");
+									onLongPressed = false;
 								}
 							});
 					dialog.show(getChildFragmentManager(), null);
