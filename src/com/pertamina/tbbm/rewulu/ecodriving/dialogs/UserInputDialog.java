@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -112,8 +111,6 @@ public class UserInputDialog extends DialogFragment implements OnClickListener {
 		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		dialog.getWindow().setLayout(512,
-				800);
 		if (actionInput) {
 			dialog.setContentView(R.layout.dialog_user_input);
 			userInput = (EditText) dialog.findViewById(R.id.editText_dialog);
