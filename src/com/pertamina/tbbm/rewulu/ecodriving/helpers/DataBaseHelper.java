@@ -19,7 +19,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataBaseHelper extends SQLiteOpenHelper {
 	// destination path (location) of our database on device
 	private static String DB_PATH = "";
-	private static final String DB_NAME = "pertamina.tbbm.rewulu.ecodriving.v1.sqlite";// Database
+	private static final String DB_NAME = "pertamina.tbbm.rewulu.ecodriving.v2.sqlite";// Database
 	// name
 	private SQLiteDatabase mDataBase;
 	private final Context mContext;
