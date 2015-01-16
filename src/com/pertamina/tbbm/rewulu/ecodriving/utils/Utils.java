@@ -17,6 +17,7 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Vibrator;
 
 import com.pertamina.tbbm.rewulu.ecodriving.R;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.SettingSP;
 
 public class Utils {
 	private static final String classname = Utils.class.getSimpleName();
@@ -54,7 +55,7 @@ public class Utils {
 		public static void led(Context context, int color) {
 			if (notif == null || notificationManager == null)
 				prepare(context);
-			if (!Setting.LED)
+			if (!SettingSP.LED)
 				return;
 			notif.ledARGB = color;
 			notif.flags = Notification.FLAG_SHOW_LIGHTS;
@@ -72,7 +73,7 @@ public class Utils {
 		public static void vib(Context context) {
 			if (vib == null)
 				prepare(context);
-			if (!Setting.VIBRATE)
+			if (!SettingSP.VIBRATE)
 				return;
 			vib.vibrate(300);
 		}
@@ -80,7 +81,7 @@ public class Utils {
 		public static void playSound(Context context) {
 			if (mediaPlayer == null)
 				prepare(context);
-			if (!Setting.VOICE)
+			if (!SettingSP.VOICE)
 				return;
 			if (mediaPlayer != null) {
 				try {

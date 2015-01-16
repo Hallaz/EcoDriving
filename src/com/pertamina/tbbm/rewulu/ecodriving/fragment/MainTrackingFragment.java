@@ -64,6 +64,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.LocationSP;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.SettingSP;
 import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserInputDialogFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.helpers.GraphHelper;
 import com.pertamina.tbbm.rewulu.ecodriving.helpers.TrackingHelper;
@@ -73,7 +74,6 @@ import com.pertamina.tbbm.rewulu.ecodriving.listener.OnTrackingHelperListener;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.DataLog;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Constant;
-import com.pertamina.tbbm.rewulu.ecodriving.utils.Setting;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
 @SuppressLint("DefaultLocale")
@@ -213,7 +213,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 		onEco = true;
 		initializeMap();
 		rootView.setKeepScreenOn(true);
-		Setting.SettingSP.loadSetting(getActivity());
+		SettingSP.loadSetting(getActivity());
 		Utils.Indicator.prepare(getActivity());
 		return rootView;
 	}

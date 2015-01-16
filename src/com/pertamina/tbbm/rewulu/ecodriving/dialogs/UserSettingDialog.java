@@ -12,12 +12,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.pertamina.tbbm.rewulu.ecodriving.R;
-import com.pertamina.tbbm.rewulu.ecodriving.utils.Setting;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.SettingSP;
 
 public class UserSettingDialog extends DialogFragment {
 	public UserSettingDialog() {
 		// TODO Auto-generated constructor stub
 	}
+
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -31,20 +32,20 @@ public class UserSettingDialog extends DialogFragment {
 		final CheckBox led = (CheckBox) dialog.findViewById(R.id.checkBoxLed);
 		final CheckBox voice = (CheckBox) dialog
 				.findViewById(R.id.checkBoxVoice);
-		Setting.SettingSP.saveSetting(getActivity());
-		vib.setChecked(Setting.VIBRATE);
-		led.setChecked(Setting.LED);
-		voice.setChecked(Setting.VOICE);
+		SettingSP.saveSetting(getActivity());
+		vib.setChecked(SettingSP.VIBRATE);
+		led.setChecked(SettingSP.LED);
+		voice.setChecked(SettingSP.VOICE);
 		((Button) dialog.findViewById(R.id.btn_dialog_ok))
 				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						Setting.LED = led.isChecked();
-						Setting.VIBRATE = vib.isChecked();
-						Setting.VOICE = voice.isChecked();
-						Setting.SettingSP.loadSetting(getActivity());
+						SettingSP.LED = led.isChecked();
+						SettingSP.VIBRATE = vib.isChecked();
+						SettingSP.VOICE = voice.isChecked();
+						SettingSP.loadSetting(getActivity());
 						dialog.dismiss();
 					}
 				});
