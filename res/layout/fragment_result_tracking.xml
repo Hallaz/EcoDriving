@@ -105,10 +105,47 @@
         android:orientation="vertical"
         android:padding="8dp" >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="#D8D8D8" >
+
+            <LinearLayout
+                android:id="@+id/chart_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:background="#D8D8D8"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="?android:attr/dividerVertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <Spinner
+                android:id="@+id/spinner_result_graph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="?android:attr/dividerVertical" />
+
         <ScrollView
             android:id="@+id/scrollView1"
             android:layout_width="match_parent"
-            android:layout_height="190dp" >
+            android:layout_height="match_parent" >
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -470,42 +507,6 @@
                 </LinearLayout>
             </RelativeLayout>
         </ScrollView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:background="?android:attr/dividerVertical" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" >
-
-            <Spinner
-                android:id="@+id/spinner_result_graph"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:background="?android:attr/dividerVertical" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#D8D8D8" >
-
-            <LinearLayout
-                android:id="@+id/chart_container"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="2dp"
-                android:background="#D8D8D8"
-                android:orientation="horizontal" />
-        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

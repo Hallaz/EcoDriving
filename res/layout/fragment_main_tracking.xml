@@ -228,7 +228,7 @@
                         android:id="@+id/textView_speedo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
+                        android:gravity="center|right"
                         android:text="40"
                         android:textColor="@android:color/white"
                         android:textSize="30sp"
