@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 
 import com.pertamina.tbbm.rewulu.ecodriving.R;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.LocationSP;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
 
 public class LocationEngine implements LocationListener {
@@ -127,7 +128,7 @@ public class LocationEngine implements LocationListener {
 			public void onFinish() {
 				// TODO Auto-generated method stub
 				if (onResume && bestLocation != null)
-					Utils.LocationSP.saveKnownLocation(context, bestLocation);
+					LocationSP.saveKnownLocation(context, bestLocation);
 				onDestroy();
 			}
 		}.start();
