@@ -15,6 +15,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.controllers.ClientController;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.DataLogAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.MotorDataAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.TripDataAdapter;
+import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
 import com.pertamina.tbbm.rewulu.ecodriving.helpers.HistoriesHelper;
 import com.pertamina.tbbm.rewulu.ecodriving.helpers.ResultData;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnControllerCallback;
@@ -81,7 +82,7 @@ public class Layang extends Service implements OnControllerCallback {
 
 	public void destroy() {
 		if (trip != null) {
-			end();
+			clientController.destroy();
 			deleteTrip();
 		}
 	}
@@ -91,11 +92,6 @@ public class Layang extends Service implements OnControllerCallback {
 		clearQuery();
 		callback.onStoppingLayang();
 		buildHistory();
-	}
-
-	public void end() {
-		timer.cancel(true);
-		clientController.destroy();
 	}
 
 	private Timer timer = new Timer();
@@ -145,12 +141,13 @@ public class Layang extends Service implements OnControllerCallback {
 			}
 		}
 		if (!newSession) {
-			if (callback.getUser() != null) {
-				if (callback.getUser().getRow_id() >= 0)
-					session(callback.getUser());
-				else
-					register(callback.getUser());
-			}
+			UserData user = callback.getUser();
+			if (user == null)
+				user = UserDataSP.get(getApplicationContext());
+			if (user.getRow_id() >= 0)
+				session(user);
+			else
+				register(user);
 		}
 	}
 
@@ -448,7 +445,8 @@ public class Layang extends Service implements OnControllerCallback {
 			Loggers.i("registerResult", "set trip UserData.getRow_id()"
 					+ result.getRow_id());
 		}
-		Loggers.w("registerResult", "UserData.getRow_id()" + result.getRow_id());
+		Loggers.i("Layang - registerResult",
+				"UserData.getRow_id()" + result.getRow_id());
 	}
 
 	@Override
@@ -543,7 +541,11 @@ public class Layang extends Service implements OnControllerCallback {
 	@Override
 	public void requestNewAPI_KEY() {
 		// TODO Auto-generated method stub
-		Loggers.w("Layang", "requestSession()");
-		clientController.register(callback.getUser());
+		Loggers.w("Layang", "requestNewAPI_KEY()");
+		newSession = false;
+		UserData user = callback.getUser();
+		if (callback.getUser() != null)
+			user = UserDataSP.get(getApplicationContext());
+		clientController.register(user);
 	}
 }
