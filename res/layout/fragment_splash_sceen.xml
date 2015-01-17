@@ -91,7 +91,7 @@
             android:layout_marginTop="36dp"
             android:background="@drawable/btn_login"
             android:text="Lanjut"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/text_dashboard"
             android:textStyle="bold" />
     </LinearLayout>
 
