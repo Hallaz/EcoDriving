@@ -87,6 +87,8 @@
                 android:layout_height="128dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/default_motor" />
         </LinearLayout>
 
@@ -110,8 +112,6 @@
                 android:id="@+id/motor_type_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:dropDownHorizontalOffset="0dip"
                 android:dropDownVerticalOffset="-10dip"
                 android:gravity="center" />
