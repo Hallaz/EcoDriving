@@ -75,8 +75,8 @@ public class ImagesManager {
 			loadDefauldBitmap();
 			viewInto(motor, view);
 		}
-		Picasso.with(context).load(motor.getImg_sample())                                                                                                                                    
-				.error(R.drawable.default_motor).resize(72, 72).centerCrop()
+		Picasso.with(context).load(motor.getImg_sample())
+				.error(R.drawable.default_motor).resize(128, 128)
 				.into(new CustomeTarget(view));
 	}
 
