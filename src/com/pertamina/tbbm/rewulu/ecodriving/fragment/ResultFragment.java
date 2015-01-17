@@ -55,6 +55,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -115,6 +116,8 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		View rootView = inflater.inflate(R.layout.fragment_result_tracking,
 				container, false);
 		Backstack.onResult();
+		((ImageView) rootView.findViewById(R.id.back_action_bar))
+				.setOnClickListener(this);
 		Loggers.i("fuel start", Utils.decimalFormater(resultData.getDataLogs()
 				.get(0).getFuel()));
 		Loggers.i(
@@ -408,9 +411,8 @@ public class ResultFragment extends Fragment implements OnClickListener,
 
 	private void initDialogSaveBackPressed() {
 		// TODO Auto-generated method stub
-		userDialog = new UserInputDialog(
-				USER_SAVE_BACKPRESSED_INPUT_ID, "Simpan Perjalanan",
-				"Masukkan judul", true, this);
+		userDialog = new UserInputDialog(USER_SAVE_BACKPRESSED_INPUT_ID,
+				"Simpan Perjalanan", "Masukkan judul", true, this);
 		userDialog.setInputTypeText();
 		userDialog.setCustomTextButton("Hapus", "Simpan");
 		userDialog.show(getFragmentManager(), null);
@@ -437,7 +439,10 @@ public class ResultFragment extends Fragment implements OnClickListener,
 				setVisibilityLayout(View.VISIBLE);
 			break;
 		case R.id.btn_share_result:
-			initDialogShare();
+			if (resultData.getTripdata().isSaved())
+				shareTrip();
+			else
+				initDialogShare();
 			break;
 		case R.id.btn_save_result:
 			initDialogSave();
@@ -445,6 +450,8 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		case R.id.btn_delete_result:
 			initDialogDelete();
 			break;
+		case R.id.back_action_bar:
+			callback.onBackActionPressed();
 		default:
 			break;
 		}
@@ -503,11 +510,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 				resultData.getTripdata().setSaved(true);
 				TripDataAdapter.updateTrip(getActivity(),
 						resultData.getTripdata());
-				if (resultData.getTripdata().getRow_id() >= 0)
-					shareTrip();
-				else
-					Utils.toast(getActivity(),
-							"Tidak bisa berbagi perjalanan, tidak terdapat koneksi internet");
+				shareTrip();
 			}
 			break;
 		case USER_ACTION_DELETE_ID:
@@ -531,6 +534,11 @@ public class ResultFragment extends Fragment implements OnClickListener,
 
 	private void shareTrip() {
 		// TODO Auto-generated method stub
+		if (resultData.getTripdata().getRow_id() < 0) {
+			Utils.toast(getActivity(),
+					"Tidak bisa berbagi perjalanan, tidak terdapat koneksi internet");
+			return;
+		}
 		Intent intent = new Intent(android.content.Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);

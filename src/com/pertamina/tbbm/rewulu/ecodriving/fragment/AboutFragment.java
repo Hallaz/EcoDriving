@@ -1,7 +1,9 @@
 package com.pertamina.tbbm.rewulu.ecodriving.fragment;
 
 import com.pertamina.tbbm.rewulu.ecodriving.R;
+import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,6 +25,21 @@ public class AboutFragment extends Fragment implements OnClickListener {
 	private RelativeLayout term_app;
 	private RelativeLayout license_app;
 	private RelativeLayout version_app;
+
+	private OnMainListener mMenuCallback;
+
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		try {
+			mMenuCallback = (OnMainListener) activity;
+		} catch (ClassCastException e) {
+			// TODO: handle exception
+			throw new ClassCastException(activity.toString()
+					+ " must implement MainMenuCallback");
+		}
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,7 +65,8 @@ public class AboutFragment extends Fragment implements OnClickListener {
 
 		((TextView) rootView.findViewById(R.id.text_version_app))
 				.setOnClickListener(this);
-
+		((ImageView) rootView.findViewById(R.id.back_action_bar))
+				.setOnClickListener(this);
 		about_app = (RelativeLayout) rootView.findViewById(R.id.about_app_body);
 		accurate_app = (RelativeLayout) rootView
 				.findViewById(R.id.app_accurate_body);
@@ -62,30 +81,30 @@ public class AboutFragment extends Fragment implements OnClickListener {
 		((TextView) rootView.findViewById(R.id.text_license_app_body))
 				.setText(Html.fromHtml(getActivity().getResources().getString(
 						R.string.about_app_license_body)));
-		
+
 		((TextView) rootView.findViewById(R.id.text_term_app_body))
-		.setText(Html.fromHtml(getActivity().getResources().getString(
-				R.string.about_app_term_body)));
-		
+				.setText(Html.fromHtml(getActivity().getResources().getString(
+						R.string.about_app_term_body)));
+
 		((TextView) rootView.findViewById(R.id.text_help_app_body))
-		.setText(Html.fromHtml(getActivity().getResources().getString(
-				R.string.about_app_help_body)));
-		
-		((TextView) rootView.findViewById(R.id.text_how_app_body))
-		.setText(Html.fromHtml(getActivity().getResources().getString(
-				R.string.about_app_how_body)));
-		
+				.setText(Html.fromHtml(getActivity().getResources().getString(
+						R.string.about_app_help_body)));
+
+		((TextView) rootView.findViewById(R.id.text_how_app_body)).setText(Html
+				.fromHtml(getActivity().getResources().getString(
+						R.string.about_app_how_body)));
+
 		((TextView) rootView.findViewById(R.id.text_app_accurate_body))
-		.setText(Html.fromHtml(getActivity().getResources().getString(
-				R.string.about_accurate_body)));
-		
+				.setText(Html.fromHtml(getActivity().getResources().getString(
+						R.string.about_accurate_body)));
+
 		((TextView) rootView.findViewById(R.id.text_about_app_body))
-		.setText(Html.fromHtml(getActivity().getResources().getString(
-				R.string.about_app_body)));
+				.setText(Html.fromHtml(getActivity().getResources().getString(
+						R.string.about_app_body)));
 
 		try {
-			PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(
-					getActivity().getPackageName(), 0);
+			PackageInfo pInfo = getActivity().getPackageManager()
+					.getPackageInfo(getActivity().getPackageName(), 0);
 			((TextView) rootView.findViewById(R.id.text_version_body))
 					.setText(new String(pInfo.versionName));
 		} catch (NameNotFoundException e) {
@@ -140,6 +159,9 @@ public class AboutFragment extends Fragment implements OnClickListener {
 				version_app.setVisibility(View.VISIBLE);
 			else
 				version_app.setVisibility(View.GONE);
+			break;
+		case R.id.back_action_bar:
+			mMenuCallback.onBackActionPressed();
 			break;
 		default:
 			break;
