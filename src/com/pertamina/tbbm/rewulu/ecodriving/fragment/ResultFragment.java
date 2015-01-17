@@ -103,7 +103,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		if (!resultData.getTripdata().isSaved() && userDialog != null)
 			initDialogSaveBackPressed();
 		else if (fromTrip)
-			callback.goToMainMenu();
+			callback.startMainMenu();
 		else
 			callback.startHistory();
 	}
@@ -470,7 +470,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 				resultData.getTripdata().setSaved(false);
 			}
 			TripDataAdapter.updateTrip(getActivity(), resultData.getTripdata());
-			callback.goToMainMenu();
+			callback.startMainMenu();
 			break;
 
 		case USER_ACTION_SAVE_ID:
@@ -515,7 +515,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 				resultData.getTripdata().setSaved(false);
 				TripDataAdapter.updateTrip(getActivity(),
 						resultData.getTripdata());
-				callback.goToMainMenu();
+				callback.startMainMenu();
 			}
 			break;
 		default:

@@ -1,29 +1,33 @@
-package com.pertamina.tbbm.rewulu.ecodriving.dialogs;
+package com.pertamina.tbbm.rewulu.ecodriving.fragment;
 
 import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
+import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnPickedDate;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.UserData;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class UserSettingDialog extends DialogFragment implements
-		OnClickListener, OnPickedDate {
+public class UserSettingFragment extends Fragment implements OnClickListener,
+		OnPickedDate {
 
+	private OnMainListener mMenuCallback;
 	private UserData user;
 	private EditText etxtName;
 	private EditText etxtAddrss;
@@ -34,40 +38,56 @@ public class UserSettingDialog extends DialogFragment implements
 	private int month = 1;
 	private int day = 1;
 
-	public UserSettingDialog(UserData user) {
-		// TODO Auto-generated constructor stub
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		try {
+			mMenuCallback = (OnMainListener) activity;
+		} catch (ClassCastException e) {
+			// TODO: handle exception
+			throw new ClassCastException(activity.toString()
+					+ " must implement MainMenuCallback");
+		}
+	}
+
+	public void setUser(UserData user) {
 		this.user = user;
 	}
 
+	public void onBackPressed() {
+
+	}
+
 	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		final Dialog dialog = new Dialog(getActivity());
-		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		dialog.getWindow().setLayout(256, ViewGroup.LayoutParams.WRAP_CONTENT);
-		dialog.setContentView(R.layout.dialog_user_setting);
-		etxtName = (EditText) dialog.findViewById(R.id.etxt_name_dialog);
-		etxtAddrss = (EditText) dialog.findViewById(R.id.etxt_addrss_dialog);
-		etxtDob = (EditText) dialog.findViewById(R.id.etxt_dob_dialog);
-		etxtCity = (EditText) dialog.findViewById(R.id.etxt_city_dialog);
-		txtErr = (TextView) dialog.findViewById(R.id.txt_error_dialog);
+		View rootView = inflater.inflate(R.layout.fragment_user_setting,
+				container, false);
+		Backstack.onUserSetting();
+		etxtName = (EditText) rootView.findViewById(R.id.etxt_name_dialog);
+		etxtAddrss = (EditText) rootView.findViewById(R.id.etxt_addrss_dialog);
+		etxtDob = (EditText) rootView.findViewById(R.id.etxt_dob_dialog);
+		etxtCity = (EditText) rootView.findViewById(R.id.etxt_city_dialog);
+		txtErr = (TextView) rootView.findViewById(R.id.txt_error_dialog);
 		etxtDob.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new DatePick(UserSettingDialog.this, year, month, day).show(
+				new DatePick(UserSettingFragment.this, year, month, day).show(
 						getFragmentManager(), null);
 			}
 		});
-		((Button) dialog.findViewById(R.id.btn_dialog_back))
+		((Button) rootView.findViewById(R.id.btn_dialog_back))
 				.setOnClickListener(this);
-		((Button) dialog.findViewById(R.id.btn_dialog_save))
+		((Button) rootView.findViewById(R.id.btn_dialog_save))
+				.setOnClickListener(this);
+		((ImageView) rootView.findViewById(R.id.back_action_bar))
 				.setOnClickListener(this);
 		buildView();
-		return dialog;
+		return rootView;
 	}
 
 	private void buildView() {
@@ -101,16 +121,18 @@ public class UserSettingDialog extends DialogFragment implements
 		user.setDob(etxtDob.getText().toString());
 		user.setCity(etxtCity.getText().toString());
 		UserDataSP.put(getActivity(), user);
-		this.dismiss();
+		mMenuCallback.startApp(user);
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		if (v.getId() == R.id.btn_dialog_save) {
+		if (v.getId() == R.id.btn_dialog_save)
 			saveData();
-		} else
-			this.dismiss();
+		else if (v.getId() == R.id.btn_dialog_back)
+			mMenuCallback.startMainMenu();
+		else if (v.getId() == R.id.back_action_bar)
+			mMenuCallback.onBackActionPressed();
 	}
 
 	@SuppressLint("ValidFragment")

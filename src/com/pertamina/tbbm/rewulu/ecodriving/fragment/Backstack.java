@@ -7,6 +7,7 @@ public class Backstack {
 	private static boolean maintracking;
 	private static boolean result;
 	private static boolean splash;
+	private static boolean usersetting;
 
 	private static void falseAll() {
 		// TODO Auto-generated method stub
@@ -16,8 +17,12 @@ public class Backstack {
 		maintracking = false;
 		result = false;
 		splash = false;
+		usersetting = false;
 	}
-
+	public static void onUserSetting() {
+		falseAll();
+		usersetting = true;
+	}
 	public static void onAbout() {
 		falseAll();
 		about = true;
@@ -88,5 +93,12 @@ public class Backstack {
 	 */
 	public static boolean isOnSplash() {
 		return splash;
+	}
+
+	/**
+	 * @return the usersetting
+	 */
+	public static boolean isOnUserSetting() {
+		return usersetting;
 	}
 }

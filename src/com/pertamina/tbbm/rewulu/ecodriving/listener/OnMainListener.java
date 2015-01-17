@@ -11,8 +11,6 @@ import com.pertamina.tbbm.rewulu.ecodriving.pojos.UserData;
 
 public interface OnMainListener {
 	
-	public void goToMainMenu();
-	
 	public void startTrack(Tripdata tripdata);
 
 	public void startResult();
@@ -24,6 +22,8 @@ public interface OnMainListener {
 	public void startHistory();
 	
 	public void startMainMenu();
+	
+	public void startUserSetting();
 
 	public void startApp(UserData user);
 
@@ -38,6 +38,6 @@ public interface OnMainListener {
 	
 	public void loadImageTo(Motor motor, ImageView view);
 	
-	public void onUserBackPressed();
+	public void onBackActionPressed();
 	
 }

@@ -52,6 +52,7 @@ import com.pertamina.tbbm.rewulu.ecodriving.fragment.MainMenuFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.MainTrackingFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.ResultFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.fragment.SplashScreenFragment;
+import com.pertamina.tbbm.rewulu.ecodriving.fragment.UserSettingFragment;
 import com.pertamina.tbbm.rewulu.ecodriving.helpers.ResultData;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnLayangCallback;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
@@ -81,6 +82,12 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	private LinearLayout err_internet;
 	private Intent intentKuli;
 
+	private MainMenuFragment mainmenuFragment = new MainMenuFragment();
+	private MainTrackingFragment mainTrackingFragment = new MainTrackingFragment();
+	private HistoriesFragment historiesFragment = new HistoriesFragment();
+	private ResultFragment resultFragment = new ResultFragment();
+	private UserSettingFragment userSettingFragment = new UserSettingFragment();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -109,7 +116,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 						.replace(R.id.container, new SplashScreenFragment())
 						.commit();
 			} else {
-				goToMainMenu();
+				startMainMenu();
 			}
 		}
 	}
@@ -158,7 +165,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		}
 		layang.register(this.user);
 		splashViewed = true;
-		goToMainMenu();
+		startMainMenu();
 	}
 
 	@Override
@@ -180,6 +187,22 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void storeLog(DataLog log) {
 		// TODO Auto-generated method stub
 		layang.logData(log);
+	}
+
+	@Override
+	public void startMainMenu() {
+		// TODO Auto-generated method stub
+		removeNotif();
+		if (layang != null) {
+			layang.release();
+		}
+		if (motors == null)
+			motors = MotorDataAdapter.readAllMotor(getApplicationContext());
+		if (onPause)
+			return;
+		mainmenuFragment.setDataMotor(motors);
+		getFragmentManager().beginTransaction()
+				.replace(R.id.container, mainmenuFragment).commit();
 	}
 
 	@Override
@@ -216,29 +239,28 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	}
 
 	@Override
-	public void goToMainMenu() {
-		// TODO Auto-generated method stub
-		removeNotif();
-		if (layang != null) {
-			layang.release();
-		}
-		if (motors == null)
-			motors = MotorDataAdapter.readAllMotor(getApplicationContext());
-		if (onPause)
-			return;
-		mainmenuFragment = new MainMenuFragment();
-		mainmenuFragment.setDataMotor(motors);
-		getFragmentManager().beginTransaction()
-				.replace(R.id.container, mainmenuFragment).commit();
-	}
-
-	private MainMenuFragment mainmenuFragment = new MainMenuFragment();
-
-	@Override
 	public void startHelp() {
 		// TODO Auto-generated method stub
 		getFragmentManager().beginTransaction()
 				.replace(R.id.container, new AboutFragment()).commit();
+	}
+
+	@Override
+	public void startUserSetting() {
+		// TODO Auto-generated method stub
+		if (user == null)
+			user = UserDataSP.get(getApplicationContext());
+		if (user != null) {
+			userSettingFragment.setUser(user);
+			getFragmentManager().beginTransaction()
+					.replace(R.id.container, userSettingFragment).commit();
+		}
+	}
+
+	@Override
+	public void onBackActionPressed() {
+		// TODO Auto-generated method stub
+		onBackPressed();
 	}
 
 	@Override
@@ -256,10 +278,12 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 			appExit();
 			return;
 		}
+		if (Backstack.isOnUserSetting()) {
+			startMainMenu();
+		}
 		if (Backstack.isOnSplash()) {
 			this.finish();
-		} else
-			goToMainMenu();
+		}
 
 	}
 
@@ -313,12 +337,6 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		TrackingSP.setRunning(getApplicationContext(), false);
 	}
 
-	@Override
-	public void startMainMenu() {
-		// TODO Auto-generated method stub
-		goToMainMenu();
-	}
-
 	private ServiceConnection serviceConnection = new ServiceConnection() {
 
 		@Override
@@ -363,8 +381,6 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		}
 	}
 
-	private MainTrackingFragment mainTrackingFragment = new MainTrackingFragment();
-
 	@Override
 	public void isInternetAvailable(boolean arg0) {
 		// TODO Auto-generated method stub
@@ -391,8 +407,6 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		removeNotif();
 	}
 
-	private ResultFragment resultFragment = new ResultFragment();
-
 	@Override
 	public UserData getUser() {
 		// TODO Auto-generated method stub
@@ -415,8 +429,6 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		getFragmentManager().beginTransaction()
 				.replace(R.id.container, historiesFragment).commit();
 	}
-
-	private HistoriesFragment historiesFragment = new HistoriesFragment();
 
 	@Override
 	public void onStartingLayang() {
@@ -446,12 +458,6 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		err_internet.setVisibility(View.VISIBLE);
 		((TextView) findViewById(R.id.connecting_error_text))
 				.setText("GPS is disable");
-	}
-
-	@Override
-	public void onUserBackPressed() {
-		// TODO Auto-generated method stub
-		onBackPressed();
 	}
 
 }

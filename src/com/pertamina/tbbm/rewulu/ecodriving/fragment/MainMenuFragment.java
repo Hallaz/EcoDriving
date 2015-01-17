@@ -27,14 +27,11 @@ import com.pertamina.tbbm.rewulu.ecodriving.adapters.SpinnerMenuCustom;
 import com.pertamina.tbbm.rewulu.ecodriving.adapters.SpinnerMenuCustomAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.adapters.SpinnerMotorCustom;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.LocationSP;
-import com.pertamina.tbbm.rewulu.ecodriving.databases.sps.UserDataSP;
 import com.pertamina.tbbm.rewulu.ecodriving.dialogs.IndicatorSettingDialog;
-import com.pertamina.tbbm.rewulu.ecodriving.dialogs.UserSettingDialog;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnMainListener;
 import com.pertamina.tbbm.rewulu.ecodriving.locations.LocationEngine;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Motor;
 import com.pertamina.tbbm.rewulu.ecodriving.pojos.Tripdata;
-import com.pertamina.tbbm.rewulu.ecodriving.pojos.UserData;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Constant;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Utils;
@@ -110,7 +107,7 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 							popUpIndicatorSetting();
 							break;
 						case 3:
-							popUpUserSetting();
+							mMenuCallback.startUserSetting();
 							break;
 						case 4:
 							mMenuCallback.startHelp();
@@ -200,11 +197,6 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		dialog.show(getFragmentManager(), null);
 	}
 
-	private void popUpUserSetting() {
-		UserData user = UserDataSP.get(getActivity());
-		UserSettingDialog dialog = new UserSettingDialog(user);
-		dialog.show(getFragmentManager(), null);
-	}
 
 	private void startTrack() {
 		// TODO Auto-generated method stub

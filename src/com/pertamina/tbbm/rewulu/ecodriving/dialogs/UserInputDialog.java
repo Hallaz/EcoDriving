@@ -113,7 +113,6 @@ public class UserInputDialog extends DialogFragment implements OnClickListener {
 		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		dialog.getWindow().setLayout(256, ViewGroup.LayoutParams.MATCH_PARENT);
-		dialog.setContentView(R.layout.dialog_user_setting);
 		if (actionInput) {
 			dialog.setContentView(R.layout.dialog_user_input);
 			userInput = (EditText) dialog.findViewById(R.id.editText_dialog);
