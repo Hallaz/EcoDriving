@@ -186,7 +186,7 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		if (tripdata.getMotor() != null) {
 			double max = tripdata.getMotor().getMax_fuel();
 			fuel = (max * progressSeek) / 100;
-			textFuel.setText(fuel + " L");
+			textFuel.setText(String.format("%.2f", fuel) + " L");
 		}
 	}
 
@@ -196,7 +196,6 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 		IndicatorSettingDialog dialog = new IndicatorSettingDialog();
 		dialog.show(getFragmentManager(), null);
 	}
-
 
 	private void startTrack() {
 		// TODO Auto-generated method stub
