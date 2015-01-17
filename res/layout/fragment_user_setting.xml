@@ -12,22 +12,28 @@
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
-        <ImageView
-            android:id="@+id/back_action_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_back_action_bar" />
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:gravity="left" >
+
+            <ImageView
+                android:id="@+id/back_action_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_action_bar" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center" >
+            android:gravity="center|left" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DATA PERJALANAN"
-                android:textColor="#FFFFFF"
+                android:text="PENGATURAN PROFIL"
+                android:textColor="@color/text_dashboard"
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
@@ -46,15 +52,12 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="16dp" >
+            android:padding="10dp" >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="24dp"
                 android:gravity="center"
                 android:shadowColor="@color/dark_blue"
                 android:text="Profil Pengguna"
@@ -70,10 +73,7 @@
                 android:ems="10"
                 android:hint="Nama"
                 android:inputType="textCapSentences"
-                android:textColorHint="@color/text_light_gray" >
-
-                <requestFocus />
-            </EditText>
+                android:textColorHint="@color/text_light_gray" />
 
             <EditText
                 android:id="@+id/etxt_dob_dialog"

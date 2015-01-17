@@ -10,10 +10,18 @@
     android:paddingRight="10dp"
     android:paddingTop="25dp" >
 
-    <TextView
-        android:id="@+id/textView_user_single_dialog_confirm"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:background="@drawable/btn_login"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView_user_single_dialog_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hapus"
+            android:textColor="@color/text_dashboard" />
+    </LinearLayout>
 
 </LinearLayout>
