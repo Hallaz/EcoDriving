@@ -41,6 +41,10 @@ public class AboutFragment extends Fragment implements OnClickListener {
 		}
 	}
 
+	public void onBackPressed() {
+		mMenuCallback.startMainMenu();
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

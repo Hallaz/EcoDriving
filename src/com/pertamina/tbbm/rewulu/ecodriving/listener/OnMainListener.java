@@ -17,7 +17,7 @@ public interface OnMainListener {
 
 	public void startResult(Tripdata trip);
 
-	public void startHelp();
+	public void startAbout();
 	
 	public void startHistory();
 	

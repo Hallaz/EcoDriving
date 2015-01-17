@@ -110,7 +110,7 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 							mMenuCallback.startUserSetting();
 							break;
 						case 4:
-							mMenuCallback.startHelp();
+							mMenuCallback.startAbout();
 							break;
 						default:
 							break;

@@ -87,6 +87,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	private HistoriesFragment historiesFragment = new HistoriesFragment();
 	private ResultFragment resultFragment = new ResultFragment();
 	private UserSettingFragment userSettingFragment = new UserSettingFragment();
+	private AboutFragment aboutFragment = new AboutFragment();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -239,10 +240,10 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	}
 
 	@Override
-	public void startHelp() {
+	public void startAbout() {
 		// TODO Auto-generated method stub
 		getFragmentManager().beginTransaction()
-				.replace(R.id.container, new AboutFragment()).commit();
+				.replace(R.id.container, aboutFragment).commit();
 	}
 
 	@Override
@@ -288,7 +289,11 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		if (Backstack.isOnHistories()) {
 			historiesFragment.onBackPressed();
 		}
+		if (Backstack.isOnAbout()) {
+			aboutFragment.onBackPressed();
+		}
 	}
+
 	@Override
 	public void appExit() {
 		// TODO Auto-generated method stub
