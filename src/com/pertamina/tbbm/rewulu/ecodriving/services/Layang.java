@@ -80,14 +80,8 @@ public class Layang extends Service implements OnControllerCallback {
 		clientController = new ClientController(getApplicationContext(), this);
 	}
 
-	public void destroy() {
-		if (trip != null) {
-			clientController.destroy();
-			deleteTrip();
-		}
-	}
-
 	public void release() {
+		deleteTrip();
 		clientController.destroy();
 		clearQuery();
 		callback.onStoppingLayang();

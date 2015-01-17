@@ -151,7 +151,7 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		Loggers.w("", "onDestroy");
-		layang.destroy();
+		layang.release();
 		unbindService(serviceConnection);
 		removeNotif();
 	}
@@ -269,7 +269,6 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		// TODO Auto-generated method stub
 		if (Backstack.isOnMaintracking()) {
 			mainTrackingFragment.onBackPressed();
-			layang.destroy();
 			return;
 		}
 		if (Backstack.isOnResult()) {
@@ -282,15 +281,20 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		}
 		if (Backstack.isOnUserSetting()) {
 			userSettingFragment.onBackPressed();
+			return;
 		}
 		if (Backstack.isOnSplash()) {
 			this.finish();
+
+			return;
 		}
 		if (Backstack.isOnHistories()) {
 			historiesFragment.onBackPressed();
+			return;
 		}
 		if (Backstack.isOnAbout()) {
 			aboutFragment.onBackPressed();
+			return;
 		}
 	}
 

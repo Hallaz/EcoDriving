@@ -144,7 +144,9 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 	}
 
 	public void onBackPressed() {
-		tracking.onDestroy();
+		dialog = new UserInputDialog(Constant.DIALOG_EXIT_TRACK,
+				"Apakah Anda ingin membatalkan perjalanan? ", false, this);
+		dialog.show(getFragmentManager(), null);
 	}
 
 	public void setData(Tripdata tripdata) {
@@ -163,6 +165,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		tracking.onDestroy();
+
 	}
 
 	public void destoyFragment() {
@@ -207,8 +210,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 		tracking = new TrackingHelper(getActivity(), tripdata.getMotor()
 				.getPsstv_acc(), tripdata.getMotor().getNgtv_acc(), this);
 		if (savedInstanceState == null || tracking.getLocation() == null) {
-			tracking.setLocation(LocationSP
-					.getLastKnownLocation(getActivity()));
+			tracking.setLocation(LocationSP.getLastKnownLocation(getActivity()));
 		}
 		onEco = true;
 		initializeMap();
@@ -381,8 +383,8 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 				if (dFuel < 0.5d || dFuel > (tripdata.getMotor().getMax_fuel()))
 					Utils.toast(getActivity(), R.string.err_data_fuel_false);
 				else {
-					dialog = new UserInputDialog(
-							Constant.DIALOG_FUEL_REFILL, getActivity()
+					dialog = new UserInputDialog(Constant.DIALOG_FUEL_REFILL,
+							getActivity()
 									.getString(R.string.dialog_fuel_refill),
 							true, this);
 					fuel = +dFuel;
@@ -391,6 +393,13 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 				}
 			}
 			break;
+		case Constant.DIALOG_EXIT_TRACK:
+			if (action) {
+				tracking.onDestroy();
+				callback.startMainMenu();
+			}
+			break;
+
 		default:
 			break;
 		}
@@ -411,14 +420,13 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 					|| tracking.getLocations().size() == 1)
 				Utils.toast(getActivity(), R.string.err_no_location);
 			else if (distance < 1.0d) {
-				dialog = new UserInputDialog(Constant.DIALOG_ERR,
-						getActivity().getString(R.string.err_too_short_trip),
-						false, this);
+				dialog = new UserInputDialog(Constant.DIALOG_ERR, getActivity()
+						.getString(R.string.err_too_short_trip), false, this);
 				dialog.singleButtonMode(true);
 				dialog.show(getFragmentManager(), null);
 			} else {
-				dialog = new UserInputDialog(
-						Constant.DIALOG_FINISH_TRACK, getActivity().getString(
+				dialog = new UserInputDialog(Constant.DIALOG_FINISH_TRACK,
+						getActivity().getString(
 								R.string.dialog_text_finish_track), false, this);
 				dialog.show(getFragmentManager(), null);
 			}
@@ -549,7 +557,7 @@ public class MainTrackingFragment extends Fragment implements OnDialogListener,
 	@Override
 	public void onDismiss(int id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

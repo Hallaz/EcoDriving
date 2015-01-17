@@ -13,14 +13,16 @@ public class Constant {
 
 	public static final int SPEED_TOLERANCE = 1;
 
+	public static final int DIALOG_EXIT_TRACK = 2121212;
+
 	public static final double FAKTOR_EMISI = 2.32d;
 
 	public static final String MENU_CONST = "menu_text";
-	
+
 	public static final String ADDRESS_UNKNOWN = "unknown";
-	
+
 	public static final String TITLE_UNKNOWN = "NN";
-	
+
 	public static ArrayList<HashMap<String, String>> menu_item(String[] menus) {
 		ArrayList<HashMap<String, String>> menu = new ArrayList<>();
 		for (int w = 0; w < menus.length; w++) {
