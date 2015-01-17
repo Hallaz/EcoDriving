@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="red">#DF0101</color>
+    <color name="action_bar">#DF0101</color>
+    <color name="bg_hijau">#C8E088</color>
     <color name="panduan_color_btn">#2E2E2E</color>
     <color name="divider_orange">#f2d167</color>
     <color name="divider_grey">#a7a7a7</color>

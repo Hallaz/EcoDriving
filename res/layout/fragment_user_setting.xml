@@ -8,7 +8,7 @@
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@drawable/action_bar"
+        android:background="@color/action_bar"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -21,7 +21,7 @@
                 android:id="@+id/back_action_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_back_action_bar" />
+                android:src="@drawable/ic_action_previous_item" />
         </LinearLayout>
 
         <LinearLayout
@@ -45,25 +45,29 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/layout_background"
-        android:gravity="center"
+        android:gravity="top|center"
         android:orientation="horizontal" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/spinner"
+            android:gravity="top|center"
             android:orientation="vertical"
             android:padding="10dp" >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:gravity="center"
                 android:shadowColor="@color/dark_blue"
                 android:text="Profil Pengguna"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@color/texttheme"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
