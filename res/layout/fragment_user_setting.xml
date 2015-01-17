@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:gravity="left" >
+            android:gravity="center|left" >
 
             <ImageView
                 android:id="@+id/back_action_bar"
@@ -32,6 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="PENGATURAN PROFIL"
                 android:textColor="@color/text_dashboard"
                 android:textSize="18sp" />

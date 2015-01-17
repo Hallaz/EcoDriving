@@ -14,25 +14,25 @@
 
         <LinearLayout
             android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:gravity="left" >
+            android:layout_height="match_parent" >
 
             <ImageView
                 android:id="@+id/back_action_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
                 android:src="@drawable/ic_back_action_bar" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center|left"
             android:layout_weight="0.62" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
                 android:gravity="center|left"
                 android:text="TENTANG APLIKASI"
                 android:textColor="#FFFFFF"

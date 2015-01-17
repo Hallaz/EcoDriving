@@ -1,5 +1,6 @@
 package com.pertamina.tbbm.rewulu.ecodriving.dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
@@ -16,12 +17,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.listener.OnDialogListener;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Loggers;
 
-public class UserInputDialog extends DialogFragment implements OnClickListener {
+@SuppressLint("ValidFragment") public class UserInputDialog extends DialogFragment implements OnClickListener {
 	private final int ID;
 	private OnDialogListener listener;
 	private String text;
@@ -112,7 +112,7 @@ public class UserInputDialog extends DialogFragment implements OnClickListener {
 		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		dialog.getWindow().setLayout(256, ViewGroup.LayoutParams.MATCH_PARENT);
+		dialog.getWindow().setLayout(256, ViewGroup.LayoutParams.WRAP_CONTENT);
 		if (actionInput) {
 			dialog.setContentView(R.layout.dialog_user_input);
 			userInput = (EditText) dialog.findViewById(R.id.editText_dialog);

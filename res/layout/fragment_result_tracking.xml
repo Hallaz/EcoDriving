@@ -15,13 +15,13 @@
 
         <LinearLayout
             android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:gravity="left" >
+            android:layout_height="match_parent" >
 
             <ImageView
                 android:id="@+id/back_action_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
                 android:src="@drawable/ic_back_action_bar" />
         </LinearLayout>
 
@@ -30,12 +30,14 @@
             android:layout_height="match_parent"
             android:layout_below="@id/action_bar"
             android:layout_weight="3"
-            android:gravity="center|left"
+            android:gravity="center_vertical"
             android:orientation="vertical" >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="8dp"
                 android:text="DATA PERJALANAN"
                 android:textColor="@color/text_dashboard"
                 android:textSize="16sp" />
@@ -45,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_below="@id/action_bar"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:weightSum="3" >
 
@@ -54,12 +57,13 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageButton
                     android:id="@+id/btn_delete_result"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
                     android:background="@drawable/ic_hapus"
                     android:scaleType="center" />
@@ -69,12 +73,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageButton
                     android:id="@+id/btn_save_result"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:layout_weight="1"
@@ -88,12 +93,13 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageButton
                     android:id="@+id/btn_share_result"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
                     android:background="@drawable/ic_share"
                     android:scaleType="center" />
