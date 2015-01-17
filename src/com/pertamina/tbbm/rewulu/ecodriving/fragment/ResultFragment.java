@@ -354,7 +354,7 @@ public class ResultFragment extends Fragment implements OnClickListener,
 		}
 		chartContainer.addView(chartView, 0);
 	}
-
+ 
 	private XYSeries getMaxEcoSpeedSeries() {
 		// TODO Auto-generated method stub
 		XYSeries maxEcoXySeries = new XYSeries("Max Eco Driving Speed");
