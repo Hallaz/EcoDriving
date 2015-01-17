@@ -40,4 +40,6 @@ public interface OnMainListener {
 	
 	public void onBackActionPressed();
 	
+	public void appExit();
+	
 }

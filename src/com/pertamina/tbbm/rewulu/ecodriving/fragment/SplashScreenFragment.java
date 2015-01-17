@@ -188,6 +188,7 @@ public class SplashScreenFragment extends Fragment implements OnPickedDate {
 
 	private void interupted() {
 		// TODO Auto-generated method stub
+		Loggers.i("interupted", "interupted ? " + interupted);
 		if (interupted) {
 			if (!UserDataSP.isEmty(getActivity())) {
 				UserData user = UserDataSP.get(getActivity());

@@ -36,6 +36,7 @@ public class HistoriesFragment extends Fragment {
 	}
 
 	public void onBackPressed() {
+		callback.startMainMenu();
 	}
 
 	@Override

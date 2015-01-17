@@ -55,7 +55,7 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 	}
 
 	public void onBackPressed() {
-		Loggers.w("MainMenuFragment", "onBackPressed");
+		mMenuCallback.appExit();
 	}
 
 	private List<Motor> motors;

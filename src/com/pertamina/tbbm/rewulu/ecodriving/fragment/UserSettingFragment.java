@@ -56,7 +56,7 @@ public class UserSettingFragment extends Fragment implements OnClickListener,
 	}
 
 	public void onBackPressed() {
-
+		mMenuCallback.startMainMenu();
 	}
 
 	@Override

@@ -267,7 +267,9 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		if (Backstack.isOnMaintracking()) {
+			mainTrackingFragment.onBackPressed();
 			layang.destroy();
+			return;
 		}
 		if (Backstack.isOnResult()) {
 			resultFragment.onBackPressed();
@@ -275,19 +277,20 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		}
 		if (Backstack.isOnMainmenu()) {
 			mainmenuFragment.onBackPressed();
-			appExit();
 			return;
 		}
 		if (Backstack.isOnUserSetting()) {
-			startMainMenu();
+			userSettingFragment.onBackPressed();
 		}
 		if (Backstack.isOnSplash()) {
 			this.finish();
 		}
-
+		if (Backstack.isOnHistories()) {
+			historiesFragment.onBackPressed();
+		}
 	}
-
-	private void appExit() {
+	@Override
+	public void appExit() {
 		// TODO Auto-generated method stub
 		if (!cdExit) {
 			cdExit = true;
