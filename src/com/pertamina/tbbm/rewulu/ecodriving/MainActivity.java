@@ -285,7 +285,6 @@ public class MainActivity extends FragmentActivity implements OnMainListener,
 		}
 		if (Backstack.isOnSplash()) {
 			this.finish();
-
 			return;
 		}
 		if (Backstack.isOnHistories()) {

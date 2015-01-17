@@ -19,15 +19,7 @@ public class Api {
 		for (int w = 0; w < trip.length; w++)
 			link += TABLE_URI[trip[w]];
 		link += "/";
-		String[] t = title.split("\\s+");
-		String tile = new String();
-		for (int w = 0; w < t.length; w++) {
-			if (w == 0)
-				tile = t[w];
-			else
-				tile += "-" + t[w];
-		}
-		return TRIP_URL + link.trim() + tile.toLowerCase().trim();
+		return TRIP_URL + link.trim() + title.trim();
 	}
 
 	private Integer[] getRow(int raw) {
