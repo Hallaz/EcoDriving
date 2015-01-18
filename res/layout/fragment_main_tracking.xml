@@ -26,7 +26,7 @@
             <LinearLayout
                 android:id="@+id/bot"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/ma"
                 android:orientation="vertical" >
@@ -238,7 +238,6 @@
                             android:text="km/h"
                             android:textColor="@color/text_dashboard"
                             android:textSize="8sp" />
-
                     </RelativeLayout>
 
                     <LinearLayout

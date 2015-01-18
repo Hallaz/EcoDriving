@@ -63,7 +63,7 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 	private Tripdata tripdata;
 	private SpinnerMenuCustom menu;
 	private final String[] menus = new String[] { "Panduan Eco Driving",
-			"Rekaman Perjalanan", "Pengaturan Indikator", "Pengaturan Profile",
+			"Rekaman Perjalanan", "Pengaturan Indikator", "Pengaturan Profil",
 			"Tentang Aplikasi" };
 	private SeekBar fuelControl;
 	private LocationEngine locationEngine;
