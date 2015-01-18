@@ -20,6 +20,7 @@
             android:padding="1dp" >
 
             <ImageView
+                android:id="@+id/back_action_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"

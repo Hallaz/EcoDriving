@@ -9,17 +9,19 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pertamina.tbbm.rewulu.ecodriving.R;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.ContentsAdapter;
+import com.pertamina.tbbm.rewulu.ecodriving.listener.OnSlidePagesChange;
 
 public class SlidePagesFragment extends Fragment {
 	private HashMap<String, String> data;
 	private int pageIndex;
-	private onSlidePagesChange onSlidePagesChange;
+	private OnSlidePagesChange onSlidePagesChange;
 
 	public SlidePagesFragment() {
 		setRetainInstance(true);
@@ -30,15 +32,14 @@ public class SlidePagesFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onAttach(activity);
 		try {
-			onSlidePagesChange = (onSlidePagesChange) activity;
+			onSlidePagesChange = (OnSlidePagesChange) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
 					+ " must implement OnHeadlineSelectedListener");
 		}
 	}
 
-	public void setContent(HashMap<String, String> data,
-			 int paggeIndex) {
+	public void setContent(HashMap<String, String> data, int paggeIndex) {
 		// TODO Auto-generated method stub
 		this.pageIndex = paggeIndex;
 		this.data = data;
@@ -63,6 +64,15 @@ public class SlidePagesFragment extends Fragment {
 		((ImageView) rootView.findViewById(R.id.slide_context_imgview))
 				.setImageResource(getDrawable(getActivity(),
 						data.get(ContentsAdapter.KEY_CONTENT_CONTENT)));
+		((ImageView) rootView.findViewById(R.id.back_action_bar))
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						onSlidePagesChange.onBackKeyPressed();
+					}
+				});
 		return rootView;
 	}
 
@@ -71,9 +81,5 @@ public class SlidePagesFragment extends Fragment {
 		Assert.assertNotNull(name);
 		return context.getResources().getIdentifier(name, "drawable",
 				context.getPackageName());
-	}
-
-	public interface onSlidePagesChange {
-		public void onPagePossiton(int arg1);
 	}
 }

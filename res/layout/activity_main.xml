@@ -3,9 +3,9 @@
     android:id="@+id/panel_pages_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/default_screen_bg"
     android:orientation="vertical"
     tools:context="com.pertamina.tbbm.rewulu.ecodriving.MainActivity"
-    android:background="@color/default_screen_bg"
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout
@@ -13,12 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="#FACC2E"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="gone"
-        android:gravity="center">
+        android:visibility="gone" >
 
         <TextView
-        android:id="@+id/connecting_error_text"
+            android:id="@+id/connecting_error_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Connecting to internet" />
@@ -34,6 +34,6 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.pertamina.tbbm.rewulu.ecodriving.MainActivity"/>
+        tools:context="com.pertamina.tbbm.rewulu.ecodriving.MainActivity" />
 
 </LinearLayout>

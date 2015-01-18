@@ -35,11 +35,11 @@ import android.widget.LinearLayout;
 
 import com.pertamina.tbbm.rewulu.ecodriving.adapters.SlidePagesAdapter;
 import com.pertamina.tbbm.rewulu.ecodriving.databases.ContentsAdapter;
-import com.pertamina.tbbm.rewulu.ecodriving.fragment.SlidePagesFragment.onSlidePagesChange;
+import com.pertamina.tbbm.rewulu.ecodriving.listener.OnSlidePagesChange;
 import com.pertamina.tbbm.rewulu.ecodriving.utils.Enums.Type;
 
 public class ContentsActivity extends FragmentActivity implements
-		onSlidePagesChange, OnClickListener {
+		OnSlidePagesChange, OnClickListener {
 	public static final String FLAG = ContentsActivity.class.getSimpleName();
 	private ViewPager viewPager;
 	private SlidePagesAdapter adapter;
@@ -142,5 +142,11 @@ public class ContentsActivity extends FragmentActivity implements
 				if (v.equals(imgs.get(w)))
 					viewPager.setCurrentItem(w);
 			}
+	}
+
+	@Override
+	public void onBackKeyPressed() {
+		// TODO Auto-generated method stub
+		onBackPressed();
 	}
 }
