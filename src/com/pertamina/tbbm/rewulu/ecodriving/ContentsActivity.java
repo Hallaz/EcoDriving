@@ -79,6 +79,15 @@ public class ContentsActivity extends FragmentActivity implements
 			onPagePossiton(savedInstanceState.getInt(PAGER_POS));
 		} else
 			onPagePossiton(0);
+		((ImageView) findViewById(R.id.back_action_bar))
+		.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				onBackPressed();
+			}
+		});
 	}
 
 	@Override
@@ -147,6 +156,6 @@ public class ContentsActivity extends FragmentActivity implements
 	@Override
 	public void onBackKeyPressed() {
 		// TODO Auto-generated method stub
-		onBackPressed();
+		//onBackPressed();
 	}
 }

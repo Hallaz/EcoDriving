@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,15 +63,6 @@ public class SlidePagesFragment extends Fragment {
 		((ImageView) rootView.findViewById(R.id.slide_context_imgview))
 				.setImageResource(getDrawable(getActivity(),
 						data.get(ContentsAdapter.KEY_CONTENT_CONTENT)));
-		((ImageView) rootView.findViewById(R.id.back_action_bar))
-				.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						onSlidePagesChange.onBackKeyPressed();
-					}
-				});
 		return rootView;
 	}
 
