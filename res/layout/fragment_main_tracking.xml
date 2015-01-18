@@ -234,10 +234,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
+                            android:layout_centerVertical="true"
                             android:text="km/h"
                             android:textColor="@color/text_dashboard"
                             android:textSize="8sp" />
+
                     </RelativeLayout>
 
                     <LinearLayout
@@ -265,6 +266,7 @@
                 android:layout_height="40dp"
                 android:layout_above="@+id/dashboard"
                 android:layout_alignParentLeft="true"
+                android:layout_marginBottom="15dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/map_panel_bg"
                 android:gravity="center_horizontal"
