@@ -64,10 +64,10 @@
                 android:layout_marginBottom="24dp"
                 android:gravity="center"
                 android:shadowColor="@color/dark_blue"
-                android:text="Profil Pengguna"
+                android:text="PROFIL PENGGUNA"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/texttheme"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <EditText

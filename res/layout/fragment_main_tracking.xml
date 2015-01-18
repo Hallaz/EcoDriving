@@ -35,9 +35,9 @@
             <LinearLayout
                 android:id="@+id/dashboard"
                 android:layout_width="match_parent"
-                android:layout_height="84dp"
+                android:layout_height="72dp"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/blue_dashboard"
+                android:background="@drawable/dashboard"
                 android:gravity="center_horizontal" >
 
                 <RelativeLayout
@@ -51,7 +51,7 @@
                         android:layout_width="54dp"
                         android:layout_height="48dp"
                         android:layout_marginTop="4dp"
-                        android:background="@drawable/drop_shadow"
+                        android:background="@drawable/eco_shadow"
                         android:scaleType="centerCrop" />
 
                     <LinearLayout
@@ -95,7 +95,9 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="@string/fuel_stat"
-                            android:textColor="@color/text_fuel" />
+                            android:textColor="@color/text_fuel"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -105,22 +107,6 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="vertical" >
-
-                    <RelativeLayout
-                        android:layout_width="64dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/eco_shadow"
-                        android:gravity="center"
-                        android:padding="2dp" >
-
-                        <ImageView
-                            android:id="@+id/ic_stats"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_eco_stat" />
-                    </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -132,6 +118,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.5"
+                            android:gravity="center_vertical"
                             android:orientation="vertical" >
 
                             <ImageView
@@ -147,13 +134,12 @@
 
                             <TextView
                                 android:id="@+id/textView_distance_tracking"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignBottom="@+id/ic_distance"
                                 android:layout_alignParentRight="true"
-                                android:layout_marginLeft="4dp"
                                 android:layout_toRightOf="@id/ic_distance"
-                                android:gravity="center_vertical"
+                                android:gravity="center_horizontal"
                                 android:text="@string/dis_stat"
                                 android:textColor="@color/text_dashboard"
                                 android:textSize="12sp" />
@@ -163,6 +149,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.4"
+                            android:gravity="center_vertical"
                             android:orientation="vertical" >
 
                             <ImageView
@@ -188,6 +175,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.5"
+                            android:gravity="center_vertical"
                             android:orientation="vertical" >
 
                             <ImageView
@@ -206,9 +194,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignBottom="@+id/ic_average_speed"
                                 android:layout_alignParentRight="@id/ic_average_speed"
-                                android:layout_marginRight="4dp"
                                 android:layout_toLeftOf="@id/ic_average_speed"
-                                android:gravity="center_vertical|right"
+                                android:gravity="center_horizontal"
                                 android:text="@string/av_speed_stat"
                                 android:textColor="@color/text_dashboard"
                                 android:textSize="12sp" />
@@ -221,18 +208,55 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="6dp"
                     android:layout_weight="0.4"
-                    android:gravity="center|bottom"
+                    android:gravity="center|right"
                     android:orientation="vertical" >
 
-                    <TextView
-                        android:id="@+id/textView_speedo"
-                        android:layout_width="match_parent"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center|right"
-                        android:text="40"
-                        android:textColor="@android:color/white"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/textView_speedo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:text="40"
+                            android:textColor="@android:color/white"
+                            android:textSize="28sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:text="km/h"
+                            android:textColor="@color/text_dashboard"
+                            android:textSize="8sp" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="48dp"
+                        android:layout_height="32dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/eco_shadow"
+                        android:gravity="center_horizontal"
+                        android:padding="2dp" >
+
+                        <ImageView
+                            android:id="@+id/ic_stats"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_eco_stat" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 

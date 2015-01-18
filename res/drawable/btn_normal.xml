@@ -8,7 +8,7 @@
         android:right="7dp"
         android:top="7dp" />
 
-    <solid android:color="#00E676" />
+    <solid android:color="@color/btn_hijau" />
 
     <stroke android:width="0dip" />
 

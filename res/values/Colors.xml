@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="action_bar">#FF0025</color>
+    <color name="action_bar">#ed3b3b</color>
     <color name="bg_hijau">#C8E088</color>
+    <color name="btn_hijau">#049951</color>
     <color name="panduan_color_btn">#2E2E2E</color>
     <color name="divider_orange">#f2d167</color>
     <color name="divider_grey">#a7a7a7</color>
     <color name="texttheme">#252525</color>
+    <color name="bg_dasboard">#00A3C6</color>
     <color name="text_dashboard">#FFFFFF</color>
     <color name="text_fuel">#c0c0c0</color>
     <color name="text_dark_gray">#191919</color>
