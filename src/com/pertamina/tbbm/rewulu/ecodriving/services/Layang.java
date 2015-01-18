@@ -429,7 +429,7 @@ public class Layang extends Service implements OnControllerCallback {
 	@Override
 	public void registerResult(UserData result) {
 		// TODO Auto-generated method stub
-		if(result == null) {
+		if (result == null) {
 			newSession = false;
 			return;
 		}
@@ -440,7 +440,7 @@ public class Layang extends Service implements OnControllerCallback {
 				trip.setUser(result, "registerResult");
 			Loggers.i("registerResult", "set trip UserData.getRow_id()"
 					+ result.getRow_id());
-		} else 
+		} else
 			newSession = false;
 		Loggers.i("Layang - registerResult",
 				"UserData.getRow_id()" + result.getRow_id());
