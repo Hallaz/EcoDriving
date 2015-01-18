@@ -109,14 +109,9 @@ public class Layang extends Service implements OnControllerCallback {
 		protected Boolean doInBackground(String... params) {
 			// TODO Auto-generated method stub
 			while (true) {
-				long sleep = 10000;
-				if (!newSession)
-					sleep = 5000;
-				else
-					sleep = 10000;
 				publishProgress(Utils.isInternetAvailable());
 				try {
-					Thread.sleep(sleep);
+					Thread.sleep(10000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					Loggers.e("Timer", e.toString());
@@ -255,6 +250,7 @@ public class Layang extends Service implements OnControllerCallback {
 	public void session(UserData userdata) {
 		Loggers.i("session", "UserData.getRow_id() " + userdata.getRow_id());
 		clientController.session(userdata);
+		newSession = true;
 	}
 
 	private void trip() {
@@ -433,6 +429,10 @@ public class Layang extends Service implements OnControllerCallback {
 	@Override
 	public void registerResult(UserData result) {
 		// TODO Auto-generated method stub
+		if(result == null) {
+			newSession = false;
+			return;
+		}
 		if (result.getRow_id() >= 0) {
 			callback.registerResult(result);
 			newSession = true;
@@ -440,7 +440,8 @@ public class Layang extends Service implements OnControllerCallback {
 				trip.setUser(result, "registerResult");
 			Loggers.i("registerResult", "set trip UserData.getRow_id()"
 					+ result.getRow_id());
-		}
+		} else 
+			newSession = false;
 		Loggers.i("Layang - registerResult",
 				"UserData.getRow_id()" + result.getRow_id());
 	}
@@ -537,7 +538,6 @@ public class Layang extends Service implements OnControllerCallback {
 	public void requestNewAPI_KEY() {
 		// TODO Auto-generated method stub
 		Loggers.w("Layang", "requestNewAPI_KEY()");
-		newSession = false;
 		UserData user = callback.getUser();
 		if (callback.getUser() != null)
 			user = UserDataSP.get(getApplicationContext());

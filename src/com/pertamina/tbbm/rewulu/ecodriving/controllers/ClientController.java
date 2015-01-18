@@ -143,6 +143,7 @@ public class ClientController {
 					Loggers.e("Registrar", "" + "arg0.getMessage() ERROR");
 
 				UserDataSP.put(context, user);
+				callback.registerResult(null);
 			}
 		};
 
