@@ -41,32 +41,33 @@
 Eco Driving adalah metode berkendara yang mengupayakan penggunaan bahan bakar yang lebih efisien.<br><br>
 Dalam Pengertian lain, Eco Driving adalah penghematan bahan bakar tanpa perlu pemasangan alat tambahan atau modifikasi kendaraan.<br><br>
 Aplikasi Eco Driving adalah aplikasi pemantau penggunaan bahan bakar minyak pada kendaraan bermotor dengan metode Eco Driving.<br><br>
-Aplikasi Eco Driving merupakan hasil riset dari <b>PT.PERTAMINA TBBM REWULU</b> dan <b>UNIVERSITAS GAJAH MADA</b>, kemudian diwujudkan dalam bentuk aplikasi bersama <b>JOGJACODE</b>.
+Aplikasi Eco Driving merupakan hasil riset dari <b>PT.PERTAMINA TBBM REWULU</b> dan <b>UNIVERSITAS GADJAH MADA</b>, kemudian diwujudkan dalam bentuk aplikasi bersama <b>JOGJACODE</b>.
 </p>
 ]]>
-	</string>
+    </string>
     <string name="about_accurate_title">Keakuratan Aplikasi</string>
     <string name="about_accurate_body">
 <![CDATA[
 <p>
-Penggunaan aplikasi Eco Driving membutuhkan koneksi jaringan internet dan/atau GPS.<br><br>
-Keakuratan aplikasi Eco Driving bergantung pada kualitas koneksi jaringan internet dan/atau GPS dari device yang Anda gunakan.
+Penggunaan aplikasi Eco Driving membutuhkan koneksi jaringan internet dan GPS.<br><br>
+Keakuratan aplikasi Eco Driving bergantung pada kualitas koneksi jaringan internet dan GPS dari device yang Anda gunakan.
 </p>
 ]]>
-	</string>
+    </string>
+    <string name="about_app_how_title">Cara Kerja Aplikasi</string>
     <string name="about_app_how_body">
 <![CDATA[
 <p>
 Aplikasi Eco Driving memanfaatkan Google Maps Services, Google Location Services, Internet, dan GPS untuk memperoleh lokasi, jarak, dan kecepatan berkendara.<br><br>
 
-Data tersebut kemudian dipadukan dengan data riset dari <b>PT.PERTAMINA TBBM REWULU</b> dan <b>UNIVERSITAS GAJAH MADA</b>, sehingga diperoleh data :<br>
+Data tersebut kemudian dipadukan dengan data riset dari <b>PT.PERTAMINA TBBM REWULU</b> dan <b>UNIVERSITAS GADJAH MADA</b>, sehingga diperoleh data :<br>
 - status berkendara (Eco Driving/Non-Eco Driving),<br>
 - jarak tempuh,<br>
 - waktu tempuh,<br>
 - kecepatan berkendara,<br>
 - kecepatan rata-rata,<br>
 - isi tangki bbm.<br>
-yang ditampilkan secara real time dalam tampilan peta, angka, dan statistik selama berkendara.<br><br>
+yang ditampilkan secara berkala dalam tampilan peta, angka, dan statistik selama berkendara.<br><br>
 
 Hasil akhir dari keseluruhan perjalanan adalah :<br>
 - jarak tempuh,<br>
@@ -86,24 +87,28 @@ Hasil akhir dari keseluruhan perjalanan adalah :<br>
 </p>
 ]]>
     </string>
-    <string name="about_app_how_title">Cara Kerja Aplikasi</string>
+    <string name="about_app_help_title">Bantuan Penggunaan</string>
     <string name="about_app_help_body">
 <![CDATA[
 <p>
+Anda dapat melakukan update profil Anda pada menu "Pengaturan Profil".<br><br>
 Penjelasan mengenai Metode Eco Driving dapat dilihat pada menu "Panduan Eco Driving".<br><br>
+Anda dapat melakukan pengaturan indikator (getar, led dan suara) pada menu "Pengaturan Indikator". Indikator ini akan bekerja pada saat Anda melakukan perjalanan dengan status Non Eco Driving.<br><br>
 Sebelum melakukan perjalanan, silahkan input data jenis motor serta jumlah bahan bakar awal kendaraan yang Anda gunakan. Kemudian tekan tombol "start".<br><br>
 Aplikasi akan menampilkan halaman baru berupa peta, angka, dan statistik yang dapat Anda gunakan untuk memantau status berkendara Anda selama perjalanan.<br><br>
-Jika dalam perjalanan Anda mengisi BBM tambahan pada kendaraan Anda, segera input jumlah BBM tambahan tersebut dengan menekan ikon tuas pengisi BBM pada aplikasi.<br><br>
-Setelah selesai melakukan perjalanan, Anda dapat mengetahui hasil akhir dengan menekan ikon checklist pada aplikasi.
+Ikon pengisi BBM akan berkedip jika BBM akan segera habis. Jika kemudian dalam perjalanan Anda mengisi BBM tambahan pada kendaraan Anda, segera input jumlah BBM tambahan tersebut dengan menekan notifikasi "Eco Meter" pada menu atas layar Android Anda.
+Setelah selesai melakukan perjalanan, Anda dapat mengetahui hasil akhir dengan menekan ikon checklist pada aplikasi.<br><br>
+Data hasil akhir dari perjalanan dapat Anda simpan dengan menekan ikon penyimpanan pada aplikasi.<br><br>
+Data hasil akhir dari perjalanan juga dapat Anda bagikan dengan menekan ikon share pada aplikasi.<br><br>
+Data yang telah Anda simpan, kemudian dapat Anda lihat kembali pada menu "Rekaman Perjalanan".
 </p>
 ]]>
-	</string>
-    <string name="about_app_help_title">Bantuan Penggunaan</string>
+    </string>
     <string name="about_app_term_title">Ketentuan Penggunaan</string>
     <string name="about_app_term_body">
 <![CDATA[ 
 <p>
-Aplikasi Eco Driving merupakan hasil riset dari <b>PT.PERTAMINA TBBM REWULU</b> dan <b>UNIVERSITAS GAJAH MADA</b>, kemudian diwujudkan dalam bentuk aplikasi bersama <b>JOGJACODE</b>.<br><br>
+Aplikasi Eco Driving merupakan hasil riset dari <b>PT.PERTAMINA TBBM REWULU</b> dan <b>UNIVERSITAS GADJAH MADA</b>, kemudian diwujudkan dalam bentuk aplikasi bersama <b>JOGJACODE</b>.<br><br>
 
 Dengan menggunakan aplikasi ini, berarti Anda telah setuju atas peraturan penggunaan :<br><br>
 

@@ -52,6 +52,7 @@ public class ContentsActivity extends FragmentActivity implements
 					LayoutParams.WRAP_CONTENT));
 	private int pageSize;
 	private Button btn_end;
+	private ImageView btn_back;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class ContentsActivity extends FragmentActivity implements
 		getActionBar().hide();
 		setContentView(R.layout.activity_contents);
 		btn_end = (Button) findViewById(R.id.btn_slide_end);
+		btn_back = (ImageView) findViewById(R.id.back_action_bar);
 		btn_end.setVisibility(View.GONE);
 		btn_end.setOnClickListener(this);
 		panel = (LinearLayout) findViewById(R.id.panel_pages_content);
@@ -79,15 +81,7 @@ public class ContentsActivity extends FragmentActivity implements
 			onPagePossiton(savedInstanceState.getInt(PAGER_POS));
 		} else
 			onPagePossiton(0);
-		((ImageView) findViewById(R.id.back_action_bar))
-		.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				onBackPressed();
-			}
-		});
 	}
 
 	@Override
@@ -124,20 +118,38 @@ public class ContentsActivity extends FragmentActivity implements
 			panel.addView(img);
 			imgs.add(img);
 		}
+
 	}
 
 	@Override
 	public void onPagePossiton(int arg0) {
 		// TODO Auto-generated method stub
 		for (int w = 0; w < imgs.size(); w++) {
+			if (arg0 != 0) {
+				btn_back.setVisibility(View.GONE);
+			}
 			if (arg0 == w) {
 				imgs.get(w).setImageResource(R.drawable.panel_indicator_full);
 			} else
 				imgs.get(w).setImageResource(R.drawable.panel_indicator);
+
 			if (arg0 == imgs.size() - 1) {
 				btn_end.setVisibility(View.VISIBLE);
 			} else
 				btn_end.setVisibility(View.GONE);
+		}
+		if (arg0 == 0) {
+			btn_back.setVisibility(View.VISIBLE);
+			btn_back.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					onBackPressed();
+				}
+			});
+		} else {
+			btn_back.setVisibility(View.GONE);
 		}
 	}
 
@@ -156,6 +168,6 @@ public class ContentsActivity extends FragmentActivity implements
 	@Override
 	public void onBackKeyPressed() {
 		// TODO Auto-generated method stub
-		//onBackPressed();
+		// onBackPressed();
 	}
 }
