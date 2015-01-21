@@ -183,7 +183,7 @@
                 android:layout_height="98dp"
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
-                android:background="@drawable/btn_selector" />
+                android:background="@drawable/btn_start_main" />
         </LinearLayout>
     </LinearLayout>
 

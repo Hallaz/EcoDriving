@@ -16,8 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:background="@drawable/drop_shadow"
-            android:gravity="center"
+            android:background="@drawable/border_bg"
             android:orientation="horizontal"
             android:padding="10dp"
             android:weightSum="4" >
@@ -84,7 +83,7 @@
                         android:id="@+id/txt_addrss_start_list"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1.5"
                         android:gravity="center"
                         android:text="Bakung, Deresan, Sleman, Yogyakarta"
                         android:textSize="8sp" />
@@ -92,13 +91,16 @@
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.1"
+                        android:scaleType="centerInside"
                         android:src="@drawable/arrow_right" />
 
                     <TextView
                         android:id="@+id/txt_addrss_end_list"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.5"
+                        android:layout_weight="1.5"
                         android:gravity="center"
                         android:text="Kalimalang, Ponorogo, Jawa Timur"
                         android:textSize="8sp" />
@@ -119,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="8dp"
-                    android:background="@drawable/drop_shadow"
+                    android:background="@drawable/round_button"
                     android:gravity="center"
                     android:text=" 7 Jam"
                     android:textSize="12sp" />
